@@ -1,5 +1,6 @@
 package com.example.KnCare.model;
 
+import com.example.KnCare.model.Searchable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
-public class ModelBase<T> implements Searchable<T>{
+public class ModelBase<T> implements Searchable<T> {
 
     @Transient
     private Integer limit;
