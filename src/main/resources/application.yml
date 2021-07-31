@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: KnCareApp
+
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/caredb"
+    username: "postgres"
+    password: "postgres"
+
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.PostgreSQLDialect"
+        format_sql: true
+        jdbc:
+#
+#  profiles:
+#    active: "dev"
+
+server:
+  port: 8080
+
+debug: false
+
+#spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
+
