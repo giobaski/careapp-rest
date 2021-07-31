@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import javax.persistence.*;
 
 @Entity
-@Table(name= "care_members")
+@Table(name= "members")
 public class Member extends ModelBase<Member> {
 
     @Id
