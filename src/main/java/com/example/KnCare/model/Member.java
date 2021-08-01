@@ -1,7 +1,9 @@
 package com.example.KnCare.model;
 
 import com.example.KnCare.model.base.ModelBase;
+import com.example.KnCare.model.base.Views;
 import com.example.KnCare.utils.Specifications;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,11 +24,14 @@ public class Member{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Views.Internal.class)
     private Long id;
 
     //TODO: Using String for date type, just for testing
+    @JsonView(Views.Public.class)
     private String onBoardDate;
 
+    @JsonView(Views.Public.class)
     private String offBoardDate;
 
     @OneToOne()

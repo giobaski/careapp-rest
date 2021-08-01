@@ -1,7 +1,9 @@
 package com.example.KnCare.controller;
 
 import com.example.KnCare.model.Member;
+import com.example.KnCare.model.base.Views;
 import com.example.KnCare.service.MemberService;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ public class MemberController {
         this.service = service;
     }
 
+    @JsonView(Views.Public.class)
     @GetMapping("/members")
     public ResponseEntity<List<Member>> getAllMembers() {
         try {
