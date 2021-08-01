@@ -1,5 +1,6 @@
 package com.example.KnCare.model;
 
+import com.example.KnCare.model.base.ModelBase;
 import com.example.KnCare.utils.Specifications;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +14,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Employee extends ModelBase<Employee>{
+@Table(name= "employees")
+public class Employee extends ModelBase<Employee> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

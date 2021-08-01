@@ -1,13 +1,19 @@
 package com.example.KnCare.model;
 
+import com.example.KnCare.model.base.ModelBase;
 import com.example.KnCare.utils.Specifications;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.*;
+import java.util.Set;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name= "members")
 public class Member extends ModelBase<Member> {
@@ -24,6 +30,18 @@ public class Member extends ModelBase<Member> {
     @OneToOne()
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;
+
+    @OneToMany(mappedBy = "member")
+    Set<MemberTraining> memberTrainings;
+
+    @OneToMany(mappedBy = "member")
+    Set<MemberGroups> memberGroups;
+
+    @OneToMany(mappedBy = "member")
+    Set<MemberTrainingLists> memberTrainingLists;
+
+    @OneToMany(mappedBy = "member")
+    Set<Practice> practices;
 
     @Override
     public Specification<Member> getSpecification() {
