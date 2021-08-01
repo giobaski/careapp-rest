@@ -2,8 +2,10 @@ package com.example.KnCare.model;
 
 import com.example.KnCare.model.base.ModelBase;
 import com.example.KnCare.utils.Specifications;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name= "members")
-public class Member extends ModelBase<Member> {
+public class Member{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,15 +45,15 @@ public class Member extends ModelBase<Member> {
     @OneToMany(mappedBy = "member")
     Set<Practice> practices;
 
-    @Override
-    public Specification<Member> getSpecification() {
-        if (Strings.isNotBlank(onBoardDate)){
-            return Specifications.specLike("onBoardDate", onBoardDate);
-        }
-        if (Strings.isNotBlank(offBoardDate)){
-            return Specifications.specLike("offBoardDate", offBoardDate);
-        }
-        return null;
-    }
+//    @Override
+//    public Specification<Member> getSpecification() {
+//        if (Strings.isNotBlank(onBoardDate)){
+//            return Specifications.specLike("onBoardDate", onBoardDate);
+//        }
+//        if (Strings.isNotBlank(offBoardDate)){
+//            return Specifications.specLike("offBoardDate", offBoardDate);
+//        }
+//        return null;
+//    }
 
 }
