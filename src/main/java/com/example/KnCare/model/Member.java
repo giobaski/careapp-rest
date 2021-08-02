@@ -3,10 +3,7 @@ package com.example.KnCare.model;
 import com.example.KnCare.model.bestPractice.BestPractice;
 import com.example.KnCare.model.training.Training;
 import com.example.KnCare.model.training.TrainingPath;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import com.example.KnCare.utils.Specifications;
 import org.apache.logging.log4j.util.Strings;
@@ -18,6 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import javax.persistence.*;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

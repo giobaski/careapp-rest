@@ -30,8 +30,8 @@ public class Employee extends ModelBase<Employee>{
 
     @Override
     public Specification<Employee> getSpecification() {
-        if (Strings.isNotBlank(intName)){
-            return Specifications.specLike("intName", intName);
+        if (Strings.isNotBlank(internationalName)){
+            return Specifications.specLike("international_name", internationalName);
         }
         return null;
     }
