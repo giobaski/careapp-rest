@@ -1,6 +1,7 @@
 package com.example.KnCare.model.practice;
 
 import com.example.KnCare.model.Member;
+import com.example.KnCare.model.role.MemberRoles;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,9 @@ public class Practice {
     private String description;
 
     private byte[] content;
+
+    @OneToMany(mappedBy = "practice")
+    Set<Rate> rates;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
