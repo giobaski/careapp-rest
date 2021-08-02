@@ -1,6 +1,7 @@
-package com.example.KnCare.model;
+package com.example.KnCare.model.group;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,9 +11,10 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
-@Table(name = "tag")
-public class Tag {
+@Table(name= "groups")
+public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +22,11 @@ public class Tag {
 
     private String name;
 
-    @OneToMany(mappedBy = "tag")
-    Set<PracticeTags> practiceTags;
+    private String description;
+
+    @Column(name = "group_owner")
+    private String owner; //user_id???
+
+    @OneToMany(mappedBy = "group")
+    Set<MemberGroups> memberGroups;
 }

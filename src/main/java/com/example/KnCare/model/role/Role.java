@@ -1,4 +1,4 @@
-package com.example.KnCare.model;
+package com.example.KnCare.model.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,8 +13,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "careroles")
-public class CareRole {
+@Table(name = "roles")
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +22,6 @@ public class CareRole {
 
     private String name;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
-    private Set<Member> members;
+    @OneToMany(mappedBy = "role")
+    Set<MemberRoles> memberRoles;
 }

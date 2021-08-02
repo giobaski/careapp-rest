@@ -1,4 +1,4 @@
-package com.example.KnCare.model;
+package com.example.KnCare.model.training;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

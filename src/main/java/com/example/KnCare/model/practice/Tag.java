@@ -1,6 +1,5 @@
-package com.example.KnCare.model.bestPractice;
+package com.example.KnCare.model.practice;
 
-import com.example.KnCare.model.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,9 +24,9 @@ public class Tag {
 
     @ManyToMany()
     @JoinTable(
-            name = "BESTPRACTICE_TAGS",
+            name = "PRACTICE_TAGS",
             joinColumns = @JoinColumn(name = "TAGS_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "BESTPRACTICES_ID", referencedColumnName = "ID")
+            inverseJoinColumns = @JoinColumn(name = "PRACTICES_ID", referencedColumnName = "ID")
     )
-    private Set<BestPractice> bestPractices;
+    private Set<Practice> practices;
 }

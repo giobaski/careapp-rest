@@ -1,21 +1,20 @@
-package com.example.KnCare.model.bestPractice;
+package com.example.KnCare.model.practice;
 
 import com.example.KnCare.model.Member;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-@Table(name = "bestpractices")
-public class BestPractice {
+@Table(name= "practices")
+public class Practice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,15 +27,17 @@ public class BestPractice {
     private byte[] content;
 
     @ManyToOne
-    @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID")
-    private Member author;
+    @JoinColumn(name = "member_id")
+    Member member;
 
     @ManyToMany()
     @JoinTable(
-            name = "BESTPRACTICE_TAGS",
+            name = "PRACTICE_TAGS",
             joinColumns = @JoinColumn(name = "TAGS_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "BESTPRACTICES_ID", referencedColumnName = "ID")
+            inverseJoinColumns = @JoinColumn(name = "PRACTICES_ID", referencedColumnName = "ID")
     )
     private Set<Tag> tags;
+
+
 
 }

@@ -1,34 +1,27 @@
-package com.example.KnCare.model;
+package com.example.KnCare.model.group;
 
+import com.example.KnCare.model.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name= "practices")
-public class Practice {
-
+@Table(name= "member_groups")
+public class MemberGroups {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Size(min=3, max=100)
-    private String title;
-
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    Group group;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     Member member;
-
-    @OneToMany(mappedBy = "practice")
-    Set<PracticeTags> practiceTags;
-
 }

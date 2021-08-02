@@ -1,4 +1,4 @@
-package com.example.KnCare.model.bestPractice;
+package com.example.KnCare.model.practice;
 
 public enum Rating {
     LOW(1),

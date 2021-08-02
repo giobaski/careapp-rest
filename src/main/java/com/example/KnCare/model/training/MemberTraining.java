@@ -1,5 +1,6 @@
-package com.example.KnCare.model;
+package com.example.KnCare.model.training;
 
+import com.example.KnCare.model.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,17 +11,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name= "member_groups")
-public class MemberGroups {
+@Table(name= "member_trainings")
+public class MemberTraining {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
-    Group group;
+    @JoinColumn(name = "training_id")
+    Training training;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     Member member;
+
 }

@@ -2,15 +2,15 @@ package com.example.KnCare.model;
 
 import com.example.KnCare.model.base.ModelBase;
 import com.example.KnCare.model.base.Views;
-import com.example.KnCare.model.bestPractice.BestPractice;
-import com.example.KnCare.model.training.Training;
-import com.example.KnCare.model.training.TrainingPath;
+import com.example.KnCare.model.group.MemberGroups;
+import com.example.KnCare.model.practice.Practice;
+import com.example.KnCare.model.role.MemberRoles;
+import com.example.KnCare.model.training.MemberTraining;
+import com.example.KnCare.model.training.MemberTrainingLists;
 import lombok.*;
 
 import com.example.KnCare.utils.Specifications;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.*;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -56,6 +56,12 @@ public class Member extends ModelBase<Member>{
 
     @OneToMany(mappedBy = "member")
     Set<Practice> practices;
+
+    @OneToMany(mappedBy = "member")
+    Set<MemberRoles> memberRoles;
+
+
+
 
     @Override
     public Specification<Member> getSpecification() {
