@@ -8,6 +8,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.example.KnCare.utils.Specifications;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,8 +23,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name= "members")
-public class Member {
+@Table(name= "care_members")
+public class Member extends ModelBase<Member> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,6 +38,7 @@ public class Member {
 
     @OneToOne(cascade= CascadeType.ALL, fetch=FetchType.LAZY, optional = false)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
+
     private Employee employee;
 
     @ManyToOne
@@ -57,5 +65,18 @@ public class Member {
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private Set<BestPractice> bestPractices;
+  
+  
+  
+    @Override
+    public Specification<Member> getSpecification() {
+        if (Strings.isNotBlank(onBoardDate)){
+            return Specifications.specLike("onBoardDate", onBoardDate);
+        }
+        if (Strings.isNotBlank(offBoardDate)){
+            return Specifications.specLike("offBoardDate", offBoardDate);
+        }
+        return null;
+    }
 
 }
