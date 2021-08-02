@@ -6,7 +6,7 @@ import com.example.KnCare.model.group.MemberGroups;
 import com.example.KnCare.model.practice.Practice;
 import com.example.KnCare.model.role.MemberRoles;
 import com.example.KnCare.model.training.MemberTraining;
-import com.example.KnCare.model.training.MemberTrainingLists;
+import com.example.KnCare.model.training.MemberTrainingPath;
 import lombok.*;
 
 import com.example.KnCare.utils.Specifications;
@@ -52,7 +52,7 @@ public class Member extends ModelBase<Member>{
     Set<MemberGroups> memberGroups;
 
     @OneToMany(mappedBy = "member")
-    Set<MemberTrainingLists> memberTrainingLists;
+    Set<MemberTrainingPath> memberTrainingLists;
 
     @OneToMany(mappedBy = "member")
     Set<Practice> practices;

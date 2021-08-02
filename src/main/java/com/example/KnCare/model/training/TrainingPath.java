@@ -1,27 +1,27 @@
 package com.example.KnCare.model.training;
 
-import com.example.KnCare.model.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name= "training_list_members")
-public class MemberTrainingLists {
+@Table(name= "training_paths")
+public class TrainingPath {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "training_id")
-    TrainingList trainingList;
+    private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    Member member;
+    @OneToMany(mappedBy = "trainingPath")
+    Set<MemberTrainingPath> memberTrainingPaths;
+
+    @OneToMany(mappedBy = "trainingPath")
+    Set<TrainingPathTrainings> trainingPathTrainings;
 }
