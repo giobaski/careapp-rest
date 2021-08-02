@@ -1,5 +1,6 @@
 package com.example.KnCare.model;
 
+import com.example.KnCare.model.base.ModelBase;
 import com.example.KnCare.utils.Specifications;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "employees")
-public class Employee extends ModelBase<Employee>{
+public class Employee extends ModelBase<Employee> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

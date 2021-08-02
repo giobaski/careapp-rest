@@ -27,16 +27,15 @@ import java.util.Set;
 public class Member extends ModelBase<Member>{
 
     @Id
+    @JsonView(Views.Internal.class)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;            //TODO: add index
-    @JsonView(Views.Internal.class)
-    private Long id;
 
+    @JsonView(Views.Public.class)
     @Column(name = "on_board_date", nullable = false)
     private String onBoardDate; //TODO: Using String for date type, just for testing
     //TODO: Using String for date type, just for testing
-    @JsonView(Views.Public.class)
-    private String onBoardDate;
+
 
     @Column(name = "off_board_date", nullable = false)
     @JsonView(Views.Public.class)
