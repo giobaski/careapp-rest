@@ -1,27 +1,26 @@
-package com.example.KnCare.model.role;
+package com.example.KnCare.model;
 
-import com.example.KnCare.model.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name= "member_roles")
-public class MemberRoles {
-
+@Table(name= "training_path_trainings")
+public class TrainingPathTrainings {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
-    Role role;
+    @JoinColumn(name = "training_id")
+    Training training;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    Member member;
+    @JoinColumn(name = "training_path_id")
+    TrainingPath trainingPath;
 }

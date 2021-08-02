@@ -2,11 +2,6 @@ package com.example.KnCare.model;
 
 import com.example.KnCare.model.base.ModelBase;
 import com.example.KnCare.model.base.Views;
-import com.example.KnCare.model.group.MemberGroups;
-import com.example.KnCare.model.practice.Practice;
-import com.example.KnCare.model.role.MemberRoles;
-import com.example.KnCare.model.training.MemberTraining;
-import com.example.KnCare.model.training.MemberTrainingPath;
 import lombok.*;
 
 import com.example.KnCare.utils.Specifications;
@@ -59,6 +54,15 @@ public class Member extends ModelBase<Member>{
 
     @OneToMany(mappedBy = "member")
     Set<MemberRoles> memberRoles;
+
+    @OneToMany(mappedBy = "sender")
+    Set<Email> emails;
+
+    @OneToMany(mappedBy = "created_by")
+    Set<EmailTemplate> emailTemplates;
+
+    @OneToMany(mappedBy = "member")
+    Set<Notification> notifications;
 
 
 

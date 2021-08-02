@@ -1,12 +1,10 @@
-package com.example.KnCare.model.practice;
+package com.example.KnCare.model;
 
-import com.example.KnCare.model.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
@@ -28,7 +26,7 @@ public class Practice {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    Member member;
+    private Member member;
 
     @ManyToMany()
     @JoinTable(

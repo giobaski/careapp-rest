@@ -1,5 +1,6 @@
-package com.example.KnCare.model.practice;
+package com.example.KnCare.model;
 
+import com.example.KnCare.model.Practice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

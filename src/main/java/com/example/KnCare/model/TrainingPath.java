@@ -1,5 +1,4 @@
-package com.example.KnCare.model.training;
-
+package com.example.KnCare.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,19 +11,17 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name= "trainings")
-public class Training {
+@Table(name= "training_paths")
+public class TrainingPath {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
 
+    @OneToMany(mappedBy = "trainingPath")
+    Set<MemberTrainingPath> memberTrainingPaths;
 
-    @OneToMany(mappedBy = "training")
-    Set<MemberTraining> memberTrainingSet;
-
-    @OneToMany(mappedBy = "training")
+    @OneToMany(mappedBy = "trainingPath")
     Set<TrainingPathTrainings> trainingPathTrainings;
-
 }

@@ -1,4 +1,4 @@
-package com.example.KnCare.model.training;
+package com.example.KnCare.model;
 
 import com.example.KnCare.model.Member;
 import lombok.AllArgsConstructor;
@@ -11,17 +11,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name= "training_path_trainings")
-public class TrainingPathTrainings {
+@Table(name= "emails")
+public class Email {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "training_id")
-    Training training;
+    private byte[] content;
 
-    @ManyToOne
-    @JoinColumn(name = "training_path_id")
-    TrainingPath trainingPath;
+    @ManyToOne()
+    @JoinColumn(name = "sender_id")
+    private Member sender;
+
+    @ManyToOne()
+    @JoinColumn(name = "recipient_id")
+    private Member recipient;
 }

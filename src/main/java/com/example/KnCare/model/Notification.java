@@ -1,6 +1,5 @@
-package com.example.KnCare.model.group;
+package com.example.KnCare.model;
 
-import com.example.KnCare.model.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,17 +10,22 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name= "member_groups")
-public class MemberGroups {
+@Table(name= "notifications")
+public class Notification {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "group_id")
-    Group group;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    Member member;
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "level_id")
+    private NotificationLevel level; //add onetomany at level
+
+
 }
