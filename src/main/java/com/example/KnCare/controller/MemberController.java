@@ -5,6 +5,7 @@ import com.example.KnCare.model.base.Views;
 import com.example.KnCare.service.MemberService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -24,17 +26,17 @@ public class MemberController {
         this.service = service;
     }
 
-    @JsonView(Views.Public.class)
-    @GetMapping("/members")
-    public ResponseEntity<List<Member>> getAllMembers() {
-        try {
-            List<Member> members = new ArrayList<>();
-            members.addAll(service.getAll());
-            return new ResponseEntity<>(members, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @JsonView(Views.Public.class)
+//    @GetMapping("/members")
+//    public ResponseEntity<List<Member>> getAllMembers() {
+//        try {
+//            List<Member> members = new ArrayList<>();
+//            members.addAll(service.getAll());
+//            return new ResponseEntity<>(members, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
     @GetMapping("/members/{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable("id") long id) {
         Optional<Member> memberData = service.getbyId(id);
@@ -80,6 +82,12 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @GetMapping("/members")
+//    @JsonView(Views.Public.class)
+    public Page<Member> searchMembers(Member member) {
+        return service.searchMember(member);
     }
 
 }

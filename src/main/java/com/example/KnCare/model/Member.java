@@ -51,13 +51,14 @@ public class Member extends ModelBase<Member>{
 
     @Override
     public Specification<Member> getSpecification() {
+        Specification<Member> spec = super.getSpecification();
         if (Strings.isNotBlank(onBoardDate)){
-            return Specifications.specLike("onBoardDate", onBoardDate);
+            spec.and(Specifications.specLike("onBoardDate", onBoardDate)) ;
         }
         if (Strings.isNotBlank(offBoardDate)){
-            return Specifications.specLike("offBoardDate", offBoardDate);
+            spec.and(Specifications.specLike("offBoardDate", offBoardDate)) ;
         }
-        return null;
+        return spec;
     }
 
 }
