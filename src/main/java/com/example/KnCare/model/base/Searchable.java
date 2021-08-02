@@ -1,4 +1,4 @@
-package com.example.KnCare.model;
+package com.example.KnCare.model.base;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

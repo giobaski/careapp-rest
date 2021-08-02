@@ -1,16 +1,18 @@
 package com.example.KnCare.model;
 
+import com.example.KnCare.model.base.ModelBase;
+import com.example.KnCare.model.base.Views;
 import com.example.KnCare.model.bestPractice.BestPractice;
 import com.example.KnCare.model.training.Training;
 import com.example.KnCare.model.training.TrainingPath;
 import lombok.*;
 
 import com.example.KnCare.utils.Specifications;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import lombok.*;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.*;
 import java.util.Set;
@@ -21,60 +23,51 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name= "care_members")
-public class Member extends ModelBase<Member> {
+@Table(name= "members")
+public class Member extends ModelBase<Member>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;            //TODO: add index
+    @JsonView(Views.Internal.class)
+    private Long id;
 
     @Column(name = "on_board_date", nullable = false)
     private String onBoardDate; //TODO: Using String for date type, just for testing
+    //TODO: Using String for date type, just for testing
+    @JsonView(Views.Public.class)
+    private String onBoardDate;
 
     @Column(name = "off_board_date", nullable = false)
+    @JsonView(Views.Public.class)
     private String offBoardDate;
 
     @OneToOne(cascade= CascadeType.ALL, fetch=FetchType.LAZY, optional = false)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    Employee employee;
 
-    private Employee employee;
+    @OneToMany(mappedBy = "member")
+    Set<MemberTraining> memberTrainings;
 
-    @ManyToOne
-    @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
-    private CareRole role;
+    @OneToMany(mappedBy = "member")
+    Set<MemberGroups> memberGroups;
 
-    @ManyToMany
-    @JoinTable(name = "group_members",
-            joinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "MEMBER_ID", referencedColumnName = "ID"))
-    private Set<Group> groups;
+    @OneToMany(mappedBy = "member")
+    Set<MemberTrainingLists> memberTrainingLists;
 
-    @ManyToMany
-    @JoinTable(name = "training_members",
-            joinColumns = @JoinColumn(name = "MEMBER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "TRAINING_ID", referencedColumnName = "ID"))
-    private Set<Training> trainings;
+    @OneToMany(mappedBy = "member")
+    Set<Practice> practices;
 
-    @ManyToMany
-    @JoinTable(name = "trainingpath_members",
-            joinColumns = @JoinColumn(name = "MEMBER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "TRAININGPATH_ID", referencedColumnName = "ID"))
-    private Set<TrainingPath> trainingpaths;
-
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private Set<BestPractice> bestPractices;
-  
-  
-  
     @Override
     public Specification<Member> getSpecification() {
+        Specification<Member> spec = super.getSpecification();
         if (Strings.isNotBlank(onBoardDate)){
-            return Specifications.specLike("onBoardDate", onBoardDate);
+            spec.and(Specifications.specLike("onBoardDate", onBoardDate)) ;
         }
         if (Strings.isNotBlank(offBoardDate)){
-            return Specifications.specLike("offBoardDate", offBoardDate);
+            spec.and(Specifications.specLike("offBoardDate", offBoardDate)) ;
         }
-        return null;
+        return spec;
     }
 
 }

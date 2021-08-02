@@ -1,15 +1,18 @@
 package com.example.KnCare.model;
 
 import com.example.KnCare.utils.Specifications;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +32,7 @@ public class Employee extends ModelBase<Employee>{
     private boolean careMember;
 
     @Override
+    @JsonIgnore
     public Specification<Employee> getSpecification() {
         if (Strings.isNotBlank(internationalName)){
             return Specifications.specLike("international_name", internationalName);

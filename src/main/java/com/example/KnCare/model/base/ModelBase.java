@@ -1,9 +1,8 @@
-package com.example.KnCare.model;
+package com.example.KnCare.model.base;
 
-import com.example.KnCare.model.Searchable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,10 +12,10 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@MappedSuperclass
 @AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
-public class ModelBase<T> implements Searchable<T> {
+public abstract class ModelBase<T> implements Searchable<T>{
 
     @Transient
     private Integer limit;
@@ -44,6 +43,7 @@ public class ModelBase<T> implements Searchable<T> {
     }
 
     @Override
+    @JsonIgnore
     public Specification<T> getSpecification() {
         Specification<T> spec = Specification.where(null);
         // TODO: 26/07/2021 add search by date
@@ -51,6 +51,7 @@ public class ModelBase<T> implements Searchable<T> {
     }
 
     @Override
+    @JsonIgnore
     public Pageable getPageable() {
         return PageRequest.of(
                 (page != null) ? page: 0,
@@ -60,6 +61,7 @@ public class ModelBase<T> implements Searchable<T> {
     }
 
     @Override
+    @JsonIgnore
     public Sort getSortSpec() {
         if (sort == null) return Sort.unsorted();
         return (dir != null && dir == Sort.Direction.DESC) ?

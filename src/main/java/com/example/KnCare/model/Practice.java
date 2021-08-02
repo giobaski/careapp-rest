@@ -1,34 +1,34 @@
 package com.example.KnCare.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-@Table(name= "groups")
-public class Group {
+@Table(name= "practices")
+public class Practice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    @Size(min=3, max=100)
+    private String title;
 
     private String description;
 
-    @Column(name = "group_owner")
-    private String owner; //user_id???
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    Member member;
 
-    private Set<Member> members;
-    @OneToMany(mappedBy = "group")
-    Set<MemberGroups> memberGroups;
+    @OneToMany(mappedBy = "practice")
+    Set<PracticeTags> practiceTags;
+
 }
