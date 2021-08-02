@@ -28,5 +28,5 @@ public class Group {
     private String owner; //user_id???
 
     @OneToMany(mappedBy = "group")
-    Set<MemberGroups> memberGroups;
+    Set<GroupMembership> memberGroups;
 }

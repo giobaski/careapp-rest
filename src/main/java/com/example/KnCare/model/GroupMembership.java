@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name= "member_groups")
-public class MemberGroups {
+public class GroupMembership {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

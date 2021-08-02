@@ -1,6 +1,6 @@
 package com.example.KnCare.model.practice;
 
-import com.example.KnCare.model.Member;
+import com.example.KnCare.model.Practice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

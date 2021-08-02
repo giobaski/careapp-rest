@@ -44,10 +44,10 @@ public class Member extends ModelBase<Member>{
     Set<MemberTraining> memberTrainings;
 
     @OneToMany(mappedBy = "member")
-    Set<MemberGroups> memberGroups;
+    Set<GroupMembership> groupMemberships;
 
     @OneToMany(mappedBy = "member")
-    Set<MemberTrainingPath> memberTrainingLists;
+    Set<MemberTrainingPath> memberTrainingPaths;
 
     @OneToMany(mappedBy = "member")
     Set<Practice> practices;
