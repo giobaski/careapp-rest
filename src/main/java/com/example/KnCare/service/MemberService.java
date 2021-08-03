@@ -1,5 +1,7 @@
 package com.example.KnCare.service;
 
+import com.example.KnCare.dto.MemberDto;
+import com.example.KnCare.mapper.MapperInterface;
 import com.example.KnCare.model.Member;
 import com.example.KnCare.repository.MemberRepository;
 import org.springframework.data.domain.Page;
@@ -7,25 +9,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
-public class MemberService {
+
+public class MemberService extends ServiceBase<Member, MemberDto>{
 
     private final MemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, MapperInterface<Member, MemberDto> mapper) {
+        super(mapper);
         this.memberRepository = memberRepository;
     }
 
-    public List<Member> getAll() { return memberRepository.findAll(); }
+    public List<MemberDto> getAll() { return toDtoList(memberRepository.findAll()); }
 
-    public Optional<Member> getbyId(long id) {
-        return memberRepository.findById(id);
+    public Optional<MemberDto> getbyId(long id) {
+        return toDtoOptional(memberRepository.findById(id));
     }
 
-    public Member Add(Member member) {
-        return memberRepository.save(member);
+    public MemberDto Add(MemberDto memberDto) {
+        Member member = toModel(memberDto);
+        return toDto(memberRepository.save(member));
     }
 
     public void delete(Long id){
@@ -35,7 +39,8 @@ public class MemberService {
         memberRepository.deleteAll();
     }
 
-    public Page<Member> searchMember(Member member) {
-        return memberRepository.findAll(member.getSpecification(), member.getPageable());
+    public Page<MemberDto> searchMember(MemberDto memberDto) {
+        Member member = toModel(memberDto);
+        return toDtoPage(memberRepository.findAll(member.getSpecification(), member.getPageable()));
     }
 }

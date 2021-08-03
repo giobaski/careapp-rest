@@ -1,19 +1,14 @@
 package com.example.KnCare.controller;
 
-import com.example.KnCare.model.Member;
-import com.example.KnCare.model.base.Views;
+import com.example.KnCare.dto.MemberDto;
 import com.example.KnCare.service.MemberService;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -38,26 +33,26 @@ public class MemberController {
 //        }
 //    }
     @GetMapping("/members/{id}")
-    public ResponseEntity<Member> getMemberById(@PathVariable("id") long id) {
-        Optional<Member> memberData = service.getbyId(id);
+    public ResponseEntity<MemberDto> getMemberById(@PathVariable("id") long id) {
+        Optional<MemberDto> memberData = service.getbyId(id);
         return memberData.map(member -> new ResponseEntity<>(member, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/members")
-    public ResponseEntity<Member> createMember(@RequestBody Member member) {
+    public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
         try {
-            return new ResponseEntity<>(service.Add(member), HttpStatus.CREATED);
+            return new ResponseEntity<>(service.Add(memberDto), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/members/{id}")
-    public ResponseEntity<Member> updateUser(@PathVariable("id") long id, @RequestBody Member member) {
-        Optional<Member> memberData = service.getbyId(id);
+    public ResponseEntity<MemberDto> updateUser(@PathVariable("id") long id, @RequestBody MemberDto memberDto) {
+        Optional<MemberDto> memberData = service.getbyId(id);
 
         if (memberData.isPresent()) {
-            return new ResponseEntity<>(service.Add(member), HttpStatus.OK);
+            return new ResponseEntity<>(service.Add(memberDto), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -86,8 +81,8 @@ public class MemberController {
 
     @GetMapping("/members")
 //    @JsonView(Views.Public.class)
-    public Page<Member> searchMembers(Member member) {
-        return service.searchMember(member);
+    public Page<MemberDto> searchMembers(MemberDto memberDto) {
+        return service.searchMember(memberDto);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.example.KnCare.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 
-public class DtoBase {
+@Data
+public abstract class DtoBase {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer limit;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
