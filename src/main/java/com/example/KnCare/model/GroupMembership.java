@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Table(name= "member_groups")
 public class GroupMembership {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

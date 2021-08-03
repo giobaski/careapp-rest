@@ -23,7 +23,7 @@ public class Member extends ModelBase<Member>{
 
     @Id
     @JsonView(Views.Internal.class)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            //TODO: add index
 
     @JsonView(Views.Public.class)
@@ -36,7 +36,9 @@ public class Member extends ModelBase<Member>{
     @JsonView(Views.Public.class)
     private String offBoardDate;
 
-    @OneToOne(cascade= CascadeType.ALL, fetch=FetchType.LAZY, optional = false)
+
+
+    @OneToOne(cascade= CascadeType.ALL, fetch=FetchType.EAGER, optional = false)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;
 
@@ -71,10 +73,10 @@ public class Member extends ModelBase<Member>{
     public Specification<Member> getSpecification() {
         Specification<Member> spec = super.getSpecification();
         if (Strings.isNotBlank(onBoardDate)){
-            spec.and(Specifications.specLike("onBoardDate", onBoardDate)) ;
+            spec = spec.and(Specifications.specLike("onBoardDate", "%" + onBoardDate + "%")) ;
         }
         if (Strings.isNotBlank(offBoardDate)){
-            spec.and(Specifications.specLike("offBoardDate", offBoardDate)) ;
+            spec = spec.and(Specifications.specLike("offBoardDate", "%" + offBoardDate + "%")) ;
         }
         return spec;
     }

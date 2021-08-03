@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ import javax.persistence.*;
 public class Employee extends ModelBase<Employee> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "international_name", length = 100, nullable = false)

@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name= "rates")
 public class Rate {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name= "training_path_trainings")
 public class TrainingPathTrainings {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
