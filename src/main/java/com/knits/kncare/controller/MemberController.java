@@ -2,6 +2,7 @@ package com.knits.kncare.controller;
 
 import com.knits.kncare.model.Member;
 import com.knits.kncare.service.MemberService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -21,23 +22,15 @@ public class MemberController {
         this.service = service;
     }
 
-//    @JsonView(Views.Public.class)
-//    @GetMapping("/members")
-//    public ResponseEntity<List<Member>> getAllMembers() {
-//        try {
-//            List<Member> members = new ArrayList<>();
-//            members.addAll(service.getAll());
-//            return new ResponseEntity<>(members, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+
+    @ApiOperation(value="find a care member by id", notes="provide an id", response = Member.class)
     @GetMapping("/members/{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable("id") long id) {
         Optional<Member> memberData = service.getbyId(id);
         return memberData.map(member -> new ResponseEntity<>(member, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @ApiOperation(value="create a care member", notes="provide a valid care member", response = Member.class)
     @PostMapping("/members")
     public ResponseEntity<Member> createMember(@RequestBody Member member) {
         try {
@@ -47,6 +40,7 @@ public class MemberController {
         }
     }
 
+    @ApiOperation(value="update a care member", notes="provide a valid care member", response = Member.class)
     @PutMapping("/members/{id}")
     public ResponseEntity<Member> updateUser(@PathVariable("id") long id, @RequestBody Member member) {
         Optional<Member> memberData = service.getbyId(id);
@@ -58,6 +52,7 @@ public class MemberController {
         }
     }
 
+    @ApiOperation(value="delete a care member by id", notes="provide an id", response = Member.class)
     @DeleteMapping("/members/{id}")
     public ResponseEntity<HttpStatus> deleteMember(@PathVariable("id") long id) {
         try {
@@ -68,6 +63,7 @@ public class MemberController {
         }
     }
 
+    @ApiOperation(value="delete all care members", notes="", response = Member.class)
     @DeleteMapping("/members")
     public ResponseEntity<HttpStatus> deleteAllMembers() {
         try {
@@ -79,10 +75,10 @@ public class MemberController {
 
     }
 
+    @ApiOperation(value="find care members by one of its model fields", notes="provide parameters", response = Member.class)
     @GetMapping("/members")
 //    @JsonView(Views.Public.class)
     public Page<Member> searchMembers(Member member) {
         return service.searchMember(member);
     }
-
 }
