@@ -2,7 +2,6 @@ package com.example.KnCare.controller;
 
 import com.example.KnCare.dto.MemberDto;
 import com.example.KnCare.service.MemberService;
-import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,14 +23,14 @@ public class MemberController {
     }
 
 
-    @ApiOperation(value = "Find a Care member by id", notes="provide an id", response = Member.class)
+    @ApiOperation(value = "Find a Care member by id", notes="provide an id", response = MemberDto.class)
     @GetMapping("/members/{id}")
     public ResponseEntity<MemberDto> getMemberById(@PathVariable("id") long id) {
         Optional<MemberDto> memberData = service.getbyId(id);
         return memberData.map(member -> new ResponseEntity<>(member, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @ApiOperation(value = "Add new Care member", notes="provide Care member data", response = Member.class)
+    @ApiOperation(value = "Add new Care member", notes="provide Care member data", response = MemberDto.class)
     @PostMapping("/members")
     public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
         try {
@@ -41,7 +40,7 @@ public class MemberController {
         }
     }
 
-    @ApiOperation(value = "Update an existing Care member", notes="provide Care member data", response = Member.class)
+    @ApiOperation(value = "Update an existing Care member", notes="provide Care member data", response = MemberDto.class)
     @PutMapping("/members/{id}")
     public ResponseEntity<MemberDto> updateUser(@PathVariable("id") long id, @RequestBody MemberDto memberDto) {
         Optional<MemberDto> memberData = service.getbyId(id);
@@ -53,7 +52,7 @@ public class MemberController {
         }
     }
 
-    @ApiOperation(value = "Delete a Care member", response = Member.class)
+    @ApiOperation(value = "Delete a Care member", response = MemberDto.class)
     @DeleteMapping("/members/{id}")
     public ResponseEntity<HttpStatus> deleteMember(@PathVariable("id") long id) {
         try {
@@ -64,7 +63,7 @@ public class MemberController {
         }
     }
 
-    @ApiOperation(value = "Delete all Care members", response = Member.class)
+    @ApiOperation(value = "Delete all Care members", response = MemberDto.class)
     @DeleteMapping("/members")
     public ResponseEntity<HttpStatus> deleteAllMembers() {
         try {
@@ -76,7 +75,7 @@ public class MemberController {
 
     }
 
-    @ApiOperation(value = "Find all Care members", notes="add parameters to search by", response = Member.class)
+    @ApiOperation(value = "Find all Care members", notes="add parameters to search by", response = MemberDto.class)
     @GetMapping("/members")
 //    @JsonView(Views.Public.class)
     public Page<MemberDto> searchMembers(MemberDto memberDto) {
