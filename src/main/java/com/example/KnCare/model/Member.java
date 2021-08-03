@@ -2,6 +2,8 @@ package com.example.KnCare.model;
 
 import com.example.KnCare.model.base.ModelBase;
 import com.example.KnCare.model.base.Views;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import com.example.KnCare.utils.Specifications;
