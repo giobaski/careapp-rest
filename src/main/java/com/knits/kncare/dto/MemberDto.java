@@ -1,8 +1,12 @@
-package com.example.KnCare.dto;
+package com.knits.kncare.dto;
 
-import com.example.KnCare.model.*;
+import com.knits.kncare.dto.DtoBase;
+import com.knits.kncare.model.*;
+import com.knits.kncare.model.ems.Employee;
+import com.knits.kncare.model.history.RoleHistoryRecord;
 import lombok.*;
 
+import javax.persistence.OneToMany;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
@@ -10,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberDto extends DtoBase{
+public class MemberDto extends DtoBase {
 
     private Long id;
     private String onBoardDate;
@@ -19,19 +23,19 @@ public class MemberDto extends DtoBase{
 
     Employee employee;
 
-    Set<MemberTraining> memberTrainings;
+    private Set<Practice> practices;
 
-    Set<GroupMembership> groupMemberships;
+    private Set<Email> emails;
 
-    Set<MemberTrainingPath> memberTrainingPaths;
+    private Set<EmailTemplate> emailTemplates;
 
-    Set<Practice> practices;
+    private Set<Notification> notifications;
 
-    Set<MemberRoles> memberRoles;
+    private Set<GroupMembership> groupMemberships;
 
-    Set<Email> emails;
+    private Set<LearningSubscription> memberTrainingPaths;
 
-    Set<EmailTemplate> emailTemplates;
+    private Set<ScheduledTraining> memberTrainings;
 
-    Set<Notification> notifications;
+    private Set<RoleHistoryRecord> businessUnitHistoryRecords;
 }

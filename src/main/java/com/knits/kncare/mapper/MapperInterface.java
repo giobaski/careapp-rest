@@ -1,4 +1,4 @@
-package com.example.KnCare.mapper;
+package com.knits.kncare.mapper;
 
 import org.mapstruct.IterableMapping;
 

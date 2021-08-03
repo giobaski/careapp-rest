@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -78,7 +79,7 @@ public class MemberController {
     @ApiOperation(value="find care members by one of its model fields", notes="provide parameters", response = Member.class)
     @GetMapping("/members")
 //    @JsonView(Views.Public.class)
-    public Page<Member> searchMembers(Member member) {
+    public List<Member> searchMembers(Member member) {
         return service.searchMember(member);
     }
 }

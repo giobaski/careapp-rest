@@ -34,7 +34,7 @@ public class MemberService {
         memberRepository.deleteAll();
     }
 
-    public Page<Member> searchMember(Member member) {
-        return memberRepository.findAll(member.getSpecification(), member.getPageable());
+    public List<Member> searchMember(Member member) {
+        return memberRepository.findAll();
     }
 }

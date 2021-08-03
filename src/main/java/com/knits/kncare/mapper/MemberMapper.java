@@ -1,8 +1,8 @@
-package com.example.KnCare.mapper;
+package com.knits.kncare.mapper;
 
-
-import com.example.KnCare.dto.MemberDto;
-import com.example.KnCare.model.Member;
+import com.knits.kncare.mapper.MapperInterface;
+import com.knits.kncare.dto.MemberDto;
+import com.knits.kncare.model.Member;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
@@ -16,7 +16,7 @@ import java.util.List;
  * https://mapstruct.org/documentation/stable/reference/html/
  */
 @Mapper(componentModel="spring")
-public interface MemberMapper extends MapperInterface<Member, MemberDto>{
+public interface MemberMapper extends MapperInterface<Member, MemberDto> {
 
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 

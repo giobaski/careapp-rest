@@ -1,6 +1,6 @@
-package com.example.KnCare.service;
+package com.knits.kncare.service;
 
-import com.example.KnCare.mapper.MapperInterface;
+import com.knits.kncare.mapper.MapperInterface;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
