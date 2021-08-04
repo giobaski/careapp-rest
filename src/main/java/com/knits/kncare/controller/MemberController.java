@@ -1,6 +1,7 @@
 package com.knits.kncare.controller;
 
 import com.knits.kncare.model.Member;
+import com.knits.kncare.repository.EmployeeRepository;
 import com.knits.kncare.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,12 +19,14 @@ import java.util.Optional;
 @RestController
 public class MemberController {
     private final MemberService service;
+    private final EmployeeRepository repository;
+
 
     @Autowired
-    public MemberController(MemberService service) {
+    public MemberController(MemberService service, EmployeeRepository repository) {
         this.service = service;
+        this.repository = repository;
     }
-
 
     @Operation(summary="find a care member by id")
     @GetMapping("{id}")
@@ -32,12 +37,18 @@ public class MemberController {
 
     @Operation(summary="create a care member")
     @PostMapping
-    public ResponseEntity<Member> createMember(@RequestBody Member member) {
-        try {
-            return new ResponseEntity<>(service.Add(member), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public Member createMember(@RequestBody Member member) {
+        member.setOnBoardDate(LocalDateTime.now());
+        member.setOffBoardDate(LocalDateTime.now());
+        return repository.findById(member.getEmployee().getId()).map(employee -> {
+            member.setEmployee(employee);
+            return service.Add(member);
+        }).orElseThrow(()->new NotFoundException("not found"));
+//        try {
+//            return new ResponseEntity<>(service.Add(member), HttpStatus.CREATED);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
     }
 
     @Operation(summary="update a care member")
