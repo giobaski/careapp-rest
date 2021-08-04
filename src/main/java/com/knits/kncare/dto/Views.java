@@ -1,4 +1,4 @@
-package com.knits.kncare.model.base;
+package com.knits.kncare.dto;
 
 public class Views {
     public static class Public {
