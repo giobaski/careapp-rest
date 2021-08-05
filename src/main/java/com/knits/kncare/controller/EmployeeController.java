@@ -1,12 +1,9 @@
 package com.knits.kncare.controller;
 
 import com.knits.kncare.dto.EmployeeDto;
-import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.mapper.MapperInterface;
-import com.knits.kncare.model.Member;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.service.EmployeeService;
-import com.knits.kncare.service.MemberService;
 import com.knits.kncare.service.ServiceBase;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/api/v1/employee")
+@RequestMapping("/api/v1/employees")
 @RestController
 public class EmployeeController{
     private final EmployeeService service;
@@ -31,8 +28,8 @@ public class EmployeeController{
 
     @GetMapping("{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") long id) {
-        Optional<Employee> memberData = service.getById(id);
-        return memberData.map(employee -> new ResponseEntity<>(employee, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<Employee> employeeData = service.getById(id);
+        return employeeData.map(employee -> new ResponseEntity<>(employee, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
@@ -46,9 +43,9 @@ public class EmployeeController{
 
     @PutMapping("{id}")
     public ResponseEntity<Employee> updateUser(@PathVariable("id") long id, @RequestBody Employee employee) {
-        Optional<Employee> memberData = service.getById(id);
+        Optional<Employee> employeeData = service.getById(id);
 
-        if (memberData.isPresent()) {
+        if (employeeData.isPresent()) {
             return new ResponseEntity<>(service.Add(employee), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -78,7 +75,9 @@ public class EmployeeController{
 
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public Page<EmployeeDto> searchMembers(EmployeeDto employeeDto) {
+    public Page<EmployeeDto> searchEmployees(EmployeeDto employeeDto) {
+        System.out.println(employeeDto);
         return service.search(employeeDto);
     }
+
 }

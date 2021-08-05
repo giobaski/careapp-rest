@@ -4,7 +4,6 @@ import com.knits.kncare.dto.EmployeeDto;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.repository.EmployeeRepository;
-import com.knits.kncare.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

@@ -129,23 +129,21 @@ public class Employee extends AbstractSearchableDto<Employee> {
     public Specification<Employee> getSpecification() {
         Specification<Employee> spec = super.getSpecification();
         if (Strings.isNotBlank(firstName)){
-            spec = spec.and(Specifications.specLike("onBoardDate", "%" + firstName + "%")) ;
+            spec = spec.and(Specifications.specLike("firstName", "%" + firstName + "%")) ;
+        }
+        if (Strings.isNotBlank(lastName)){
+            spec = spec.and(Specifications.specLike("lastName", "%" + lastName + "%")) ;
         }
         if (Strings.isNotBlank(internationalName)){
-            spec = spec.and(Specifications.specLike("offBoardDate", "%" + internationalName + "%")) ;
+            spec = spec.and(Specifications.specLike("internationalName", "%" + internationalName + "%")) ;
         }
         if (Strings.isNotBlank(title)){
-            spec = spec.and(Specifications.specLike("offBoardDate", "%" + title + "%")) ;
+            spec = spec.and(Specifications.specLike("title", "%" + title + "%")) ;
         }
-        if (Strings.isNotBlank(email)){
-            spec = spec.and(Specifications.specLike("offBoardDate", "%" + email + "%")) ;
+        if (nationality != null){
+            spec = spec.and(Specifications.specEquals("nationality", nationality.getId()));
         }
-        if (Strings.isNotBlank(companyMobilePhone)){
-            spec = spec.and(Specifications.specLike("offBoardDate", "%" + companyMobilePhone + "%")) ;
-        }
-        if (Strings.isNotBlank(companyPhone)){
-            spec = spec.and(Specifications.specLike("offBoardDate", "%" + companyPhone + "%")) ;
-        }
+
         return spec;
     }
 
