@@ -1,8 +1,13 @@
 package com.knits.kncare.model.ems;
 
 
+import com.knits.kncare.dto.AbstractSearchableDto;
 import com.knits.kncare.model.history.*;
+import com.knits.kncare.utils.Specifications;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -15,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Employee {
+public class Employee extends AbstractSearchableDto<Employee> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -117,6 +122,32 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     private Set<WorkingPositionHistoryRecord> workingPositionHistoryRecords;
+
+
+    @Override
+    @JsonIgnore
+    public Specification<Employee> getSpecification() {
+        Specification<Employee> spec = super.getSpecification();
+        if (Strings.isNotBlank(firstName)){
+            spec = spec.and(Specifications.specLike("onBoardDate", "%" + firstName + "%")) ;
+        }
+        if (Strings.isNotBlank(internationalName)){
+            spec = spec.and(Specifications.specLike("offBoardDate", "%" + internationalName + "%")) ;
+        }
+        if (Strings.isNotBlank(title)){
+            spec = spec.and(Specifications.specLike("offBoardDate", "%" + title + "%")) ;
+        }
+        if (Strings.isNotBlank(email)){
+            spec = spec.and(Specifications.specLike("offBoardDate", "%" + email + "%")) ;
+        }
+        if (Strings.isNotBlank(companyMobilePhone)){
+            spec = spec.and(Specifications.specLike("offBoardDate", "%" + companyMobilePhone + "%")) ;
+        }
+        if (Strings.isNotBlank(companyPhone)){
+            spec = spec.and(Specifications.specLike("offBoardDate", "%" + companyPhone + "%")) ;
+        }
+        return spec;
+    }
 
 
 }

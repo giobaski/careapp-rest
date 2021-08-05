@@ -7,6 +7,7 @@ import java.util.List;
 //@Mapper()
 public interface MapperInterface<MDL, DTO> {
 
+
     MapperInterface INSTANCE = null;
 
 
