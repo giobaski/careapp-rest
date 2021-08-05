@@ -1,5 +1,6 @@
 package com.knits.kncare.dto;
 
+import com.knits.kncare.model.Role;
 import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
@@ -12,25 +13,13 @@ public class MemberDto extends AbstractSearchableDto {
     private Long id;
     private String onBoardDate;
     private String offBoardDate;
+    //TODO: We have to add "country" to the Member model
 
-/*
-    Employee employee;
+//    //References:
+    private EmployeeDtoTest employee;
 
-    Set<MemberTraining> memberTrainings;
+    private Role role;
 
-    Set<GroupMembership> groupMemberships;
 
-    Set<MemberTrainingPath> memberTrainingPaths;
-
-    Set<Practice> practices;
-
-    Set<MemberRoles> memberRoles;
-
-    Set<Email> emails;
-
-    Set<EmailTemplate> emailTemplates;
-
-    Set<Notification> notifications;
-    */
 
 }

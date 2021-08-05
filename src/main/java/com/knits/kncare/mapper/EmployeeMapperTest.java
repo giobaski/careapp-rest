@@ -1,8 +1,9 @@
 package com.knits.kncare.mapper;
 
-import com.knits.kncare.mapper.MapperInterface;
+import com.knits.kncare.dto.EmployeeDtoTest;
 import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.model.Member;
+import com.knits.kncare.model.ems.Employee;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
@@ -16,19 +17,19 @@ import java.util.List;
  * https://mapstruct.org/documentation/stable/reference/html/
  */
 @Mapper(componentModel="spring")
-public interface MemberMapper extends MapperInterface<Member, MemberDto> {
+public interface EmployeeMapperTest extends MapperInterface<Employee, EmployeeDtoTest> {
 
-    MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
+    EmployeeMapperTest INSTANCE = Mappers.getMapper(EmployeeMapperTest.class);
 
 
     @Override
     @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL)
-    MemberDto toDto(Member model);
+    EmployeeDtoTest toDto(Employee model);
 
     @Override
-    Member toModel(MemberDto dto);
+    Employee toModel(EmployeeDtoTest dto);
 
     @Override
-    List<MemberDto> toDtoList(List<Member> models);
+    List<EmployeeDtoTest> toDtoList(List<Employee> models);
 
 }
