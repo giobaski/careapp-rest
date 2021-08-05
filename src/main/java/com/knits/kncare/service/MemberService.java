@@ -1,5 +1,7 @@
 package com.knits.kncare.service;
 
+import com.knits.kncare.dto.MemberDto;
+import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.MemberRepository;
 import org.springframework.data.domain.Page;
@@ -9,11 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MemberService {
+public class MemberService extends ServiceBase<Member, MemberDto>{
 
     private final MemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MapperInterface<Member, MemberDto> mapper, MemberRepository memberRepository) {
+        super(mapper);
         this.memberRepository = memberRepository;
     }
 
@@ -34,7 +37,7 @@ public class MemberService {
         memberRepository.deleteAll();
     }
 
-    public List<Member> searchMember(Member member) {
-        return memberRepository.findAll();
+    public Page<MemberDto> searchMember(MemberDto memberDto) {
+        return toDtoPage(memberRepository.findAll(memberDto.getSpecification(), memberDto.getPageable()));
     }
 }

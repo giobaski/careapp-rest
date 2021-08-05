@@ -1,5 +1,6 @@
 package com.knits.kncare.controller;
 
+import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("/api/v1/members")
@@ -78,7 +78,7 @@ public class MemberController {
     @Operation(summary="find care members by one of its model fields")
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public List<Member> searchMembers(Member member) {
-        return service.searchMember(member);
+    public Page<MemberDto> searchMembers(MemberDto memberDto) {
+        return service.searchMember(memberDto);
     }
 }

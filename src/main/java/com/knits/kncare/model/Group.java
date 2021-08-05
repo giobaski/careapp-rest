@@ -1,13 +1,11 @@
 package com.knits.kncare.model;
 
 import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+//@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
