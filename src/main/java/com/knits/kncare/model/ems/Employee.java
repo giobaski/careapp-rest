@@ -2,6 +2,7 @@ package com.knits.kncare.model.ems;
 
 
 import com.knits.kncare.dto.AbstractSearchableDto;
+import com.knits.kncare.dto.EmployeeSearch;
 import com.knits.kncare.model.history.*;
 import com.knits.kncare.utils.Specifications;
 import lombok.*;
@@ -122,6 +123,7 @@ public class Employee extends AbstractSearchableDto<Employee> {
 
     @OneToMany(mappedBy = "employee")
     private Set<WorkingPositionHistoryRecord> workingPositionHistoryRecords;
+
 
 
 //    @Override

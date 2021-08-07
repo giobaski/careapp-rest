@@ -1,18 +1,19 @@
 package com.knits.kncare.controller;
 
 import com.knits.kncare.dto.EmployeeDto;
-import com.knits.kncare.mapper.MapperInterface;
+import com.knits.kncare.dto.EmployeeSearch;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.service.EmployeeService;
-import com.knits.kncare.service.ServiceBase;
-import io.swagger.v3.oas.annotations.Operation;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import java.util.List;
+
 import java.util.Optional;
 
 @RequestMapping("/api/v1/employees")
@@ -75,9 +76,8 @@ public class EmployeeController{
 
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public Page<EmployeeDto> searchEmployees(EmployeeDto employeeDto) {
-        System.out.println(employeeDto);
-        return service.search(employeeDto);
+    public Page<EmployeeDto> searchEmployees(EmployeeSearch employeeSearch) {
+        return service.searchByFields(employeeSearch);
     }
 
 }

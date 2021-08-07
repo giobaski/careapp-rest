@@ -1,36 +1,44 @@
 package com.knits.kncare.dto;
 
+import com.knits.kncare.model.*;
+import com.knits.kncare.model.ems.Employee;
+import com.knits.kncare.model.history.RoleHistoryRecord;
 import lombok.*;
 
-@EqualsAndHashCode(callSuper = true)
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberDto extends AbstractSearchableDto {
+public class MemberDto {
 
     private Long id;
-    private String onBoardDate;
-    private String offBoardDate;
 
-/*
-    Employee employee;
+    private LocalDateTime onBoardDate;
 
-    Set<MemberTraining> memberTrainings;
+    private LocalDateTime offBoardDate;
 
-    Set<GroupMembership> groupMemberships;
+    private Employee employee;
 
-    Set<MemberTrainingPath> memberTrainingPaths;
+    private Role role;
 
-    Set<Practice> practices;
+    private Set<Practice> practices;
 
-    Set<MemberRoles> memberRoles;
+    private Set<Email> emails;
 
-    Set<Email> emails;
+    private Set<EmailTemplate> emailTemplates;
 
-    Set<EmailTemplate> emailTemplates;
+    private Set<Notification> notifications;
 
-    Set<Notification> notifications;
-    */
+    private Set<GroupMembership> groupMemberships;
+
+    private Set<LearningSubscription> memberTrainingPaths;
+
+    private Set<ScheduledTraining> memberTrainings;
+
+    private Set<RoleHistoryRecord> businessUnitHistoryRecords;
 
 }
