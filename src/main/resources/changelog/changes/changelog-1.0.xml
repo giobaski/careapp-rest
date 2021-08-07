@@ -7,21 +7,21 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
     <changeSet  id="1"  author="Giorgi">
-        <modifyDataType tableName="members" columnName="on_board_date" newDataType="Date"></modifyDataType>
+        <modifyDataType tableName="member" columnName="on_board_date" newDataType="Date"></modifyDataType>
     </changeSet>
 
     <changeSet  id="2"  author="Giorgi">
-        <modifyDataType tableName="members" columnName="off_board_date" newDataType="Date"></modifyDataType>
+        <modifyDataType tableName="member" columnName="off_board_date" newDataType="Date"></modifyDataType>
     </changeSet>
 
 <!--    <changeSet  id="3"  author="Giorgi">-->
-<!--        <addColumn  tableName="groups">-->
+<!--        <addColumn  tableName="group">-->
 <!--            <column  name="testfield"  type="varchar(255)"/>-->
 <!--        </addColumn>-->
 <!--    </changeSet>-->
 
 <!--    <changeSet  id="4"  author="Giorgi">-->
-<!--        <dropColumn tableName="groups" columnName="testfield"></dropColumn>-->
+<!--        <dropColumn tableName="group" columnName="testfield"></dropColumn>-->
 <!--    </changeSet>-->
 
 
