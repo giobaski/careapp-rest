@@ -6,7 +6,9 @@ import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.MemberRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.domain.Specification;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,9 +41,11 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
         repository.deleteAll();
     }
 
-    public Page<Member> searchMember(MemberSearch memberSearch) {
-         Specification<Member> spec = super.getSpecification();
-       Member member = new Member();
-      return toDtoPage(repository.findAll(employeeSearch.search(spec, employeeSearch),employee.getPageable()));
+    public Page<MemberDto> searchMember(MemberSearch memberSearch) {
+
+        List<Member> members = repository.findByAreaOfResponsibility(memberSearch);
+
+        return new PageImpl<>(toDtoList(members));
     }
+
 }

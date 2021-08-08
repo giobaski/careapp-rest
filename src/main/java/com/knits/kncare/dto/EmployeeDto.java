@@ -82,28 +82,6 @@ public class EmployeeDto extends AbstractSearchableDto<EmployeeDto>{
 
     private Set<WorkingPositionHistoryRecord> workingPositionHistoryRecords;
 
-//    @Override
-//    @JsonIgnore
-//    public Specification<EmployeeDto> getSpecification() {
-//        Specification<EmployeeDto> spec = super.getSpecification();
-//        if (Strings.isNotBlank(firstName)){
-//            spec = spec.and(Specifications.specLike("firstName", "%" + firstName + "%")) ;
-//        }
-//        if (Strings.isNotBlank(lastName)){
-//            spec = spec.and(Specifications.specLike("lastName", "%" + lastName + "%")) ;
-//        }
-//        if (Strings.isNotBlank(internationalName)){
-//            spec = spec.and(Specifications.specLike("internationalName", "%" + internationalName + "%")) ;
-//        }
-//        if (Strings.isNotBlank(title)){
-//            spec = spec.and(Specifications.specLike("title", "%" + title + "%")) ;
-//        }
-//        if (nationality != null){
-//            spec = spec.and(Specifications.specEquals("nationality", nationality.getId()));
-//        }
-//
-//        return spec;
-//    }
 
 
 }

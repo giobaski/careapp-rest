@@ -1,23 +1,22 @@
 package com.knits.kncare.model;
 
+import com.knits.kncare.dto.AbstractSearchableDto;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.model.history.RoleHistoryRecord;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "\"member\"") //some Db have member as sql function
-public class Member {
+public class Member extends AbstractSearchableDto<Member> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

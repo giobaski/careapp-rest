@@ -1,5 +1,7 @@
 package com.knits.kncare.controller;
 
+import com.knits.kncare.dto.MemberDto;
+import com.knits.kncare.dto.MemberSearch;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.EmployeeRepository;
 import com.knits.kncare.service.MemberService;
@@ -31,7 +33,7 @@ public class MemberController {
     @Operation(summary="find a care member by id")
     @GetMapping("{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable("id") long id) {
-        Optional<Member> memberData = service.getbyId(id);
+        Optional<Member> memberData = service.getById(id);
         return memberData.map(member -> new ResponseEntity<>(member, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -54,7 +56,7 @@ public class MemberController {
     @Operation(summary="update a care member")
     @PutMapping("{id}")
     public ResponseEntity<Member> updateUser(@PathVariable("id") long id, @RequestBody Member member) {
-        Optional<Member> memberData = service.getbyId(id);
+        Optional<Member> memberData = service.getById(id);
 
         if (memberData.isPresent()) {
             return new ResponseEntity<>(service.Add(member), HttpStatus.OK);
@@ -89,7 +91,8 @@ public class MemberController {
     @Operation(summary="find care members by one of its model fields")
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public Page<Member> searchMembers(Member member) {
-        return service.searchMember(member);
+    public Page<MemberDto> searchMembers(MemberSearch memberSearch) {
+
+        return service.searchMember(memberSearch);
     }
 }
