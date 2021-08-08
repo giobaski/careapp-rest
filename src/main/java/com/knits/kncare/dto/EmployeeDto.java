@@ -16,11 +16,12 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EmployeeDto {
+public class EmployeeDto extends AbstractSearchableDto<EmployeeDto>{
     private Long id;
 
     private Long pdmId;

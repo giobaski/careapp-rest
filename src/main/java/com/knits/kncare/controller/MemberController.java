@@ -89,7 +89,7 @@ public class MemberController {
     @Operation(summary="find care members by one of its model fields")
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public List<Member> searchMembers(Member member) {
+    public Page<Member> searchMembers(Member member) {
         return service.searchMember(member);
     }
 }
