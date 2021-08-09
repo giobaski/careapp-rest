@@ -91,8 +91,11 @@ public class MemberController {
     @Operation(summary="find care members by one of its model fields")
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public Page<MemberDto> searchMembers(MemberSearch memberSearch) {
-
-        return service.searchMember(memberSearch);
+    public ResponseEntity<Page<MemberDto>> searchMembers(MemberSearch memberSearch) {
+        try {
+            return new ResponseEntity<>(service.searchMember(memberSearch), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

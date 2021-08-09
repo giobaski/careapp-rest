@@ -76,8 +76,12 @@ public class EmployeeController{
 
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public Page<EmployeeDto> searchEmployees(EmployeeSearch employeeSearch) {
-        return service.searchByFields(employeeSearch);
+    public ResponseEntity<Page<EmployeeDto>> searchEmployees(EmployeeSearch employeeSearch) {
+        try {
+            return new ResponseEntity<>(service.searchByFields(employeeSearch), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
