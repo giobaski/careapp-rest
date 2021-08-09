@@ -25,5 +25,4 @@ public class MemberSearch {
 
     private String workingPosition;
 
-
 }
