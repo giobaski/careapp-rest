@@ -44,14 +44,14 @@ public class EmployeeController {
         }
     }
 
-//    @GetMapping("{id}")
-//    public ResponseEntity<EmployeeDtoTest> getEmployeeById(@PathVariable("id") Long id){
-//        Optional<EmployeeDtoTest> employee = employeeService.getById(id);
-//        if(employee.isPresent()){
-//            return new ResponseEntity<>(employee.get(), HttpStatus.OK);
-//        } else{
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @GetMapping("{id}")
+    public ResponseEntity<EmployeeDtoTest> getEmployeeById(@PathVariable("id") Long id){
+        Optional<EmployeeDtoTest> employee = employeeService.getById(id);
+        if(employee.isPresent()){
+            return new ResponseEntity<>(employee.get(), HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 }

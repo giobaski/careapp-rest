@@ -16,7 +16,8 @@ spring:
       hibernate:
         dialect: "org.hibernate.dialect.PostgreSQLDialect"
         format_sql: true
-        jdbc:
+  liquibase:
+    enabled: false
 #
 #  profiles:
 #    active: "dev"

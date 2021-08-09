@@ -6,6 +6,7 @@ import com.knits.kncare.model.Member;
 import com.knits.kncare.model.ems.Employee;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValueMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
@@ -24,6 +25,7 @@ public interface EmployeeMapperTest extends MapperInterface<Employee, EmployeeDt
 
     @Override
     @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL)
+    @Mapping( target = "country", source = "office.country.name")
     EmployeeDtoTest toDto(Employee model);
 
     @Override
@@ -31,5 +33,4 @@ public interface EmployeeMapperTest extends MapperInterface<Employee, EmployeeDt
 
     @Override
     List<EmployeeDtoTest> toDtoList(List<Employee> models);
-
 }

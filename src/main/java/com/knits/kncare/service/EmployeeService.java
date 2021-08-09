@@ -5,6 +5,7 @@ import com.knits.kncare.mapper.EmployeeMapperTest;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,14 +27,16 @@ public class EmployeeService {
 
 
     public List<EmployeeDtoTest> getAll(){
-        return employeeRepository.findAll()
+        return employeeRepository.findAll(Sort.by(Sort.Direction.ASC,"id"))
                 .stream()
                 .map(employee -> employeeMapperTest.toDto(employee))
                 .collect(Collectors.toList());
     }
 
-//    public Optional<EmployeeDtoTest> getById(Long id){
-//        return employeeRepository.findById(id);
-//    }
 
+    public Optional<EmployeeDtoTest> getById(Long id){
+        Optional<EmployeeDtoTest> employee = employeeRepository.findById(id)
+        .map(employeeMapperTest::toDto);
+        return employee;
+    }
 }
