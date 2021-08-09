@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,8 +53,9 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
 //        return toDtoPage(repository.findAll(employeeSearch.search(spec, employeeSearch),employee.getPageable()));
 
         EmployeePage employeePage = webClient
-                .get()
+                .post()
                 .uri("/employees")
+                .body(Mono.just(employeeSearch), EmployeeSearch.class)
                 .retrieve()
                 .bodyToMono(EmployeePage.class)
                 .block();
