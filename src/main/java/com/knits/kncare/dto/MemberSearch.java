@@ -4,10 +4,12 @@ import com.knits.kncare.model.Member;
 import com.knits.kncare.model.ems.*;
 import com.knits.kncare.utils.Specifications;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.jpa.domain.Specification;
 
 @Data
+@NoArgsConstructor
 public class MemberSearch {
 
     private String internationalName;
