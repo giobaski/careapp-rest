@@ -1,5 +1,6 @@
 package com.knits.kncare.repository;
 
+import com.knits.kncare.dto.MemberSearch;
 import com.knits.kncare.model.Member;
 
 
@@ -14,10 +15,18 @@ import java.util.List;
 
 public class MemberRepositorySearchImpl implements MemberRepositorySearch {
 
+    private final String EMPLOYEE = "employee";
+    private final String NAME = "name";
+    private final String INTERNATIONAL_NAME = "internationalName";
+    private final String NATIONALITY = "nationality";
+    private final String BUSINESS_UNIT = "businessUnit";
+    private final String MANAGEMENT_GROUP = "managementGroup";
+    private final String COST_CENTER = "costCenter";
+
     @PersistenceContext
     EntityManager em;
     @Override
-    public List<Member> findByAreaOfResponsibility(com.knits.kncare.dto.MemberSearch memberSearch) {
+    public List<Member> findByAreaOfResponsibility(MemberSearch memberSearch) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Member> query = builder.createQuery(Member.class);
 
@@ -25,19 +34,19 @@ public class MemberRepositorySearchImpl implements MemberRepositorySearch {
         List<Predicate> predicates = new ArrayList<>();
 
         if (memberSearch.getInternationalName() != null) {
-            predicates.add(builder.like(member.get("employee").get("internationalName"), "%" + memberSearch.getInternationalName() + "%"));
+            predicates.add(builder.like(member.get(EMPLOYEE).get(INTERNATIONAL_NAME), "%" + memberSearch.getInternationalName() + "%"));
         }
         if (memberSearch.getNationality() != null) {
-            predicates.add(builder.like(member.get("employee").get("nationality").get("name"), "%" + memberSearch.getNationality() + "%"));
+            predicates.add(builder.like(member.get(EMPLOYEE).get(NATIONALITY).get(NAME), "%" + memberSearch.getNationality() + "%"));
         }
         if (memberSearch.getBusinessUnit()!= null) {
-            predicates.add(builder.like(member.get("employee").get("businessUnit").get("name"), "%" + memberSearch.getBusinessUnit() + "%"));
+            predicates.add(builder.like(member.get(EMPLOYEE).get(BUSINESS_UNIT).get(NAME), "%" + memberSearch.getBusinessUnit() + "%"));
         }
         if (memberSearch.getManagementGroup() != null) {
-            predicates.add(builder.like(member.get("employee").get("managementGroup").get("name"), "%" + memberSearch.getManagementGroup()+ "%"));
+            predicates.add(builder.like(member.get(EMPLOYEE).get(MANAGEMENT_GROUP).get(NAME), "%" + memberSearch.getManagementGroup()+ "%"));
         }
-        if (memberSearch.getWorkingPosition()!= null) {
-            predicates.add(builder.like(member.get("employee").get("workingPosition").get("name"), "%" + memberSearch.getWorkingPosition()+ "%"));
+        if (memberSearch.getCostCenter()!= null) {
+            predicates.add(builder.like(member.get(EMPLOYEE).get(COST_CENTER).get(NAME), "%" + memberSearch.getCostCenter()+ "%"));
         }
         query.where(predicates.toArray(new Predicate[0]));
 

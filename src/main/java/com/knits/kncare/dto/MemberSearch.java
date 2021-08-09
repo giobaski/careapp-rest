@@ -9,13 +9,8 @@ import org.springframework.data.jpa.domain.Specification;
 
 @Data
 public class MemberSearch {
-    private String firstName;
-
-    private String lastName;
 
     private String internationalName;
-
-    private String title;
 
     private String nationality;
 
@@ -23,6 +18,6 @@ public class MemberSearch {
 
     private String managementGroup;
 
-    private String workingPosition;
+    private CostCenter costCenter;
 
 }
