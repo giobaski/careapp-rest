@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public abstract class ServiceBase<MDL, DTO> {
 
-    private final MapperInterface<MDL, DTO> mapper;
+    protected final MapperInterface<MDL, DTO> mapper;
 
     public ServiceBase(MapperInterface<MDL, DTO> mapper) {
         this.mapper = mapper;

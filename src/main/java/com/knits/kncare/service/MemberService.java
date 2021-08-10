@@ -2,6 +2,8 @@ package com.knits.kncare.service;
 
 import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.mapper.MemberMapper;
+import com.knits.kncare.model.Group;
+import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.MemberRepository;
 import org.springframework.data.domain.Page;
