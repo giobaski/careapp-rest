@@ -1,9 +1,9 @@
 package com.knits.kncare.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.knits.kncare.model.Email;
 import com.knits.kncare.model.Group;
-import com.knits.kncare.model.Member;
 import com.knits.kncare.utils.Specifications;
 import lombok.*;
 import org.apache.logging.log4j.util.Strings;
@@ -27,11 +27,13 @@ public class EmailDto extends AbstractSearchableDto<Email> {
     private String content;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Member createdBy;
+    private MemberDto createdBy;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Set<Member> recipients;
+    private Set<MemberDto> recipients;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<Group> recipientGroups;
 

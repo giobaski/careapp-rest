@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("/api/v1/emails")
@@ -30,7 +31,7 @@ public class EmailController {
 
     @Operation(summary="create an Email")
     @PostMapping
-    public ResponseEntity<Email> createEmail(@RequestBody EmailDto emailDto) {
+    public ResponseEntity<EmailDto> createEmail(@RequestBody EmailDto emailDto) {
         try {
             return new ResponseEntity<>(service.addNew(emailDto), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -40,33 +41,45 @@ public class EmailController {
 
     @Operation(summary="update an Email")
     @PutMapping("{id}")
-    public ResponseEntity<Email> updateUser(@PathVariable("id") long id, @RequestBody EmailDto Email) {
-//        Optional<Email> EmailData = service.getbyId(id);
-//
-//        if (EmailData.isPresent()) {
-//            return new ResponseEntity<>(service.Add(Email), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-        return null;
+    public ResponseEntity<EmailDto> updateEmail(@PathVariable("id") long id, @RequestBody EmailDto email) {
+        return new ResponseEntity<>(service.update(id, email), HttpStatus.OK);
     }
 
     @Operation(summary="delete an Email by id")
     @DeleteMapping("{id}")
     public ResponseEntity<HttpStatus> deleteEmail(@PathVariable("id") long id) {
-//        try {
-//            service.delete(id);
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-        return null;
+        try {
+            service.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Operation(summary="find Emails by one of its model fields")
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public Page<Email> searchEmails(EmailDto EmailDto) {
+    public Page<EmailDto> searchEmails(EmailDto EmailDto) {
         return service.search(EmailDto);
+    }
+
+    @DeleteMapping("/{id}/recipients/{memberId}")
+    public ResponseEntity<HttpStatus> deleteRecipient(@PathVariable long id, @PathVariable List<Long> memberId) {
+        try {
+            service.deleteRecipient(id, memberId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/{id}/recipients/{memberId}")
+    public ResponseEntity<HttpStatus> addRecipient(@PathVariable long id, @PathVariable List<Long> memberId) {
+        try {
+            service.addRecipient(id, memberId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

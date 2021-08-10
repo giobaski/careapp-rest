@@ -45,4 +45,12 @@ public class Email extends AbstractMemberAuditableEntity {
             inverseJoinColumns = {@JoinColumn(name = "\"group\"")}
     )
     private Set<Group> recipientGroups;
+
+    public boolean addRecipient(Member member) {
+        return recipients.add(member);
+    }
+
+    public boolean removeRecipient(Member member) {
+        return recipients.remove(member);
+    }
 }
