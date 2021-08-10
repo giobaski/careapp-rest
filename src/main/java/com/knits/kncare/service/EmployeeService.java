@@ -60,7 +60,16 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
                 .bodyToMono(EmployeePage.class)
                 .block();
 
-        return employeePage != null ? new PageImpl<>(employeePage.getContent()) : null;
+        assert employeePage != null;
+        for (EmployeeDto employeeDto:employeePage.getContent()
+             ) {
+            Employee employee = repository.findByPdmId(employeeDto.getPdmId());
+            if (employee==null){
+                repository.save(toModel(employeeDto));
+            }
+        }
+
+        return new PageImpl<>(employeePage.getContent());
     }
 
 
