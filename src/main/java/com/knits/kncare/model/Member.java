@@ -48,7 +48,7 @@ public class Member {
     @OneToMany(mappedBy = "createdBy")
     private Set<Notification> notifications;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member")
     private Set<GroupMembership> groupMemberships;
 
     @OneToMany(mappedBy = "createdBy")

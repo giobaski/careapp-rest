@@ -1,5 +1,7 @@
 package com.knits.kncare.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
 import lombok.*;
@@ -21,9 +23,9 @@ public class GroupDto extends AbstractSearchableDto{
 
     private String description;
 
-    //testing
     private Set<Long> memberIds;
 
+    @JsonBackReference
     private Set<GroupMembership> groupMemberships = new HashSet<>();
 
 

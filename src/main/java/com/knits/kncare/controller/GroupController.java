@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/v1/groups")
 public class GroupController {
@@ -31,11 +33,18 @@ public class GroupController {
         }
     }
 
-//
-//    @Operation(summary="edit the group")
-//    @PutMapping("{id}")
-//    public ResponseEntity<GroupDto> updateGroup(@PathVariable("id") long id, @RequestBody GroupDto groupDto){
-//
-//    }
+
+
+    @Operation(summary="update the group")
+    @PutMapping("{id}")
+    public ResponseEntity<GroupDto> updateGroup(@PathVariable("id") long id, @RequestBody GroupDto groupDto) {
+        Optional<GroupDto> existingGroupDto = groupService.getbyId(id);
+
+        if (existingGroupDto.isPresent()) {
+            return new ResponseEntity<>(groupService.create(existingGroupDto.get()), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 }

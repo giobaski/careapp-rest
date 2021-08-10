@@ -1,8 +1,6 @@
 package com.knits.kncare.service;
 
-import com.knits.kncare.dto.EmployeeDtoTest;
 import com.knits.kncare.dto.GroupDto;
-import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.mapper.GroupMapper;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.mapper.MemberMapper;
@@ -34,43 +32,47 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.groupMapper = groupMapper;
-
     }
 
 
     public GroupDto create(GroupDto groupDto) {
-        // A. group without members
-        if (groupDto.getMemberIds().isEmpty()) {
-            Group createdGroup = groupRepository.save(mapper.toModel(groupDto));
-            //Log it here
-            return mapper.toDto(createdGroup);
+
+        if(groupDto.getMemberIds() == null){
+            System.out.println("creating a group without new members");
+            return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
+        return addMembersToGroup(groupDto);
 
-        // B. group with members
-        Set<Long> listOfMembersId = groupDto.getMemberIds();
-//        Set<GroupMembership> memberships = groupDto.getGroupMemberships();
-        for (Long id : listOfMembersId) {
-            // Get existing member by id
-            Optional<MemberDto> existingMember = memberRepository.findById(id).map(memberMapper::toDto);
-
-            if (existingMember.isPresent()) {
-                //1.
-                MemberDto member = existingMember.get();
-                //2.creating membership
-                GroupMembership groupMembership = new GroupMembership(groupMapper.toModel(groupDto), memberMapper.toModel(member));
-                //3. adding the member to a groupMembership
-                groupDto.getGroupMemberships().add(groupMembership);
-//                memberships.add(groupMembership);
-            }
-        }
-        //4.
-//        groupDto.getGroupMemberships().addAll(memberships);
-        //4. save
-        Group group_Model = groupMapper.toModel(groupDto);
-        return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));  // modify this returing of dtos
-
-//        return mapper.toDto(createdGroup);
     }
 
-//    public void addMembersToGroup (){ }
+    public GroupDto addMembersToGroup (GroupDto groupDto){
+        Group group = groupMapper.toModel(groupDto);
+        Set<Long> setOfNewMembersId = groupDto.getMemberIds();
+        for (Long id : setOfNewMembersId) {
+
+            Optional<Member> existingMember = memberRepository.findById(id);
+
+            if (existingMember.isPresent()) {
+
+                Member member = existingMember.get();
+                GroupMembership groupMembership = new GroupMembership(group, member);
+                group.getGroupMemberships().add(groupMembership);  //or write method addMembers() in the group model
+            }
+        }
+        return groupMapper.toDto(groupRepository.save(group));
+    }
+
+
+    public Optional<GroupDto> getbyId(long id) {
+        Optional<GroupDto> existingGroupDto = groupRepository.findById(id).map(groupMapper::toDto);
+        return existingGroupDto;
+    }
 }
+
+
+//Json Sample:
+//groups = {
+//        "name": "myFirstGroup",
+//        "description": "Group description",
+//        "memberIds": [1,2,3]
+//        }

@@ -1,5 +1,6 @@
 package com.knits.kncare.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.*;
 
@@ -27,6 +28,7 @@ public class Group extends AbstractMemberAuditableEntity {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    private Set<GroupMembership> groupMemberships = new HashSet<>();;
+    @OneToMany(mappedBy = "group", cascade = CascadeType.PERSIST)
+    @JsonBackReference
+    private Set<GroupMembership> groupMemberships = new HashSet<>();
 }
