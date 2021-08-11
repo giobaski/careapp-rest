@@ -11,6 +11,7 @@ import com.knits.kncare.repository.GroupRepository;
 import com.knits.kncare.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,6 +36,7 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     }
 
 
+    //
     public GroupDto create(GroupDto groupDto) {
 
         if(groupDto.getMemberIds() == null){
@@ -42,36 +44,72 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
             groupMapper.toModel(groupDto);
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
-        return addMembersToGroup(groupDto);
-
+        return addMembersToGroup(groupDto); //creating a group with new members
     }
 
 
+    //re-write
     public GroupDto addMembersToGroup (GroupDto groupDto){
         Group group = groupMapper.toModel(groupDto);
-        Set<Long> setOfNewMembersId = groupDto.getMemberIds();
-        for (Long id : setOfNewMembersId) {
+        List<Long> membersId = groupDto.getMemberIds();
+        for (Long id : membersId) {
 
-            Optional<Member> existingMember = memberRepository.findById(id);
+            Optional<Member> member = memberRepository.findById(id);
 
-            if (existingMember.isPresent()) {
+            if (member.isPresent()) {
 
-                Member member = existingMember.get();
+                Member member_ = member.get();
 
-                //move this outside loop later
-                GroupMembership groupMembership = new GroupMembership(group, member);
+                //move this outside loop later?
+                GroupMembership groupMembership = new GroupMembership();
+                groupMembership.setGroup(group);
+                groupMembership.setMember(member_);
+
                 boolean anyMatch = group.getGroupMemberships().stream()
                         .anyMatch(m -> m.equals(groupMembership));
 
                 if (!anyMatch){
                     group.getGroupMemberships().add(groupMembership);
-
                 }
-
             }
         }
         return groupMapper.toDto(groupRepository.save(group));  //merging error
     }
+
+
+    //re-write
+    public GroupDto update (Long id, GroupDto groupDto){
+
+        Group group = groupRepository.findById(id).get();  //Optional, if presents add exceptions....
+        List<GroupMembership> memberships = group.getGroupMemberships();
+
+        List<Long> membersId = groupDto.getMemberIds();
+        for (Long memberId : membersId) {
+
+            Optional<Member> member = memberRepository.findById(memberId);
+
+            if (member.isPresent()) {
+
+                Member member_ = member.get();
+
+                GroupMembership groupMembership = new GroupMembership();
+                groupMembership.setGroup(group);
+                groupMembership.setMember(member_);
+
+                memberships.add(groupMembership);
+
+//                boolean anyMatch = group.getGroupMemberships().stream()
+//                        .anyMatch(m -> m.equals(groupMembership));
+//
+//                if (!anyMatch){
+//                    group.getGroupMemberships().add(groupMembership);
+//                }
+            }
+        }
+        group.getGroupMemberships().addAll(memberships);
+        return groupMapper.toDto(groupRepository.save(group));  //merging error
+    }
+
 
 
     public Optional<GroupDto> getbyId(long id) {

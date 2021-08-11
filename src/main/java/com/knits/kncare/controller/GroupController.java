@@ -20,33 +20,36 @@ public class GroupController {
     }
 
 
-
-    @Operation(summary="create a new group")
+    @Operation(summary = "create a new group")
     @PostMapping
-    public ResponseEntity<GroupDto> createGroup (@RequestBody GroupDto groupDto){
-
-        System.out.println("GroupDto From Controller:" + groupDto);
-        try{
+    public ResponseEntity<GroupDto> createGroup(@RequestBody GroupDto groupDto) {
+        try {
             return new ResponseEntity<>(groupService.create(groupDto), HttpStatus.CREATED);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
+//good
+//    @Operation(summary="update the group")
+//    @PutMapping("{id}")
+//    public ResponseEntity<GroupDto> updateGroup(@PathVariable("id") long id, @RequestBody GroupDto groupDto) {
+//        Optional<GroupDto> existingGroupDto = groupService.getbyId(id);  //here we are loosing membersIds from dto
+//
+//        if (existingGroupDto.isPresent()) {
+//            GroupDto groupDto_ = existingGroupDto.get();
+//            groupDto_.setMemberIds(groupDto.getMemberIds());
+//            return new ResponseEntity<>(groupService.create(groupDto_), HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 
-    @Operation(summary="update the group")
     @PutMapping("{id}")
     public ResponseEntity<GroupDto> updateGroup(@PathVariable("id") long id, @RequestBody GroupDto groupDto) {
-        Optional<GroupDto> existingGroupDto = groupService.getbyId(id);  //here we are loosing membersIds from dto
+            return new ResponseEntity<>(groupService.update(id, groupDto),HttpStatus.OK);
+}
 
-        if (existingGroupDto.isPresent()) {
-            GroupDto groupDto_ = existingGroupDto.get();
-            groupDto_.setMemberIds(groupDto.getMemberIds());
-            return new ResponseEntity<>(groupService.create(groupDto_), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 
 }
