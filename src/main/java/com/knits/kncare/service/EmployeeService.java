@@ -20,6 +20,8 @@ import java.util.Optional;
 @Service
 public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
 
+    private final String emsSearchUrl = "/employees/search";
+
     @Autowired
     private WebClient webClient;
 
@@ -48,11 +50,11 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
         repository.deleteAll();
     }
 
-    public Page<EmployeeDto> searchByFields(EmployeeSearch employeeSearch, Pageable pageable) {
+    public Page<EmployeeDto> search(EmployeeSearch employeeSearch, Pageable pageable) {
 
         EmployeePage employeePage = webClient
                 .post()
-                .uri("/employees/search")
+                .uri(emsSearchUrl)
                 .body(Mono.just(employeeSearch), EmployeeSearch.class)
                 .retrieve()
                 .bodyToMono(EmployeePage.class)

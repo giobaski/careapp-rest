@@ -41,7 +41,7 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
         repository.deleteAll();
     }
 
-    public Page<MemberDto> searchMember(MemberSearch memberSearch) {
+    public Page<MemberDto> search(MemberSearch memberSearch) {
 
         List<Member> members = repository.findByAreaOfResponsibility(memberSearch);
 

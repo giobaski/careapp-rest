@@ -4,16 +4,12 @@ import com.knits.kncare.dto.EmployeeDto;
 import com.knits.kncare.dto.EmployeeSearch;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.service.EmployeeService;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-import java.util.List;
 
 import java.util.Optional;
 
@@ -44,7 +40,7 @@ public class EmployeeController{
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Employee> updateUser(@PathVariable("id") long id, @RequestBody Employee employee) {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, @RequestBody Employee employee) {
         Optional<Employee> employeeData = service.getById(id);
 
         if (employeeData.isPresent()) {
@@ -79,7 +75,7 @@ public class EmployeeController{
 //    @JsonView(Views.Public.class)
     public ResponseEntity<Page<EmployeeDto>> searchEmployees(EmployeeSearch employeeSearch, Pageable pageable) {
         try {
-            return new ResponseEntity<>(service.searchByFields(employeeSearch, pageable), HttpStatus.OK);
+            return new ResponseEntity<>(service.search(employeeSearch, pageable), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
