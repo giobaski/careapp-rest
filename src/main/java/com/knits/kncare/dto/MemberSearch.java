@@ -14,12 +14,12 @@ public class MemberSearch {
 
     private String internationalName;
 
-    private String nationality;
+    private Long nationality;
 
-    private String businessUnit;
+    private Long businessUnit;
 
-    private String managementGroup;
+    private Long managementGroup;
 
-    private CostCenter costCenter;
+    private Long costCenter;
 
 }

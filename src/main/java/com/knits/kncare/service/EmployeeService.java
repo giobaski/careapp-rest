@@ -9,8 +9,10 @@ import com.knits.kncare.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,19 +48,26 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
         repository.deleteAll();
     }
 
-    public Page<EmployeeDto> searchByFields(EmployeeSearch employeeSearch) {
-//        Specification<Employee> spec = super.getSpecification();
-//        Employee employee = new Employee();
-//        return toDtoPage(repository.findAll(employeeSearch.search(spec, employeeSearch),employee.getPageable()));
+    public Page<EmployeeDto> searchByFields(EmployeeSearch employeeSearch, Pageable pageable) {
 
         EmployeePage employeePage = webClient
-                .get()
-                .uri("/employees")
+                .post()
+                .uri("/employees/search")
+                .body(Mono.just(employeeSearch), EmployeeSearch.class)
                 .retrieve()
                 .bodyToMono(EmployeePage.class)
                 .block();
 
-        return employeePage != null ? new PageImpl<>(employeePage.getContent()) : null;
+        assert employeePage != null;
+        for (EmployeeDto employeeDto:employeePage.getContent()
+             ) {
+            Employee employee = repository.findByPdmId(employeeDto.getPdmId());
+            if (employee==null){
+                repository.save(toModel(employeeDto));
+            }
+        }
+
+        return new PageImpl<>(employeePage.getContent(), pageable, employeePage.getContent().size());
     }
 
 
