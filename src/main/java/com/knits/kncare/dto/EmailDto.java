@@ -9,6 +9,7 @@ import lombok.*;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 //@EqualsAndHashCode(callSuper = true)
@@ -36,6 +37,10 @@ public class EmailDto extends AbstractSearchableDto<Email> {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<Group> recipientGroups;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
     @Override
     public Specification<Email> getSpecification() {
