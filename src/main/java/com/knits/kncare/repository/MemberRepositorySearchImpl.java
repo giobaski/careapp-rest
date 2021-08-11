@@ -16,7 +16,7 @@ import java.util.List;
 public class MemberRepositorySearchImpl implements MemberRepositorySearch {
 
     private final String EMPLOYEE = "employee";
-    private final String NAME = "name";
+    private final String ID = "id";
     private final String INTERNATIONAL_NAME = "internationalName";
     private final String NATIONALITY = "nationality";
     private final String BUSINESS_UNIT = "businessUnit";
@@ -37,16 +37,16 @@ public class MemberRepositorySearchImpl implements MemberRepositorySearch {
             predicates.add(builder.like(member.get(EMPLOYEE).get(INTERNATIONAL_NAME), "%" + memberSearch.getInternationalName() + "%"));
         }
         if (memberSearch.getNationality() != null) {
-            predicates.add(builder.like(member.get(EMPLOYEE).get(NATIONALITY).get(NAME), "%" + memberSearch.getNationality() + "%"));
+            predicates.add(builder.equal(member.get(EMPLOYEE).get(NATIONALITY).get(ID), memberSearch.getNationality()));
         }
         if (memberSearch.getBusinessUnit()!= null) {
-            predicates.add(builder.like(member.get(EMPLOYEE).get(BUSINESS_UNIT).get(NAME), "%" + memberSearch.getBusinessUnit() + "%"));
+            predicates.add(builder.equal(member.get(EMPLOYEE).get(BUSINESS_UNIT).get(ID), memberSearch.getBusinessUnit()));
         }
         if (memberSearch.getManagementGroup() != null) {
-            predicates.add(builder.like(member.get(EMPLOYEE).get(MANAGEMENT_GROUP).get(NAME), "%" + memberSearch.getManagementGroup()+ "%"));
+            predicates.add(builder.equal(member.get(EMPLOYEE).get(MANAGEMENT_GROUP).get(ID), memberSearch.getManagementGroup()));
         }
         if (memberSearch.getCostCenter()!= null) {
-            predicates.add(builder.like(member.get(EMPLOYEE).get(COST_CENTER).get(NAME), "%" + memberSearch.getCostCenter()+ "%"));
+            predicates.add(builder.equal(member.get(EMPLOYEE).get(COST_CENTER).get(ID), memberSearch.getCostCenter()));
         }
         query.where(predicates.toArray(new Predicate[0]));
 

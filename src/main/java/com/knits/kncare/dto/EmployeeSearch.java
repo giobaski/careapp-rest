@@ -15,45 +15,43 @@ import org.springframework.data.jpa.domain.Specification;
 @AllArgsConstructor
 @Builder
 public class EmployeeSearch {
-    private String firstName;
-
-    private String lastName;
 
     private String internationalName;
 
     private String title;
 
-    private Country nationality;
+    private Long country;
 
-    private BusinessUnit businessUnit;
+    private Long businessUnit;
 
-    private ManagementGroup managementGroup;
+    private Long managementGroup;
 
-    private WorkingPosition workingPosition;
+    private Long workingPosition;
 
-    private Office office;
+    private Long costCenter;
 
-    public Specification<Employee> search(Specification<Employee> spec, EmployeeSearch employeeSearch) {
-        if (Strings.isNotBlank(employeeSearch.getFirstName())){
-            spec = spec.and(Specifications.specLike("firstName", "%" + employeeSearch.getFirstName() + "%")) ;
-        }
-        if (Strings.isNotBlank(employeeSearch.getLastName())){
-            spec = spec.and(Specifications.specLike("lastName", "%" + employeeSearch.getLastName() + "%")) ;
-        }
-        if (Strings.isNotBlank(employeeSearch.getInternationalName())){
-            spec = spec.and(Specifications.specLike("internationalName", "%" + employeeSearch.getInternationalName() + "%")) ;
-        }
-        if (Strings.isNotBlank(employeeSearch.getTitle())){
-            spec = spec.and(Specifications.specLike("title", "%" + employeeSearch.getTitle() + "%")) ;
-        }
-        if (employeeSearch.getNationality() != null){
-            spec = spec.and(Specifications.specEquals("nationality", employeeSearch.getNationality().getId()));
-        }
-        if (employeeSearch.getBusinessUnit() != null){
-            spec = spec.and(Specifications.specEquals("businessUnit", employeeSearch.getBusinessUnit().getId()));
-        }
 
-        return spec;
-    }
+//    public Specification<Employee> search(Specification<Employee> spec, EmployeeSearch employeeSearch) {
+//        if (Strings.isNotBlank(employeeSearch.getFirstName())){
+//            spec = spec.and(Specifications.specLike("firstName", "%" + employeeSearch.getFirstName() + "%")) ;
+//        }
+//        if (Strings.isNotBlank(employeeSearch.getLastName())){
+//            spec = spec.and(Specifications.specLike("lastName", "%" + employeeSearch.getLastName() + "%")) ;
+//        }
+//        if (Strings.isNotBlank(employeeSearch.getInternationalName())){
+//            spec = spec.and(Specifications.specLike("internationalName", "%" + employeeSearch.getInternationalName() + "%")) ;
+//        }
+//        if (Strings.isNotBlank(employeeSearch.getTitle())){
+//            spec = spec.and(Specifications.specLike("title", "%" + employeeSearch.getTitle() + "%")) ;
+//        }
+//        if (employeeSearch.getNationality() != null){
+//            spec = spec.and(Specifications.specEquals("nationality", employeeSearch.getNationality().getId()));
+//        }
+//        if (employeeSearch.getBusinessUnit() != null){
+//            spec = spec.and(Specifications.specEquals("businessUnit", employeeSearch.getBusinessUnit().getId()));
+//        }
+//
+//        return spec;
+//    }
 
 }

@@ -9,6 +9,7 @@ import com.knits.kncare.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -47,14 +48,11 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
         repository.deleteAll();
     }
 
-    public Page<EmployeeDto> searchByFields(EmployeeSearch employeeSearch) {
-//        Specification<Employee> spec = super.getSpecification();
-//        Employee employee = new Employee();
-//        return toDtoPage(repository.findAll(employeeSearch.search(spec, employeeSearch),employee.getPageable()));
+    public Page<EmployeeDto> searchByFields(EmployeeSearch employeeSearch, Pageable pageable) {
 
         EmployeePage employeePage = webClient
                 .post()
-                .uri("/employees")
+                .uri("/employees/search")
                 .body(Mono.just(employeeSearch), EmployeeSearch.class)
                 .retrieve()
                 .bodyToMono(EmployeePage.class)
@@ -69,7 +67,7 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
             }
         }
 
-        return new PageImpl<>(employeePage.getContent());
+        return new PageImpl<>(employeePage.getContent(), pageable, employeePage.getContent().size());
     }
 
 
