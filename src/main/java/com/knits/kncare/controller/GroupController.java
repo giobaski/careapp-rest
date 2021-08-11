@@ -38,10 +38,12 @@ public class GroupController {
     @Operation(summary="update the group")
     @PutMapping("{id}")
     public ResponseEntity<GroupDto> updateGroup(@PathVariable("id") long id, @RequestBody GroupDto groupDto) {
-        Optional<GroupDto> existingGroupDto = groupService.getbyId(id);
+        Optional<GroupDto> existingGroupDto = groupService.getbyId(id);  //here we are loosing membersIds from dto
 
         if (existingGroupDto.isPresent()) {
-            return new ResponseEntity<>(groupService.create(existingGroupDto.get()), HttpStatus.OK);
+            GroupDto groupDto_ = existingGroupDto.get();
+            groupDto_.setMemberIds(groupDto.getMemberIds());
+            return new ResponseEntity<>(groupService.create(groupDto_), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

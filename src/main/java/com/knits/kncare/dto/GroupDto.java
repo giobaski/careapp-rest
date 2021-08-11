@@ -6,7 +6,9 @@ import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -26,7 +28,7 @@ public class GroupDto extends AbstractSearchableDto{
     private Set<Long> memberIds;
 
     @JsonBackReference
-    private Set<GroupMembership> groupMemberships = new HashSet<>();
+    private List<GroupMembership> groupMemberships = new ArrayList<>();
 
 
 

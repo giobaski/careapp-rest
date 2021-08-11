@@ -39,11 +39,13 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
         if(groupDto.getMemberIds() == null){
             System.out.println("creating a group without new members");
+            groupMapper.toModel(groupDto);
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
         return addMembersToGroup(groupDto);
 
     }
+
 
     public GroupDto addMembersToGroup (GroupDto groupDto){
         Group group = groupMapper.toModel(groupDto);
@@ -55,11 +57,20 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
             if (existingMember.isPresent()) {
 
                 Member member = existingMember.get();
+
+                //move this outside loop later
                 GroupMembership groupMembership = new GroupMembership(group, member);
-                group.getGroupMemberships().add(groupMembership);  //or write method addMembers() in the group model
+                boolean anyMatch = group.getGroupMemberships().stream()
+                        .anyMatch(m -> m.equals(groupMembership));
+
+                if (!anyMatch){
+                    group.getGroupMemberships().add(groupMembership);
+
+                }
+
             }
         }
-        return groupMapper.toDto(groupRepository.save(group));
+        return groupMapper.toDto(groupRepository.save(group));  //merging error
     }
 
 
