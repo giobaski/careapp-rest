@@ -1,7 +1,6 @@
 package com.knits.kncare.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.model.Email;
 import com.knits.kncare.model.Group;
 import com.knits.kncare.utils.Specifications;
@@ -11,30 +10,30 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Set;
 
-//@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class EmailDto extends AbstractSearchableDto<Email> {
 
+    @JsonView(Views.Public.class)
     private Long id;
 
+    @JsonView(Views.Public.class)
     private String subject;
 
+    @JsonView(Views.Public.class)
     private String content;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonView(Views.Internal.class)
     private MemberDto createdBy;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JsonView(Views.Public.class)
     private Set<MemberDto> recipients;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JsonView(Views.Public.class)
     private Set<Group> recipientGroups;
 
     @Override
@@ -48,4 +47,6 @@ public class EmailDto extends AbstractSearchableDto<Email> {
         }
         return spec;
     }
+
+
 }

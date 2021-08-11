@@ -30,7 +30,7 @@ public class Email extends AbstractMemberAuditableEntity {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "email_recipient",
             joinColumns = {@JoinColumn(name = "email")},
@@ -52,5 +52,13 @@ public class Email extends AbstractMemberAuditableEntity {
 
     public boolean removeRecipient(Member member) {
         return recipients.remove(member);
+    }
+
+    public boolean addGroup(Group group) {
+        return recipientGroups.add(group);
+    }
+
+    public boolean removeGroup(Group group) {
+        return recipientGroups.remove(group);
     }
 }

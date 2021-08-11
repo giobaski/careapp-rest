@@ -1,7 +1,8 @@
 package com.knits.kncare.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.dto.EmailDto;
-import com.knits.kncare.model.Email;
+import com.knits.kncare.dto.Views;
 import com.knits.kncare.service.EmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Page;
@@ -24,13 +25,15 @@ public class EmailController {
 
     @Operation(summary="find an Email by id")
     @GetMapping("{id}")
-    public ResponseEntity<Email> getEmailById(@PathVariable("id") long id) {
-        Optional<Email> EmailData = service.getById(id);
+    @JsonView(Views.Public.class)
+    public ResponseEntity<EmailDto> getEmailById(@PathVariable("id") long id) {
+        Optional<EmailDto> EmailData = service.getById(id);
         return EmailData.map(Email -> new ResponseEntity<>(Email, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Operation(summary="create an Email")
     @PostMapping
+    @JsonView(Views.Public.class)
     public ResponseEntity<EmailDto> createEmail(@RequestBody EmailDto emailDto) {
         try {
             return new ResponseEntity<>(service.addNew(emailDto), HttpStatus.CREATED);
@@ -41,6 +44,7 @@ public class EmailController {
 
     @Operation(summary="update an Email")
     @PutMapping("{id}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<EmailDto> updateEmail(@PathVariable("id") long id, @RequestBody EmailDto email) {
         return new ResponseEntity<>(service.update(id, email), HttpStatus.OK);
     }
@@ -58,28 +62,52 @@ public class EmailController {
 
     @Operation(summary="find Emails by one of its model fields")
     @GetMapping
-//    @JsonView(Views.Public.class)
-    public Page<EmailDto> searchEmails(EmailDto EmailDto) {
-        return service.search(EmailDto);
-    }
+    @JsonView(Views.Public.class)
+    public ResponseEntity<Page<EmailDto>> searchEmails(EmailDto EmailDto) {
 
-    @DeleteMapping("/{id}/recipients/{memberId}")
-    public ResponseEntity<HttpStatus> deleteRecipient(@PathVariable long id, @PathVariable List<Long> memberId) {
-        try {
-            service.deleteRecipient(id, memberId);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        Page<EmailDto> search = service.search(EmailDto);
+        System.out.println(search);
+        return new ResponseEntity<>(search, HttpStatus.OK);
     }
 
     @PostMapping("/{id}/recipients/{memberId}")
-    public ResponseEntity<HttpStatus> addRecipient(@PathVariable long id, @PathVariable List<Long> memberId) {
+    public ResponseEntity<HttpStatus> addRecipients(@PathVariable long id, @PathVariable List<Long> memberId) {
         try {
-            service.addRecipient(id, memberId);
+            service.addRecipients(id, memberId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/{id}/recipients/{memberId}")
+    public ResponseEntity<HttpStatus> deleteRecipients(@PathVariable long id, @PathVariable List<Long> memberId) {
+        try {
+            service.deleteRecipients(id, memberId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/{id}/groups/{groupIds}")
+    public ResponseEntity<HttpStatus> addGroups(@PathVariable long id, @PathVariable List<Long> groupIds) {
+        try {
+            service.addGroups(id, groupIds);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{id}/groups/{groupIds}")
+    public ResponseEntity<HttpStatus> deleteGroups(@PathVariable long id, @PathVariable List<Long> groupIds) {
+        try {
+            service.deleteGroups(id, groupIds);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

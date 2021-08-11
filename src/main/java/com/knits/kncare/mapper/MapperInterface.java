@@ -10,17 +10,11 @@ public interface MapperInterface<MDL, DTO> {
     MapperInterface INSTANCE = null;
 
 
-    default DTO toDto(MDL model) {
-        return null;
-    }
+    DTO toDto(MDL model);
 
-    default MDL toModel(DTO dto) {
-        return null;
-    }
+    MDL toModel(DTO dto);
 
     @IterableMapping
-    default List<DTO> toDtoList(List<MDL> dtoList) {
-        return null;
-    }
+    List<DTO> toDtoList(List<MDL> dtoList);
 
 }

@@ -1,6 +1,5 @@
 package com.knits.kncare.mapper;
 
-import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.model.Member;
 import org.mapstruct.IterableMapping;
@@ -9,14 +8,16 @@ import org.mapstruct.NullValueMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
  * For all the available features and annotations see:
  * https://mapstruct.org/documentation/stable/reference/html/
  */
-@Mapper(componentModel="spring")
-public interface MemberMapper extends MapperInterface<Member, MemberDto> {
+@Mapper(componentModel="spring", disableSubMappingMethodsGeneration = true)
+
+public interface MemberMapper extends CycleAvoidingMapperInterface<Member, MemberDto> {
 
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
@@ -30,5 +31,7 @@ public interface MemberMapper extends MapperInterface<Member, MemberDto> {
 
     @Override
     List<MemberDto> toDtoList(List<Member> models);
+
+    Set<MemberDto> toDtoSet(Set<Member> models);
 
 }
