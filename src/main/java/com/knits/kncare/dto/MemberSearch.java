@@ -16,6 +16,8 @@ public class MemberSearch {
 
     private Long nationality;
 
+    private Long country;
+
     private Long businessUnit;
 
     private Long managementGroup;

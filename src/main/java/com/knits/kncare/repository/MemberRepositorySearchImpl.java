@@ -2,6 +2,7 @@ package com.knits.kncare.repository;
 
 import com.knits.kncare.dto.MemberSearch;
 import com.knits.kncare.model.Member;
+import com.knits.kncare.model.ems.Office;
 
 
 import javax.persistence.EntityManager;
@@ -19,6 +20,7 @@ public class MemberRepositorySearchImpl implements MemberRepositorySearch {
     private final String ID = "id";
     private final String INTERNATIONAL_NAME = "internationalName";
     private final String NATIONALITY = "nationality";
+    private final String OFFICE = "office";
     private final String BUSINESS_UNIT = "businessUnit";
     private final String MANAGEMENT_GROUP = "managementGroup";
     private final String COST_CENTER = "costCenter";
@@ -38,6 +40,9 @@ public class MemberRepositorySearchImpl implements MemberRepositorySearch {
         }
         if (memberSearch.getNationality() != null) {
             predicates.add(builder.equal(member.get(EMPLOYEE).get(NATIONALITY).get(ID), memberSearch.getNationality()));
+        }
+        if (memberSearch.getCountry() != null) {
+            predicates.add(builder.equal(member.get(EMPLOYEE).get(OFFICE).get(ID), memberSearch.getCountry()));
         }
         if (memberSearch.getBusinessUnit()!= null) {
             predicates.add(builder.equal(member.get(EMPLOYEE).get(BUSINESS_UNIT).get(ID), memberSearch.getBusinessUnit()));
