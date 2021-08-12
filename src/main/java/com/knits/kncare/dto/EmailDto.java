@@ -18,22 +18,22 @@ import java.util.Set;
 @Builder
 public class EmailDto extends AbstractSearchableDto<Email> {
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EntityData.class)
     private Long id;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EntityData.class)
     private String subject;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EntityData.class)
     private String content;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.EmailDetails.class)
     private MemberDto createdBy;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EmailDetails.class)
     private Set<MemberDto> recipients;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EmailDetails.class)
     private Set<Group> recipientGroups;
 
     @Override

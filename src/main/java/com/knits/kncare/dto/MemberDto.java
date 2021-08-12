@@ -16,43 +16,43 @@ import java.util.Set;
 @Builder
 public class MemberDto extends AbstractSearchableDto<Member> {
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EntityData.class)
     private Long id;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EntityData.class)
     private LocalDateTime onBoardDate;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EntityData.class)
     private LocalDateTime offBoardDate;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EntityData.class)
     private Employee employee;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EntityData.class)
     private Role role;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.MemberDetails.class)
     private Set<Practice> practices;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.MemberDetails.class)
     private Set<EmailDto> emails;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.MemberDetails.class)
     private Set<EmailTemplate> emailTemplates;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.MemberDetails.class)
     private Set<Notification> notifications;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.MemberDetails.class)
     private Set<GroupMembership> groupMemberships;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.MemberDetails.class)
     private Set<LearningSubscription> memberTrainingPaths;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.MemberDetails.class)
     private Set<ScheduledTraining> memberTrainings;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.MemberDetails.class)
     private Set<RoleHistoryRecord> businessUnitHistoryRecords;
 
 

@@ -25,7 +25,7 @@ public class EmailController {
 
     @Operation(summary="find an Email by id")
     @GetMapping("{id}")
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EmailDetails.class)
     public ResponseEntity<EmailDto> getEmailById(@PathVariable("id") long id) {
         Optional<EmailDto> EmailData = service.getById(id);
         return EmailData.map(Email -> new ResponseEntity<>(Email, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -33,7 +33,7 @@ public class EmailController {
 
     @Operation(summary="create an Email")
     @PostMapping
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EmailDetails.class)
     public ResponseEntity<EmailDto> createEmail(@RequestBody EmailDto emailDto) {
         try {
             return new ResponseEntity<>(service.addNew(emailDto), HttpStatus.CREATED);
@@ -44,7 +44,7 @@ public class EmailController {
 
     @Operation(summary="update an Email")
     @PutMapping("{id}")
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EmailDetails.class)
     public ResponseEntity<EmailDto> updateEmail(@PathVariable("id") long id, @RequestBody EmailDto email) {
         return new ResponseEntity<>(service.update(id, email), HttpStatus.OK);
     }
@@ -62,7 +62,7 @@ public class EmailController {
 
     @Operation(summary="find Emails by one of its model fields")
     @GetMapping
-    @JsonView(Views.Public.class)
+    @JsonView(Views.EmailDetails.class)
     public ResponseEntity<Page<EmailDto>> searchEmails(EmailDto EmailDto) {
 
         Page<EmailDto> search = service.search(EmailDto);

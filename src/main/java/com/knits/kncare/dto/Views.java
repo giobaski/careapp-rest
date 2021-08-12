@@ -1,9 +1,8 @@
 package com.knits.kncare.dto;
 
 public class Views {
-    public static class Public {
-    }
+    public interface EntityData {}
 
-    public static class Internal extends Public {
-    }
+    public interface MemberDetails extends EntityData {}
+    public interface EmailDetails extends EntityData {}
 }
