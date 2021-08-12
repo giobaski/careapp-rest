@@ -86,3 +86,189 @@
 2021-08-12 07:45:14,513 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4h47m19s977ms).
 2021-08-12 08:57:49,571 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h12m4s986ms).
 2021-08-12 09:05:15,047 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m25s424ms).
+2021-08-12 10:40:03,477 INFO org.springframework.boot.StartupInfoLogger [main] Starting KnCareApplication using Java 11.0.8 on MacBook-Air.local with PID 11230 (/Users/baski/kuehneNagel/dev/KnCare-Rest/target/classes started by baski in /Users/baski/kuehneNagel/dev/KnCare-Rest)
+2021-08-12 10:40:03,490 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.3, Spring v5.3.9
+2021-08-12 10:40:03,491 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-12 10:40:05,948 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-12 10:40:06,184 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 206 ms. Found 3 JPA repository interfaces.
+2021-08-12 10:40:08,098 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-08-12 10:40:08,122 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-08-12 10:40:08,123 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-08-12 10:40:08,123 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-12 10:40:08,343 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-08-12 10:40:08,343 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 4574 ms
+2021-08-12 10:40:08,556 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2021-08-12 10:40:08,737 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2021-08-12 10:40:10,164 INFO liquibase.logging.core.JavaLogger [main] Successfully acquired change log lock
+2021-08-12 10:40:11,304 INFO liquibase.logging.core.JavaLogger [main] Reading from public.databasechangelog
+2021-08-12 10:40:11,712 INFO liquibase.logging.core.JavaLogger [main] Successfully released change log lock
+2021-08-12 10:40:11,720 INFO liquibase.logging.core.JavaLogger [main] Successfully acquired change log lock
+2021-08-12 10:40:11,721 WARN liquibase.logging.core.JavaLogger [main] Skipping auto-registration
+2021-08-12 10:40:11,751 INFO liquibase.logging.core.JavaLogger [main] Successfully released change log lock
+2021-08-12 10:40:11,756 WARN org.springframework.context.support.AbstractApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.LiquibaseException: liquibase.exception.MigrationFailedException: Migration failed for change set liquibase/changelogs/00000000000000_initial_schema.xml::1628525065870-1::stefano.fiorenza (generated):
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "business_unit" already exists [Failed SQL: (0) CREATE TABLE public.business_unit (id BIGINT NOT NULL, created_at TIMESTAMP WITHOUT TIME ZONE, description VARCHAR(255), name VARCHAR(255), updated_at TIMESTAMP WITHOUT TIME ZONE, CONSTRAINT business_unit_pkey PRIMARY KEY (id))]
+2021-08-12 10:40:11,756 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Shutdown initiated...
+2021-08-12 10:40:11,786 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Shutdown completed.
+2021-08-12 10:40:11,791 INFO org.apache.juli.logging.DirectJDKLog [main] Stopping service [Tomcat]
+2021-08-12 10:40:11,812 INFO org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener [main] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-08-12 10:40:11,879 ERROR org.springframework.boot.SpringApplication [main] Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.LiquibaseException: liquibase.exception.MigrationFailedException: Migration failed for change set liquibase/changelogs/00000000000000_initial_schema.xml::1628525065870-1::stefano.fiorenza (generated):
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "business_unit" already exists [Failed SQL: (0) CREATE TABLE public.business_unit (id BIGINT NOT NULL, created_at TIMESTAMP WITHOUT TIME ZONE, description VARCHAR(255), name VARCHAR(255), updated_at TIMESTAMP WITHOUT TIME ZONE, CONSTRAINT business_unit_pkey PRIMARY KEY (id))]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332)
+	at com.knits.kncare.KnCareApplication.main(KnCareApplication.java:14)
+Caused by: liquibase.exception.LiquibaseException: liquibase.exception.MigrationFailedException: Migration failed for change set liquibase/changelogs/00000000000000_initial_schema.xml::1628525065870-1::stefano.fiorenza (generated):
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "business_unit" already exists [Failed SQL: (0) CREATE TABLE public.business_unit (id BIGINT NOT NULL, created_at TIMESTAMP WITHOUT TIME ZONE, description VARCHAR(255), name VARCHAR(255), updated_at TIMESTAMP WITHOUT TIME ZONE, CONSTRAINT business_unit_pkey PRIMARY KEY (id))]
+	at liquibase.changelog.ChangeLogIterator.run(ChangeLogIterator.java:124)
+	at liquibase.Liquibase.lambda$null$0(Liquibase.java:272)
+	at liquibase.Scope.lambda$child$0(Scope.java:160)
+	at liquibase.Scope.child(Scope.java:169)
+	at liquibase.Scope.child(Scope.java:159)
+	at liquibase.Scope.child(Scope.java:138)
+	at liquibase.Scope.child(Scope.java:222)
+	at liquibase.Liquibase.lambda$update$1(Liquibase.java:271)
+	at liquibase.Scope.lambda$child$0(Scope.java:160)
+	at liquibase.Scope.child(Scope.java:169)
+	at liquibase.Scope.child(Scope.java:159)
+	at liquibase.Scope.child(Scope.java:138)
+	at liquibase.Liquibase.runInScope(Liquibase.java:2369)
+	at liquibase.Liquibase.update(Liquibase.java:217)
+	at liquibase.Liquibase.update(Liquibase.java:203)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:321)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:275)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	... 18 common frames omitted
+Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set liquibase/changelogs/00000000000000_initial_schema.xml::1628525065870-1::stefano.fiorenza (generated):
+     Reason: liquibase.exception.DatabaseException: ERROR: relation "business_unit" already exists [Failed SQL: (0) CREATE TABLE public.business_unit (id BIGINT NOT NULL, created_at TIMESTAMP WITHOUT TIME ZONE, description VARCHAR(255), name VARCHAR(255), updated_at TIMESTAMP WITHOUT TIME ZONE, CONSTRAINT business_unit_pkey PRIMARY KEY (id))]
+	at liquibase.changelog.ChangeSet.execute(ChangeSet.java:672)
+	at liquibase.changelog.visitor.UpdateVisitor.visit(UpdateVisitor.java:49)
+	at liquibase.changelog.ChangeLogIterator$2.lambda$null$0(ChangeLogIterator.java:111)
+	at liquibase.Scope.lambda$child$0(Scope.java:160)
+	at liquibase.Scope.child(Scope.java:169)
+	at liquibase.Scope.child(Scope.java:159)
+	at liquibase.Scope.child(Scope.java:138)
+	at liquibase.changelog.ChangeLogIterator$2.lambda$run$1(ChangeLogIterator.java:110)
+	at liquibase.Scope.lambda$child$0(Scope.java:160)
+	at liquibase.Scope.child(Scope.java:169)
+	at liquibase.Scope.child(Scope.java:159)
+	at liquibase.Scope.child(Scope.java:138)
+	at liquibase.Scope.child(Scope.java:222)
+	at liquibase.changelog.ChangeLogIterator$2.run(ChangeLogIterator.java:94)
+	at liquibase.Scope.lambda$child$0(Scope.java:160)
+	at liquibase.Scope.child(Scope.java:169)
+	at liquibase.Scope.child(Scope.java:159)
+	at liquibase.Scope.child(Scope.java:138)
+	at liquibase.Scope.child(Scope.java:222)
+	at liquibase.Scope.child(Scope.java:226)
+	at liquibase.changelog.ChangeLogIterator.run(ChangeLogIterator.java:66)
+	... 36 common frames omitted
+Caused by: liquibase.exception.DatabaseException: ERROR: relation "business_unit" already exists [Failed SQL: (0) CREATE TABLE public.business_unit (id BIGINT NOT NULL, created_at TIMESTAMP WITHOUT TIME ZONE, description VARCHAR(255), name VARCHAR(255), updated_at TIMESTAMP WITHOUT TIME ZONE, CONSTRAINT business_unit_pkey PRIMARY KEY (id))]
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:393)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:82)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:150)
+	at liquibase.database.AbstractJdbcDatabase.execute(AbstractJdbcDatabase.java:1278)
+	at liquibase.database.AbstractJdbcDatabase.executeStatements(AbstractJdbcDatabase.java:1260)
+	at liquibase.changelog.ChangeSet.execute(ChangeSet.java:637)
+	... 56 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "business_unit" already exists
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2552)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2284)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:322)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:481)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:401)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:322)
+	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:308)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:284)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:279)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:389)
+	... 61 common frames omitted
+2021-08-12 10:42:53,191 INFO org.springframework.boot.StartupInfoLogger [main] Starting KnCareApplication using Java 11.0.8 on MacBook-Air.local with PID 11379 (/Users/baski/kuehneNagel/dev/KnCare-Rest/target/classes started by baski in /Users/baski/kuehneNagel/dev/KnCare-Rest)
+2021-08-12 10:42:53,204 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.3, Spring v5.3.9
+2021-08-12 10:42:53,205 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-12 10:42:55,096 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-12 10:42:55,229 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 108 ms. Found 3 JPA repository interfaces.
+2021-08-12 10:42:56,110 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-08-12 10:42:56,131 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-08-12 10:42:56,132 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-08-12 10:42:56,132 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-12 10:42:56,287 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-08-12 10:42:56,288 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2873 ms
+2021-08-12 10:42:56,488 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2021-08-12 10:42:56,680 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2021-08-12 10:42:57,253 INFO liquibase.logging.core.JavaLogger [main] Successfully acquired change log lock
+2021-08-12 10:42:57,863 INFO liquibase.logging.core.JavaLogger [main] Reading from public.databasechangelog
+2021-08-12 10:42:57,971 INFO liquibase.logging.core.JavaLogger [main] Successfully released change log lock
+2021-08-12 10:42:57,979 INFO liquibase.logging.core.JavaLogger [main] Successfully acquired change log lock
+2021-08-12 10:42:57,980 WARN liquibase.logging.core.JavaLogger [main] Skipping auto-registration
+2021-08-12 10:42:58,133 INFO liquibase.logging.core.JavaLogger [main] Table test-table-to-remove created
+2021-08-12 10:42:58,139 INFO liquibase.logging.core.JavaLogger [main] ChangeSet liquibase/changelogs/20210809155607-KNC-15-01-Demo.xml::20210809155607-KNC-15-01-01::stefano.fiorenza (generated) ran successfully in 153ms
+2021-08-12 10:42:58,180 INFO liquibase.logging.core.JavaLogger [main] Table test-table-to-remove2 created
+2021-08-12 10:42:58,184 INFO liquibase.logging.core.JavaLogger [main] ChangeSet liquibase/changelogs/20210809155607-KNC-15-01-Demo.xml::20210809155607-KNC-15-01-02::stefano.fiorenza (generated) ran successfully in 22ms
+2021-08-12 10:42:58,213 INFO liquibase.logging.core.JavaLogger [main] Table test-table-to-remove dropped
+2021-08-12 10:42:58,217 INFO liquibase.logging.core.JavaLogger [main] ChangeSet liquibase/changelogs/20210809155612-KNC-15-02-Demo.xml::20210809155612-KNC-15-02-01::stefano.fiorenza (generated) ran successfully in 29ms
+2021-08-12 10:42:58,223 INFO liquibase.logging.core.JavaLogger [main] Table test-table-to-remove2 dropped
+2021-08-12 10:42:58,225 INFO liquibase.logging.core.JavaLogger [main] ChangeSet liquibase/changelogs/20210809155612-KNC-15-02-Demo.xml::20210809155612-KNC-15-02-02::stefano.fiorenza (generated) ran successfully in 4ms
+2021-08-12 10:42:58,232 INFO liquibase.logging.core.JavaLogger [main] Successfully released change log lock
+2021-08-12 10:42:58,513 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-12 10:42:58,655 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-12 10:42:59,122 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-12 10:42:59,408 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2021-08-12 10:43:01,672 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-12 10:43:01,702 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-12 10:43:03,088 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-12 10:43:04,581 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-08-12 10:43:04,607 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-08-12 10:43:04,634 INFO org.springframework.boot.StartupInfoLogger [main] Started KnCareApplication in 12.924 seconds (JVM running for 15.278)
+2021-08-12 10:46:13,718 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-12 10:46:13,827 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-08-12 10:46:13,882 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2021-08-12 10:48:07,637 INFO org.springframework.boot.StartupInfoLogger [main] Starting KnCareApplication using Java 11.0.8 on MacBook-Air.local with PID 11742 (/Users/baski/kuehneNagel/dev/KnCare-Rest/target/classes started by baski in /Users/baski/kuehneNagel/dev/KnCare-Rest)
+2021-08-12 10:48:07,649 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.3, Spring v5.3.9
+2021-08-12 10:48:07,650 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-12 10:48:10,072 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-12 10:48:10,255 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 154 ms. Found 3 JPA repository interfaces.
+2021-08-12 10:48:11,486 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-08-12 10:48:11,504 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-08-12 10:48:11,505 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-08-12 10:48:11,506 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-12 10:48:11,662 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-08-12 10:48:11,663 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 3842 ms
+2021-08-12 10:48:11,869 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2021-08-12 10:48:12,024 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2021-08-12 10:48:12,571 INFO liquibase.logging.core.JavaLogger [main] Successfully acquired change log lock
+2021-08-12 10:48:13,164 INFO liquibase.logging.core.JavaLogger [main] Reading from public.databasechangelog
+2021-08-12 10:48:13,222 INFO liquibase.logging.core.JavaLogger [main] Successfully released change log lock
+2021-08-12 10:48:13,228 INFO liquibase.logging.core.JavaLogger [main] Successfully acquired change log lock
+2021-08-12 10:48:13,229 WARN liquibase.logging.core.JavaLogger [main] Skipping auto-registration
+2021-08-12 10:48:13,236 INFO liquibase.logging.core.JavaLogger [main] Successfully released change log lock
+2021-08-12 10:48:13,473 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-12 10:48:13,585 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-12 10:48:14,039 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-12 10:48:14,232 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2021-08-12 10:48:16,074 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-12 10:48:16,097 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-12 10:48:17,359 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-08-12 10:48:18,812 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-08-12 10:48:18,835 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-08-12 10:48:18,859 INFO org.springframework.boot.StartupInfoLogger [main] Started KnCareApplication in 12.786 seconds (JVM running for 15.566)
