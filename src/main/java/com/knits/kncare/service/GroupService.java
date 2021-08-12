@@ -36,22 +36,32 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     }
 
 
-    //
+
     public GroupDto create(GroupDto groupDto) {
 
         if(groupDto.getMemberIds() == null){
             System.out.println("creating a group without new members");
-            groupMapper.toModel(groupDto);
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
-        return addMembersToGroup(groupDto); //creating a group with new members
+        Group group = groupMapper.toModel(groupDto);
+//        group.setMemberIds(groupDto.getMemberIds());
+        return addMembersToGroup(group); //creating a group with new members
     }
 
 
-    //re-write
-    public GroupDto addMembersToGroup (GroupDto groupDto){
-        Group group = groupMapper.toModel(groupDto);
-        List<Long> membersId = groupDto.getMemberIds();
+    public GroupDto update (Long id, GroupDto groupDto){
+
+        Group group = groupRepository.findById(id).get();  //Optional, if presents add exceptions....
+        group.setMemberIds(groupDto.getMemberIds());
+        return addMembersToGroup(group);
+    }
+
+
+    public GroupDto addMembersToGroup (Group group){
+
+        Set<GroupMembership> memberships = group.getGroupMemberships();
+        Set<Long> membersId = group.getMemberIds();
+
         for (Long id : membersId) {
 
             Optional<Member> member = memberRepository.findById(id);
@@ -60,52 +70,22 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
                 Member member_ = member.get();
 
-                //move this outside loop later?
                 GroupMembership groupMembership = new GroupMembership();
                 groupMembership.setGroup(group);
                 groupMembership.setMember(member_);
 
-                boolean anyMatch = group.getGroupMemberships().stream()
+                boolean anyMatch = memberships.stream()
                         .anyMatch(m -> m.equals(groupMembership));
-
                 if (!anyMatch){
-                    group.getGroupMemberships().add(groupMembership);
+                    memberships.add(groupMembership);
                 }
+
+//                memberships.stream()
+//                        .filter(membership -> !membership.equals(groupMembership) )
+//                        .map(memberships::add);
             }
         }
-        return groupMapper.toDto(groupRepository.save(group));  //merging error
-    }
 
-
-    //re-write
-    public GroupDto update (Long id, GroupDto groupDto){
-
-        Group group = groupRepository.findById(id).get();  //Optional, if presents add exceptions....
-        List<GroupMembership> memberships = group.getGroupMemberships();
-
-        List<Long> membersId = groupDto.getMemberIds();
-        for (Long memberId : membersId) {
-
-            Optional<Member> member = memberRepository.findById(memberId);
-
-            if (member.isPresent()) {
-
-                Member member_ = member.get();
-
-                GroupMembership groupMembership = new GroupMembership();
-                groupMembership.setGroup(group);
-                groupMembership.setMember(member_);
-
-                memberships.add(groupMembership);
-
-//                boolean anyMatch = group.getGroupMemberships().stream()
-//                        .anyMatch(m -> m.equals(groupMembership));
-//
-//                if (!anyMatch){
-//                    group.getGroupMemberships().add(groupMembership);
-//                }
-            }
-        }
         group.getGroupMemberships().addAll(memberships);
         return groupMapper.toDto(groupRepository.save(group));  //merging error
     }
@@ -119,9 +99,9 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 }
 
 
-//Json Sample:
+//Sample:
 //groups = {
-//        "name": "myFirstGroup",
-//        "description": "Group description",
-//        "memberIds": [1,2,3]
-//        }
+//          "name": "myFirstGroup",
+//          "description": "Group description",
+//          "memberIds": [1,2,3]
+//         }

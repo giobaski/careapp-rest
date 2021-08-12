@@ -28,10 +28,10 @@ public class GroupDto extends AbstractSearchableDto<Group>{
     private String description;
 
     @Transient
-    private List<Long> memberIds;
+    private Set<Long> memberIds;
 
     @JsonBackReference
-    private List<GroupMembership> groupMemberships = new ArrayList<>();
+    private Set<GroupMembership> groupMemberships = new HashSet<>();
 
 
 

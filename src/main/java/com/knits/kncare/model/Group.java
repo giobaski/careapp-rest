@@ -5,10 +5,7 @@ import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 //@Data
 @Setter
@@ -32,5 +29,30 @@ public class Group extends AbstractMemberAuditableEntity {
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<GroupMembership> groupMemberships = new ArrayList<>();
+    private Set<GroupMembership> groupMemberships = new HashSet<>();
+
+    @Transient
+    private Set<Long> memberIds;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Group)) return false;
+        Group group = (Group) o;
+        return Objects.equals(getName(), group.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
