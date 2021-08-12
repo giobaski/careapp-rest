@@ -5,4 +5,5 @@ public class Views {
 
     public interface MemberDetails extends EntityData {}
     public interface EmailDetails extends EntityData {}
+    public interface EmailSentDetails extends EntityData {}
 }
