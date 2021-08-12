@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel="spring", uses = {MemberMapper.class})
-public interface EmailMapper extends CycleAvoidingMapperInterface<Email, EmailDto> {
+public interface EmailMapper extends MapperInterface<Email, EmailDto> {
 
     @Override
     EmailDto toDto(Email model);

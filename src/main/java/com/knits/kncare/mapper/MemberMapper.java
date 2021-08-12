@@ -17,7 +17,7 @@ import java.util.Set;
  */
 @Mapper(componentModel="spring", disableSubMappingMethodsGeneration = true)
 
-public interface MemberMapper extends CycleAvoidingMapperInterface<Member, MemberDto> {
+public interface MemberMapper extends MapperInterface<Member, MemberDto> {
 
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 

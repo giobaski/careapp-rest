@@ -35,7 +35,7 @@ public class MemberDto extends AbstractSearchableDto<Member> {
     private Set<Practice> practices;
 
     @JsonView(Views.MemberDetails.class)
-    private Set<EmailDto> emails;
+    private Set<Email> emails;
 
     @JsonView(Views.MemberDetails.class)
     private Set<EmailTemplate> emailTemplates;

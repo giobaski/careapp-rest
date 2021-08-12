@@ -1,13 +1,13 @@
-INSERT INTO employee (international_name) VALUES ('Member 1');
-INSERT INTO employee (international_name) VALUES ('Member 2');
-INSERT INTO employee (international_name) VALUES ('Member 3');
-INSERT INTO employee (international_name) VALUES ('Member 4');
-INSERT INTO employee (international_name) VALUES ('Member 5');
-INSERT INTO employee (international_name) VALUES ('Member 6');
-INSERT INTO employee (international_name) VALUES ('Member 7');
-INSERT INTO employee (international_name) VALUES ('Member 8');
-INSERT INTO employee (international_name) VALUES ('Member 9');
-INSERT INTO employee (international_name) VALUES ('Member 10');
+INSERT INTO employee (international_name, email) VALUES ('Member 1', 'Email1@test.com');
+INSERT INTO employee (international_name, email) VALUES ('Member 2', 'Email2@test.com');
+INSERT INTO employee (international_name, email) VALUES ('Member 3', 'Email3@test.com');
+INSERT INTO employee (international_name, email) VALUES ('Member 4', 'Email4@test.com');
+INSERT INTO employee (international_name, email) VALUES ('Member 5', 'Email5@test.com');
+INSERT INTO employee (international_name, email) VALUES ('Member 6', 'Email6@test.com');
+INSERT INTO employee (international_name, email) VALUES ('Member 7', 'Email7@test.com');
+INSERT INTO employee (international_name, email) VALUES ('Member 8', 'Email8@test.com');
+INSERT INTO employee (international_name, email) VALUES ('Member 9', 'Email9@test.com');
+INSERT INTO employee (international_name, email) VALUES ('Member 10', 'Email10@test.com');
 
 INSERT INTO member (offboard_date, onboard_date, employee_id) VALUES ('2021-08-03 14:38:33.000000', '2021-08-03 14:38:33.000000', 1);
 INSERT INTO member (offboard_date, onboard_date, employee_id) VALUES ('2021-09-03 14:38:33.000000', '2021-08-04 14:38:33.000000', 2);
