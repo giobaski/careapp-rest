@@ -3,6 +3,7 @@ package com.knits.kncare.controller;
 import com.knits.kncare.dto.GroupDto;
 import com.knits.kncare.service.GroupService;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,26 +31,23 @@ public class GroupController {
         }
     }
 
-
-//good
-//    @Operation(summary="update the group")
-//    @PutMapping("{id}")
-//    public ResponseEntity<GroupDto> updateGroup(@PathVariable("id") long id, @RequestBody GroupDto groupDto) {
-//        Optional<GroupDto> existingGroupDto = groupService.getbyId(id);  //here we are loosing membersIds from dto
-//
-//        if (existingGroupDto.isPresent()) {
-//            GroupDto groupDto_ = existingGroupDto.get();
-//            groupDto_.setMemberIds(groupDto.getMemberIds());
-//            return new ResponseEntity<>(groupService.create(groupDto_), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
-
+    @Operation(summary = "update the existing group with new members")
     @PutMapping("{id}")
     public ResponseEntity<GroupDto> updateGroup(@PathVariable("id") long id, @RequestBody GroupDto groupDto) {
             return new ResponseEntity<>(groupService.update(id, groupDto),HttpStatus.OK);
-}
+    }
+
+//    @Operation(summary="find a Group by id")
+//    @GetMapping("{id}")
+//    public ResponseEntity<GroupDto> getEmailById(@PathVariable("id") long id) {
+//    }
+
+    @Operation(summary = "search groups by the name???")
+    @GetMapping
+    public Page<GroupDto> searchGroups (GroupDto groupDto){
+        return groupService.search(groupDto);
+
+    }
 
 
 }
