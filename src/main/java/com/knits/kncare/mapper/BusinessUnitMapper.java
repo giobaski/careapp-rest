@@ -19,17 +19,9 @@ import java.util.List;
 @Mapper(componentModel="spring")
 public interface BusinessUnitMapper extends MapperInterface<BusinessUnit, BusinessUnitDto> {
 
-    BusinessUnitMapper INSTANCE = Mappers.getMapper(BusinessUnitMapper.class);
-
-
     @Override
     @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL)
     BusinessUnitDto toDto(BusinessUnit model);
 
-    @Override
-    BusinessUnit toModel(BusinessUnitDto dto);
-
-    @Override
-    List<BusinessUnitDto> toDtoList(List<BusinessUnit> models);
 
 }

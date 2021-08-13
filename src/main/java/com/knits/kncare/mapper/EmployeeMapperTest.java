@@ -20,17 +20,9 @@ import java.util.List;
 @Mapper(componentModel="spring")
 public interface EmployeeMapperTest extends MapperInterface<Employee, EmployeeDtoTest> {
 
-    EmployeeMapperTest INSTANCE = Mappers.getMapper(EmployeeMapperTest.class);
-
-
     @Override
     @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL)
     @Mapping( target = "country", source = "office.country.name")
     EmployeeDtoTest toDto(Employee model);
-
-    @Override
-    Employee toModel(EmployeeDtoTest dto);
-
-    @Override
-    List<EmployeeDtoTest> toDtoList(List<Employee> models);
+;
 }

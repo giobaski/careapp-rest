@@ -15,12 +15,16 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class GroupService extends ServiceBase<Group, GroupDto> {
+
 
     private GroupRepository groupRepository;
     private MemberRepository memberRepository;
     private MemberMapper memberMapper;
     private GroupMapper groupMapper; //TODO: Use mapper
+    private GroupMembershipMapper groupMembershipMapper;
+
 
     public GroupService(GroupRepository groupRepository,
                         MapperInterface<Group, GroupDto> mapper,
@@ -32,45 +36,38 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.groupMapper = groupMapper;
+        this.groupMembershipMapper = groupMembershipMapper;
     }
 
 
     public GroupDto create(GroupDto groupDto) {
 
-        if(groupDto.getMemberIds() == null){
-            System.out.println("creating a group without new members");
-            groupMapper.toModel(groupDto);
+        if (CollectionUtils.isEmpty(groupDto.getMemberIds())) {
+            log.debug("creating a group without new members");
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
         return addMembersToGroup(groupDto);
 
     }
 
-
     public GroupDto addMembersToGroup (GroupDto groupDto){
         Group group = groupMapper.toModel(groupDto);
-        Set<Long> setOfNewMembersId = groupDto.getMemberIds();
-        for (Long id : setOfNewMembersId) {
+        addMembersToGroup(group, groupDto.getMemberIds());
+        groupRepository.save(group);
 
-            Optional<Member> existingMember = memberRepository.findById(id);
+        GroupDto savedGroupDto = groupMapper.toDto(group);
+        savedGroupDto.setMemberIds(groupDto.getMemberIds());
+        return savedGroupDto;
+    }
 
-            if (existingMember.isPresent()) {
+    public void addMembersToGroup(Group group, Set<Long> memberIds) {
 
-                Member member = existingMember.get();
+        List<Member> members = memberRepository.findByIds(memberIds);
 
-                //move this outside loop later
-                GroupMembership groupMembership = new GroupMembership(group, member);
-                boolean anyMatch = group.getGroupMemberships().stream()
-                        .anyMatch(m -> m.equals(groupMembership));
-
-                if (!anyMatch){
-                    group.getGroupMemberships().add(groupMembership);
-
-                }
-
-            }
+        for (Member member : members) {
+            GroupMembership groupMembership = new GroupMembership(group, member);
+            group.getGroupMemberships().add(groupMembership);
         }
-        return groupMapper.toDto(groupRepository.save(group));  //merging error
     }
 
 

@@ -5,9 +5,7 @@ import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 //@Data
@@ -30,7 +28,6 @@ public class Group extends AbstractMemberAuditableEntity {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<GroupMembership> groupMemberships = new ArrayList<>();
+    @OneToMany(mappedBy = "group", cascade = CascadeType.PERSIST)
+    private Set<GroupMembership> groupMemberships = new HashSet<>();
 }
