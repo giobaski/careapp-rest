@@ -14,6 +14,7 @@ public class GroupServiceTest {
 
 
     @Test
+    @Disabled
     @DisplayName("Should Find Group By Id")
     void shouldFindGroupById() {
     }
