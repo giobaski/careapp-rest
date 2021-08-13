@@ -2,6 +2,7 @@ package com.knits.kncare.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
 import lombok.*;

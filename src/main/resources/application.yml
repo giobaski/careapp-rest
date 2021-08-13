@@ -3,9 +3,9 @@ spring:
     name: KnCareApp
 
   datasource:
-    url: "jdbc:postgresql://localhost:5432/KNCare"
+    url: "jdbc:postgresql://localhost:5432/caredb"
     username: "postgres"
-    password: "stefan0"
+    password: "postgres"
 
   jpa:
     database: postgresql

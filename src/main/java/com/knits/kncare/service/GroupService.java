@@ -2,6 +2,7 @@ package com.knits.kncare.service;
 
 import com.knits.kncare.dto.GroupDto;
 import com.knits.kncare.mapper.GroupMapper;
+import com.knits.kncare.mapper.GroupMembershipMapper;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.mapper.MemberMapper;
 import com.knits.kncare.model.Group;
@@ -9,8 +10,11 @@ import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.GroupRepository;
 import com.knits.kncare.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
