@@ -1,9 +1,9 @@
 package com.knits.kncare.dto;
 
-public class Views {
-    public static class Public {
-    }
+public interface Views {
 
-    public static class Internal extends Public {
-    }
+    public static interface Common {}
+    public static interface GroupDetails {}
+    public static interface GroupMembership extends Common{}
+    public static interface GroupMembers extends Common{}
 }

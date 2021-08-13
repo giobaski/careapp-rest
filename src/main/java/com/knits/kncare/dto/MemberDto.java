@@ -1,8 +1,12 @@
 package com.knits.kncare.dto;
 
 import com.knits.kncare.model.GroupMembership;
+import com.knits.kncare.model.Member;
 import com.knits.kncare.model.Role;
 import lombok.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,9 +29,6 @@ public class MemberDto extends AbstractSearchableDto {
     private Role role;
 
     private Set<GroupMembership> groupMemberships;
-
-
-
 
 
 }

@@ -14,6 +14,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
     @Query("select u from Member u where u.employee.internationalName like %?1")
     List<Member> findByFirstnameEndsWith(String internationalName);
 
-    @Query( "select m from Member m where id in :ids" )
+    @Query( "select m from Member m INNER JOIN FETCH m.employee e where m.id in :ids" )
     List<Member> findByIds(@Param("ids") Set<Long> memberIds);
 }

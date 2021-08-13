@@ -18,16 +18,9 @@ import java.util.List;
 @Mapper(componentModel="spring")
 public interface RoleMapper extends MapperInterface<Role, RoleDto> {
 
-    RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
-
     @Override
     @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL)
     RoleDto toDto(Role model);
 
-    @Override
-    Role toModel(RoleDto dto);
-
-    @Override
-    List<RoleDto> toDtoList(List<Role> models);
 
 }
