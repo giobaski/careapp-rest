@@ -29,6 +29,5 @@ public class Group extends AbstractMemberAuditableEntity {
     private String description;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.PERSIST)
-    @JsonBackReference
     private Set<GroupMembership> groupMemberships = new HashSet<>();
 }

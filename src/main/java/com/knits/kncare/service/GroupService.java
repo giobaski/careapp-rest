@@ -9,12 +9,16 @@ import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.GroupRepository;
 import com.knits.kncare.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class GroupService extends ServiceBase<Group, GroupDto> {
 
     private GroupRepository groupRepository;
@@ -37,29 +41,25 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
     public GroupDto create(GroupDto groupDto) {
 
-        if(groupDto.getMemberIds() == null){
-            System.out.println("creating a group without new members");
+        if(CollectionUtils.isEmpty(groupDto.getMemberIds())){
+            log.debug("creating a group without new members");
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
-        return addMembersToGroup(groupDto);
 
+        Group group = groupMapper.toModel(groupDto);
+        addMembersToGroup(group,groupDto.getMemberIds());
+        groupRepository.save(group);
+        return groupMapper.toDto(group);
     }
 
-    public GroupDto addMembersToGroup (GroupDto groupDto){
-        Group group = groupMapper.toModel(groupDto);
-        Set<Long> setOfNewMembersId = groupDto.getMemberIds();
-        for (Long id : setOfNewMembersId) {
+    public void addMembersToGroup (Group group, Set<Long> memberIds){
 
-            Optional<Member> existingMember = memberRepository.findById(id);
+        List<Member> members =memberRepository.findByIds(memberIds);
 
-            if (existingMember.isPresent()) {
-
-                Member member = existingMember.get();
-                GroupMembership groupMembership = new GroupMembership(group, member);
-                group.getGroupMemberships().add(groupMembership);  //or write method addMembers() in the group model
-            }
+        for (Member member : members) {
+            GroupMembership groupMembership = new GroupMembership(group, member);
+            group.getGroupMemberships().add(groupMembership);
         }
-        return groupMapper.toDto(groupRepository.save(group));
     }
 
 

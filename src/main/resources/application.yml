@@ -3,14 +3,14 @@ spring:
     name: KnCareApp
 
   datasource:
-    url: "jdbc:postgresql://localhost:5432/caredb"
+    url: "jdbc:postgresql://localhost:5432/KNCare"
     username: "postgres"
-    password: "postgres"
+    password: "stefan0"
 
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -23,7 +23,7 @@ spring:
 #    active: "dev"
 
 server:
-  port: 8080
+  port: 8000
 
 debug: false
 
