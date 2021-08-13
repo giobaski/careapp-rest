@@ -1,6 +1,7 @@
 package com.knits.kncare.service;
 
 import com.knits.kncare.dto.EmailDto;
+import com.knits.kncare.dto.search.EmailSearchDto;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.model.Email;
 import com.knits.kncare.model.Member;
@@ -35,7 +36,7 @@ public class EmailService extends ServiceBase<Email, EmailDto>{
         return toDto(emailRepository.save(email));
     }
 
-    public Page<EmailDto> search(EmailDto emailDto) {
+    public Page<EmailDto> search(EmailSearchDto emailDto) {
         Page<Email> emails = emailRepository.findAll(emailDto.getSpecification(), emailDto.getPageable());
         return toDtoPage(emails);
     }

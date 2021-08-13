@@ -1,5 +1,6 @@
 package com.knits.kncare.dto;
 
+import com.knits.kncare.dto.search.AbstractSearchableDto;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.model.ems.Employee;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.knits.kncare.dto;
+package com.knits.kncare.dto.search;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

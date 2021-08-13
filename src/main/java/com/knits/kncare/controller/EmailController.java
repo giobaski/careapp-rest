@@ -1,6 +1,7 @@
 package com.knits.kncare.controller;
 
 import com.knits.kncare.dto.EmailDto;
+import com.knits.kncare.dto.search.EmailSearchDto;
 import com.knits.kncare.model.Email;
 import com.knits.kncare.service.EmailService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -59,8 +60,8 @@ public class EmailController {
     @Operation(summary="find Emails by one of its model fields")
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public Page<EmailDto> searchEmails(EmailDto EmailDto) {
-        return service.search(EmailDto);
+    public Page<EmailDto> searchEmails(EmailSearchDto emailSearchDto) {
+        return service.search(emailSearchDto);
     }
 
     @DeleteMapping("/{id}/recipients/{memberId}")

@@ -2,6 +2,7 @@ package com.knits.kncare.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.knits.kncare.dto.search.AbstractSearchableDto;
 import com.knits.kncare.model.Email;
 import com.knits.kncare.model.Group;
 import com.knits.kncare.utils.Specifications;
@@ -19,7 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class EmailDto extends AbstractSearchableDto<Email> {
+public class EmailDto  {
 
     private Long id;
 
@@ -42,15 +43,5 @@ public class EmailDto extends AbstractSearchableDto<Email> {
 
     private LocalDateTime updatedAt;
 
-    @Override
-    public Specification<Email> getSpecification() {
-        Specification<Email> spec = super.getSpecification();
-        if (Strings.isNotBlank(subject)) {
-            spec = spec.and(Specifications.specLike("subject", "%"+subject+"%"));
-        }
-        if (Strings.isNotBlank(content)) {
-            spec = spec.and(Specifications.specLike("content", "%"+content+"%"));
-        }
-        return spec;
-    }
+
 }
