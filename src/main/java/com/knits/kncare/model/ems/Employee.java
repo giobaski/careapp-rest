@@ -1,6 +1,7 @@
 package com.knits.kncare.model.ems;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.knits.kncare.model.history.*;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+//@ToString
 @Entity
 public class Employee {
 

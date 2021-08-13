@@ -75,10 +75,4 @@ public class MemberController {
 
     }
 
-    @Operation(summary="find care members by one of its model fields")
-    @GetMapping
-//    @JsonView(Views.Public.class)
-    public Page<MemberDto> searchMembers(MemberDto memberDto) {
-        return service.searchMember(memberDto);
-    }
 }

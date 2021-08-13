@@ -4,6 +4,7 @@ import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
@@ -18,12 +19,18 @@ public class GroupMembership extends AbstractMemberAuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", referencedColumnName = "ID")
     private Member member;
 
+
+    //Custom Constructor
+    public GroupMembership(Group group, Member member) {
+        this.group = group;
+        this.member = member;
+    }
 }
