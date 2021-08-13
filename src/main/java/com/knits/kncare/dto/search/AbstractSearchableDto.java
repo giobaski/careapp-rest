@@ -1,7 +1,8 @@
-package com.knits.kncare.dto;
+package com.knits.kncare.dto.search;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.knits.kncare.dto.search.Searchable;
 import lombok.Data;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

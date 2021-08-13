@@ -3,6 +3,7 @@ package com.knits.kncare.model.base;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -16,10 +17,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public abstract class AbstractAuditableEntity {
 
-
+    @ColumnDefault("now()")
     @Column(name = "createdAt", nullable = false)
     private LocalDateTime createdAt;
 
+    @ColumnDefault("now()")
     @Column(name = "updatedAt", nullable = false)
     private LocalDateTime updatedAt;
 
