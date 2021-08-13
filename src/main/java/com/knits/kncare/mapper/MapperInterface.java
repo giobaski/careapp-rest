@@ -7,21 +7,10 @@ import java.util.List;
 //@Mapper()
 public interface MapperInterface<MDL, DTO> {
 
+    DTO toDto(MDL model);
 
-    MapperInterface INSTANCE = null;
+    MDL toModel(DTO dto);
 
-
-    default DTO toDto(MDL model) {
-        return null;
-    }
-
-    default MDL toModel(DTO dto) {
-        return null;
-    }
-
-    @IterableMapping
-    default List<DTO> toDtoList(List<MDL> dtoList) {
-        return null;
-    }
+    List<DTO> toDtoList(List<MDL> dtoList);
 
 }

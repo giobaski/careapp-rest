@@ -2,26 +2,21 @@ package com.knits.kncare.dto;
 
 import com.knits.kncare.model.ems.*;
 import com.knits.kncare.model.history.*;
-import com.knits.kncare.utils.Specifications;
-import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.data.jpa.domain.Specification;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EmployeeDto extends AbstractSearchableDto<EmployeeDto>{
+public class EmployeeDto {
     private Long id;
 
     private Long pdmId;

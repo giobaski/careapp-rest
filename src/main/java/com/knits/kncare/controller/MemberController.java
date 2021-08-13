@@ -1,7 +1,7 @@
 package com.knits.kncare.controller;
 
 import com.knits.kncare.dto.MemberDto;
-import com.knits.kncare.dto.MemberSearch;
+import com.knits.kncare.dto.search.MemberSearchDto;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.EmployeeRepository;
 import com.knits.kncare.service.MemberService;
@@ -17,14 +17,13 @@ import java.util.Optional;
 @RequestMapping("/api/v1/members")
 @RestController
 public class MemberController {
+
     private final MemberService service;
-    private final EmployeeRepository repository;
 
 
     @Autowired
     public MemberController(MemberService service, EmployeeRepository repository) {
         this.service = service;
-        this.repository = repository;
     }
 
     @Operation(summary = "find a care member by id")
@@ -82,7 +81,7 @@ public class MemberController {
     @Operation(summary = "find care members by one of its model fields")
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public ResponseEntity<Page<MemberDto>> searchMembers(MemberSearch memberSearch) {
+    public ResponseEntity<Page<MemberDto>> searchMembers(MemberSearchDto memberSearch) {
         try {
             return new ResponseEntity<>(service.search(memberSearch), HttpStatus.OK);
         } catch (Exception e) {

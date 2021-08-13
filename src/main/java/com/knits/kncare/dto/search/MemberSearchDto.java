@@ -1,4 +1,4 @@
-package com.knits.kncare.dto;
+package com.knits.kncare.dto.search;
 
 import com.knits.kncare.model.Member;
 import com.knits.kncare.model.ems.*;
@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 @Data
 @NoArgsConstructor
-public class MemberSearch {
+public class MemberSearchDto {
 
     private String internationalName;
 

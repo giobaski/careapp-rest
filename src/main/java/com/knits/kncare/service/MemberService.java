@@ -1,13 +1,12 @@
 package com.knits.kncare.service;
 
 import com.knits.kncare.dto.MemberDto;
-import com.knits.kncare.dto.MemberSearch;
+import com.knits.kncare.dto.search.MemberSearchDto;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.jpa.domain.Specification;
 
 import org.springframework.stereotype.Service;
 
@@ -41,9 +40,9 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
         repository.deleteAll();
     }
 
-    public Page<MemberDto> search(MemberSearch memberSearch) {
+    public Page<MemberDto> search(MemberSearchDto memberSearch) {
 
-        List<Member> members = repository.findByAreaOfResponsibility(memberSearch);
+        List<Member> members = repository.findByAreaOfResponsibility(memberSearch.getCountry());
 
         return new PageImpl<>(toDtoList(members));
     }

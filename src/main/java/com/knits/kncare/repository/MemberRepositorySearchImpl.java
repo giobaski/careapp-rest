@@ -1,8 +1,7 @@
 package com.knits.kncare.repository;
 
-import com.knits.kncare.dto.MemberSearch;
+import com.knits.kncare.dto.search.MemberSearchDto;
 import com.knits.kncare.model.Member;
-import com.knits.kncare.model.ems.Office;
 
 
 import javax.persistence.EntityManager;
@@ -28,7 +27,7 @@ public class MemberRepositorySearchImpl implements MemberRepositorySearch {
     @PersistenceContext
     EntityManager em;
     @Override
-    public List<Member> findByAreaOfResponsibility(MemberSearch memberSearch) {
+    public List<Member> findByAreaOfResponsibility(MemberSearchDto memberSearch) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Member> query = builder.createQuery(Member.class);
 

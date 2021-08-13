@@ -37,16 +37,16 @@ import static io.restassured.RestAssured.port;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-@SpringBootTest
+//@SpringBootTest
 public class EmployeeApiTest {
 
-    @BeforeAll
+    //@BeforeAll
     public static void setup() {
         baseURI = "http://localhost:9000";
         port = 8080;
     }
 
-    @Test
+    //@Test
     public void givenEmployeeExists_whenEmployeeInfoIsRetrieved_then200IsReceived()
             throws ClientProtocolException, IOException {
 
