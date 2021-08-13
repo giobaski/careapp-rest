@@ -24,8 +24,8 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     private MemberMapper memberMapper;
     private GroupMapper groupMapper; //TODO: Use mapper
 
-    public GroupService(GroupRepository groupRepository,
-                        MapperInterface<Group, GroupDto> mapper,
+    public GroupService(MapperInterface<Group, GroupDto> mapper,
+                        GroupRepository groupRepository,
                         MemberRepository memberRepository,
                         MemberMapper memberMapper,
                         GroupMapper groupMapper) {
@@ -35,7 +35,6 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         this.memberMapper = memberMapper;
         this.groupMapper = groupMapper;
     }
-
 
 
     public GroupDto create(GroupDto groupDto) {
@@ -52,7 +51,8 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
     public GroupDto update (Long id, GroupDto groupDto){
 
-        Group group = groupRepository.findById(id).get();  //Optional, if presents add exceptions....
+        Group group = groupRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
         group.setMemberIds(groupDto.getMemberIds());  //adding Set of Ids of new members
         return addMembersToGroup(group);
     }
@@ -77,9 +77,11 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     }
 
 
-    public Optional<GroupDto> getbyId(long id) {
+    public GroupDto getbyId(long id) {
         Optional<GroupDto> existingGroupDto = groupRepository.findById(id).map(groupMapper::toDto);
-        return existingGroupDto;
+        Group group = groupRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(""));
+        return groupMapper.toDto(group);
     }
 
     public Page<GroupDto> search (GroupDto groupDto){

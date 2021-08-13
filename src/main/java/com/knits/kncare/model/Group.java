@@ -5,6 +5,7 @@ import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 //@Data
@@ -22,6 +23,7 @@ public class Group extends AbstractMemberAuditableEntity {
     private Long id;
 
     @Column(name = "name")
+    @NotNull(message = "Group names is required")
     private String name;
 
     @Column(name = "description")

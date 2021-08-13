@@ -1,6 +1,7 @@
 package com.knits.kncare.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.knits.kncare.model.Group;
@@ -31,7 +32,6 @@ public class GroupDto extends AbstractSearchableDto<Group>{
     private String description;
 
 //    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @Transient
     private Set<Long> memberIds;
 
     @JsonBackReference

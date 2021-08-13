@@ -37,10 +37,11 @@ public class GroupController {
             return new ResponseEntity<>(groupService.update(id, groupDto),HttpStatus.OK);
     }
 
-//    @Operation(summary="find a Group by id")
-//    @GetMapping("{id}")
-//    public ResponseEntity<GroupDto> getEmailById(@PathVariable("id") long id) {
-//    }
+    @Operation(summary="find a Group by id")
+    @GetMapping("{id}")
+    public ResponseEntity<GroupDto> getGroupById(@PathVariable("id") long id) {
+            return ResponseEntity.ok(groupService.getbyId(id));
+    }
 
     @Operation(summary = "search groups by the name???")
     @GetMapping
