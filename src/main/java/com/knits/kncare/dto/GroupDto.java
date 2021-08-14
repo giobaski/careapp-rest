@@ -37,6 +37,18 @@ public class GroupDto extends AbstractSearchableDto<Group>{
     @JsonBackReference
     private Set<GroupMembership> groupMemberships = new HashSet<>();
 
+    private Integer getMembersCount(){return this.groupMemberships.size();}
+
+    public GroupDto(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public GroupDto(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     @Override
     public Specification<Group> getSpecification() {

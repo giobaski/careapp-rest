@@ -36,6 +36,11 @@ public class Group extends AbstractMemberAuditableEntity {
     @Transient
     private Set<Long> memberIds;
 
+    public Group(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 
     @Override
     public boolean equals(Object o) {

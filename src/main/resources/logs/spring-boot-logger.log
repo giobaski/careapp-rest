@@ -1,35 +1,35 @@
-2021-08-13 02:30:06,925 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h27m29s15ms).
-2021-08-13 07:58:41,095 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5h28m34s166ms).
-2021-08-13 09:52:10,881 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h52m58s921ms).
-2021-08-13 12:06:23,550 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
-2021-08-13 12:06:24,080 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
-2021-08-13 12:06:24,202 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
-2021-08-13 19:21:44,973 INFO org.springframework.boot.StartupInfoLogger [main] Starting KnCareApplication using Java 11.0.8 on MacBook-Air.local with PID 62018 (/Users/baski/kuehneNagel/dev/KnCare-Rest/target/classes started by baski in /Users/baski/kuehneNagel/dev/KnCare-Rest)
-2021-08-13 19:21:45,004 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.3, Spring v5.3.9
-2021-08-13 19:21:45,006 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
-2021-08-13 19:21:47,111 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-08-13 19:21:47,304 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 149 ms. Found 3 JPA repository interfaces.
-2021-08-13 19:21:48,452 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
-2021-08-13 19:21:48,480 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
-2021-08-13 19:21:48,481 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
-2021-08-13 19:21:48,482 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.50]
-2021-08-13 19:21:48,651 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
-2021-08-13 19:21:48,652 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 3411 ms
-2021-08-13 19:21:48,892 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
-2021-08-13 19:21:49,103 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
-2021-08-13 19:21:50,180 INFO liquibase.logging.core.JavaLogger [main] Successfully acquired change log lock
-2021-08-13 19:21:51,070 INFO liquibase.logging.core.JavaLogger [main] Reading from public.databasechangelog
-2021-08-13 19:21:51,149 INFO liquibase.logging.core.JavaLogger [main] Successfully released change log lock
-2021-08-13 19:21:51,155 INFO liquibase.logging.core.JavaLogger [main] Successfully acquired change log lock
-2021-08-13 19:21:51,157 WARN liquibase.logging.core.JavaLogger [main] Skipping auto-registration
-2021-08-13 19:21:51,165 INFO liquibase.logging.core.JavaLogger [main] Successfully released change log lock
-2021-08-13 19:21:51,430 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-08-13 19:21:51,576 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.4.32.Final
-2021-08-13 19:21:52,001 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2021-08-13 19:21:52,286 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-2021-08-13 19:21:54,497 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-08-13 19:21:54,528 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-08-13 19:21:55,927 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-08-13 19:21:57,432 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
-2021-08-13 19:21:57,463 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
-2021-08-13 19:21:57,489 INFO org.springframework.boot.StartupInfoLogger [main] Started KnCareApplication in 15.098 seconds (JVM running for 18.113)
+2021-08-15 00:02:26,118 INFO org.springframework.boot.StartupInfoLogger [main] Starting GroupControllerTest using Java 11.0.8 on MacBook-Air.local with PID 16265 (started by baski in /Users/baski/kuehneNagel/dev/KnCare-Rest)
+2021-08-15 00:02:26,126 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.3, Spring v5.3.9
+2021-08-15 00:02:26,130 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-15 00:02:31,312 INFO org.springframework.mock.web.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2021-08-15 00:02:31,313 INFO org.springframework.web.servlet.FrameworkServlet [main] Initializing Servlet ''
+2021-08-15 00:02:31,315 INFO org.springframework.web.servlet.FrameworkServlet [main] Completed initialization in 1 ms
+2021-08-15 00:02:31,359 INFO org.springframework.boot.StartupInfoLogger [main] Started GroupControllerTest in 7.814 seconds (JVM running for 21.894)
+2021-08-15 00:05:56,414 INFO org.springframework.boot.StartupInfoLogger [main] Starting GroupControllerTest using Java 11.0.8 on MacBook-Air.local with PID 16492 (started by baski in /Users/baski/kuehneNagel/dev/KnCare-Rest)
+2021-08-15 00:05:56,418 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.3, Spring v5.3.9
+2021-08-15 00:05:56,426 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-15 00:06:01,383 INFO org.springframework.mock.web.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2021-08-15 00:06:01,385 INFO org.springframework.web.servlet.FrameworkServlet [main] Initializing Servlet ''
+2021-08-15 00:06:01,390 INFO org.springframework.web.servlet.FrameworkServlet [main] Completed initialization in 3 ms
+2021-08-15 00:06:01,487 INFO org.springframework.boot.StartupInfoLogger [main] Started GroupControllerTest in 6.49 seconds (JVM running for 9.824)
+2021-08-15 00:07:40,174 INFO org.springframework.boot.StartupInfoLogger [main] Starting GroupControllerTest using Java 11.0.8 on MacBook-Air.local with PID 16574 (started by baski in /Users/baski/kuehneNagel/dev/KnCare-Rest)
+2021-08-15 00:07:40,178 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.3, Spring v5.3.9
+2021-08-15 00:07:40,181 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-15 00:07:46,090 INFO org.springframework.mock.web.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2021-08-15 00:07:46,091 INFO org.springframework.web.servlet.FrameworkServlet [main] Initializing Servlet ''
+2021-08-15 00:07:46,099 INFO org.springframework.web.servlet.FrameworkServlet [main] Completed initialization in 3 ms
+2021-08-15 00:07:46,160 INFO org.springframework.boot.StartupInfoLogger [main] Started GroupControllerTest in 7.161 seconds (JVM running for 10.898)
+2021-08-15 00:08:33,320 INFO org.springframework.boot.StartupInfoLogger [main] Starting GroupControllerTest using Java 11.0.8 on MacBook-Air.local with PID 16628 (started by baski in /Users/baski/kuehneNagel/dev/KnCare-Rest)
+2021-08-15 00:08:33,323 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.3, Spring v5.3.9
+2021-08-15 00:08:33,328 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-15 00:08:37,916 INFO org.springframework.mock.web.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2021-08-15 00:08:37,918 INFO org.springframework.web.servlet.FrameworkServlet [main] Initializing Servlet ''
+2021-08-15 00:08:37,924 INFO org.springframework.web.servlet.FrameworkServlet [main] Completed initialization in 4 ms
+2021-08-15 00:08:38,063 INFO org.springframework.boot.StartupInfoLogger [main] Started GroupControllerTest in 5.864 seconds (JVM running for 9.624)
+2021-08-15 00:09:42,626 INFO org.springframework.boot.StartupInfoLogger [main] Starting GroupControllerTest using Java 11.0.8 on MacBook-Air.local with PID 16686 (started by baski in /Users/baski/kuehneNagel/dev/KnCare-Rest)
+2021-08-15 00:09:42,631 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.3, Spring v5.3.9
+2021-08-15 00:09:42,636 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-15 00:09:48,326 INFO org.springframework.mock.web.MockServletContext [main] Initializing Spring TestDispatcherServlet ''
+2021-08-15 00:09:48,345 INFO org.springframework.web.servlet.FrameworkServlet [main] Initializing Servlet ''
+2021-08-15 00:09:48,348 INFO org.springframework.web.servlet.FrameworkServlet [main] Completed initialization in 2 ms
+2021-08-15 00:09:48,436 INFO org.springframework.boot.StartupInfoLogger [main] Started GroupControllerTest in 7.266 seconds (JVM running for 12.358)

@@ -9,6 +9,7 @@ import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.GroupRepository;
 import com.knits.kncare.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class GroupService extends ServiceBase<Group, GroupDto> {
 
     private GroupRepository groupRepository;
@@ -27,12 +29,10 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     public GroupService(MapperInterface<Group, GroupDto> mapper,
                         GroupRepository groupRepository,
                         MemberRepository memberRepository,
-                        MemberMapper memberMapper,
                         GroupMapper groupMapper) {
         super(mapper);
         this.groupRepository = groupRepository;
         this.memberRepository = memberRepository;
-        this.memberMapper = memberMapper;
         this.groupMapper = groupMapper;
     }
 
@@ -40,9 +40,10 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     public GroupDto create(GroupDto groupDto) {
 
         if(groupDto.getMemberIds() == null){
-            System.out.println("creating a group without new members");
+            log.debug("creating a group without new members");
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
+        log.debug("creating a group with new members");
         Group group = groupMapper.toModel(groupDto);
 //        group.setMemberIds(groupDto.getMemberIds());
         return addMembersToGroup(group);
