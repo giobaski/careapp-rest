@@ -1,6 +1,5 @@
 package com.knits.kncare.model.ems;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,7 +25,6 @@ public class CostCenter {
     private String code;
 
     @OneToMany(mappedBy = "costCenter")
-    @JsonBackReference
     private Set<Employee> employees = new HashSet<>();
 
 }

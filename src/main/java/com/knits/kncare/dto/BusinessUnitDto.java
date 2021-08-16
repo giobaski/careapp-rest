@@ -1,19 +1,16 @@
 package com.knits.kncare.dto;
 
-import com.knits.kncare.model.ems.Employee;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BusinessUnitDto extends AbstractSearchableDto {
+public class BusinessUnitDto  {
 
     private Long id;
 

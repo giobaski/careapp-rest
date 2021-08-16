@@ -1,5 +1,6 @@
 package com.knits.kncare.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.model.history.RoleHistoryRecord;
 import lombok.*;
@@ -16,10 +17,11 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "\"member\"") //some Db have member as sql function
+@JsonIgnoreProperties
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            //TODO: add index
 
     @Column(name = "onboard_date", nullable = false)
@@ -39,7 +41,7 @@ public class Member {
     @OneToMany(mappedBy = "createdBy")
     private Set<Practice> practices;
 
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private Set<Email> emails;
 
     @OneToMany(mappedBy = "createdBy")
