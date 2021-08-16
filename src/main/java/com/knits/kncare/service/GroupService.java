@@ -46,15 +46,18 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
     public GroupDto create(GroupDto groupDto) {
 
+        //checking an empty Group name
+        if(groupDto.getName().isEmpty()) { throw new RuntimeException("Group Name Should Not be Empty");}
+        //checking for duplicated name
+        Group existingName = groupRepository.findByName(groupDto.getName());
+        if(existingName != null){ throw new RuntimeException(String.format("Group with the name %s already exists",groupDto.getName())); }
+
+
         if (CollectionUtils.isEmpty(groupDto.getMemberIds())) {
             log.debug("creating a group without new members");
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
-        return addMembersToGroup(groupDto);
 
-    }
-
-    public GroupDto addMembersToGroup (GroupDto groupDto){
         Group group = groupMapper.toModel(groupDto);
         addMembersToGroup(group, groupDto.getMemberIds());
         groupRepository.save(group);
@@ -73,6 +76,7 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
             group.getGroupMemberships().add(groupMembership);
         }
     }
+
 
 
     public Optional<GroupDto> getbyId(long id) {

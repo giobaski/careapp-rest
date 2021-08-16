@@ -37,9 +37,6 @@ public class GroupDto {
     private Set<GroupMembershipDto> groupMemberships = new HashSet<>();
 
 
-//    @JsonBackReference
-//    private Set<GroupMembership> groupMemberships = new HashSet<>();
-
 
 
 }
