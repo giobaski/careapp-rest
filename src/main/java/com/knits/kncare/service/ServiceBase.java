@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public abstract class ServiceBase<MDL, DTO> extends AbstractSearchableDto<MDL> {
 
-    private final MapperInterface<MDL, DTO> mapper;
+    protected final MapperInterface<MDL, DTO> mapper;
 
     public ServiceBase(MapperInterface<MDL, DTO> mapper) {
         this.mapper = mapper;

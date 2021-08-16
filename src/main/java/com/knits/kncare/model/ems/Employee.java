@@ -1,14 +1,8 @@
 package com.knits.kncare.model.ems;
 
 
-import com.knits.kncare.dto.AbstractSearchableDto;
-import com.knits.kncare.dto.EmployeeSearch;
 import com.knits.kncare.model.history.*;
-import com.knits.kncare.utils.Specifications;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -19,12 +13,12 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+//@ToString
 @Entity
-public class Employee extends AbstractSearchableDto<Employee> {
+public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "pdm_id")
@@ -123,31 +117,6 @@ public class Employee extends AbstractSearchableDto<Employee> {
 
     @OneToMany(mappedBy = "employee")
     private Set<WorkingPositionHistoryRecord> workingPositionHistoryRecords;
-
-
-
-//    @Override
-//    @JsonIgnore
-//    public Specification<Employee> getSpecification() {
-//        Specification<Employee> spec = super.getSpecification();
-//        if (Strings.isNotBlank(firstName)){
-//            spec = spec.and(Specifications.specLike("firstName", "%" + firstName + "%")) ;
-//        }
-//        if (Strings.isNotBlank(lastName)){
-//            spec = spec.and(Specifications.specLike("lastName", "%" + lastName + "%")) ;
-//        }
-//        if (Strings.isNotBlank(internationalName)){
-//            spec = spec.and(Specifications.specLike("internationalName", "%" + internationalName + "%")) ;
-//        }
-//        if (Strings.isNotBlank(title)){
-//            spec = spec.and(Specifications.specLike("title", "%" + title + "%")) ;
-//        }
-//        if (nationality != null){
-//            spec = spec.and(Specifications.specEquals("nationality", nationality.getId()));
-//        }
-//
-//        return spec;
-//    }
 
 
 }

@@ -1,6 +1,6 @@
 package com.knits.kncare.model;
 
-import com.knits.kncare.dto.AbstractSearchableDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.model.history.RoleHistoryRecord;
 import lombok.*;
@@ -9,17 +9,19 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+//@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "\"member\"") //some Db have member as sql function
-public class Member extends AbstractSearchableDto<Member> {
+@JsonIgnoreProperties
+public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            //TODO: add index
 
     @Column(name = "onboard_date", nullable = false)
@@ -48,7 +50,7 @@ public class Member extends AbstractSearchableDto<Member> {
     @OneToMany(mappedBy = "createdBy")
     private Set<Notification> notifications;
 
-    @OneToMany(mappedBy = "createdBy")
+    @OneToMany(mappedBy = "member")
     private Set<GroupMembership> groupMemberships;
 
     @OneToMany(mappedBy = "createdBy")
