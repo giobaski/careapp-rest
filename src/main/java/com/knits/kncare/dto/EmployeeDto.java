@@ -1,5 +1,6 @@
 package com.knits.kncare.dto;
 
+import com.knits.kncare.dto.search.AbstractSearchableDto;
 import com.knits.kncare.model.ems.*;
 import com.knits.kncare.model.history.*;
 import com.knits.kncare.utils.Specifications;
@@ -21,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EmployeeDto extends AbstractSearchableDto<EmployeeDto>{
+public class EmployeeDto extends AbstractSearchableDto<EmployeeDto> {
     private Long id;
 
     private Long pdmId;

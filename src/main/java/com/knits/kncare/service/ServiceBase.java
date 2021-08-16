@@ -1,6 +1,6 @@
 package com.knits.kncare.service;
 
-import com.knits.kncare.dto.AbstractSearchableDto;
+import com.knits.kncare.dto.search.AbstractSearchableDto;
 import com.knits.kncare.mapper.MapperInterface;
 import org.springframework.data.domain.Page;
 

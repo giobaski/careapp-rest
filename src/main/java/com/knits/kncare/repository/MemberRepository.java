@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecificationExecutor<Member> {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositorySearch, JpaSpecificationExecutor<Member> {
     @Query("select u from Member u where u.employee.internationalName like %?1")
     List<Member> findByFirstnameEndsWith(String internationalName);
 

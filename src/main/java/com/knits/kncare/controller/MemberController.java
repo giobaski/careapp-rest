@@ -8,6 +8,7 @@ import com.knits.kncare.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<Member> createMember(@RequestBody Member member) {
         try {
-            return new ResponseEntity<>(service.Add(member), HttpStatus.CREATED);
+            return new ResponseEntity<>(service.add(member), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -50,7 +51,7 @@ public class MemberController {
         Optional<Member> memberData = service.getById(id);
 
         if (memberData.isPresent()) {
-            return new ResponseEntity<>(service.Add(member), HttpStatus.OK);
+            return new ResponseEntity<>(service.add(member), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -82,9 +83,9 @@ public class MemberController {
     @Operation(summary = "find care members by one of its model fields")
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public ResponseEntity<Page<MemberDto>> searchMembers(MemberSearch memberSearch) {
+    public ResponseEntity<Page<MemberDto>> searchMembers(MemberSearch memberSearch, Pageable pageable) {
         try {
-            return new ResponseEntity<>(service.search(memberSearch), HttpStatus.OK);
+            return new ResponseEntity<>(service.search(memberSearch, pageable), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

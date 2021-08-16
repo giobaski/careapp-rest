@@ -7,10 +7,12 @@ import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,7 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
         return repository.findById(id);
     }
 
-    public Member Add(Member member) {
+    public Member add(Member member) {
         return repository.save(member);
     }
 
@@ -41,11 +43,10 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
         repository.deleteAll();
     }
 
-    public Page<MemberDto> search(MemberSearch memberSearch) {
-
-        List<Member> members = repository.findByAreaOfResponsibility(memberSearch);
-
-        return new PageImpl<>(toDtoList(members));
+    public Page<MemberDto> search(MemberSearch memberSearch, Pageable pageable) {
+        Specification<Member> members = repository.findByAreaOfResponsibility(memberSearch);
+        List<MemberDto> memberDtos = toDtoList(repository.findAll(Specification.where(members)));
+        return new PageImpl<>(memberDtos, pageable, memberDtos.size());
     }
 
 }

@@ -3,6 +3,7 @@ package com.knits.kncare.repository;
 import com.knits.kncare.dto.MemberSearch;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.model.ems.Office;
+import org.springframework.data.jpa.domain.Specification;
 
 
 import javax.persistence.EntityManager;
@@ -25,36 +26,29 @@ public class MemberRepositorySearchImpl implements MemberRepositorySearch {
     private final String MANAGEMENT_GROUP = "managementGroup";
     private final String COST_CENTER = "costCenter";
 
-    @PersistenceContext
-    EntityManager em;
     @Override
-    public List<Member> findByAreaOfResponsibility(MemberSearch memberSearch) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Member> query = builder.createQuery(Member.class);
+    public Specification<Member> findByAreaOfResponsibility(MemberSearch memberSearch) {
 
-        Root<Member> member = query.from(Member.class);
-        List<Predicate> predicates = new ArrayList<>();
-
+        Specification<Member> spec = Specification.where(null);
         if (memberSearch.getInternationalName() != null) {
-            predicates.add(builder.like(member.get(EMPLOYEE).get(INTERNATIONAL_NAME), "%" + memberSearch.getInternationalName() + "%"));
+            spec = spec.and((member, cq, cb) -> cb.like(member.get(EMPLOYEE).get(INTERNATIONAL_NAME), "%" + memberSearch.getInternationalName() + "%"));
         }
         if (memberSearch.getNationality() != null) {
-            predicates.add(builder.equal(member.get(EMPLOYEE).get(NATIONALITY).get(ID), memberSearch.getNationality()));
+            spec = spec.and((member, cq, cb) -> cb.equal(member.get(EMPLOYEE).get(NATIONALITY).get(ID), memberSearch.getNationality()));
         }
         if (memberSearch.getCountry() != null) {
-            predicates.add(builder.equal(member.get(EMPLOYEE).get(OFFICE).get(ID), memberSearch.getCountry()));
+            spec = spec.and((member, cq, cb) -> cb.equal(member.get(EMPLOYEE).get(OFFICE).get(ID), memberSearch.getCountry()));
         }
         if (memberSearch.getBusinessUnit()!= null) {
-            predicates.add(builder.equal(member.get(EMPLOYEE).get(BUSINESS_UNIT).get(ID), memberSearch.getBusinessUnit()));
+            spec = spec.and((member, cq, cb) -> cb.equal(member.get(EMPLOYEE).get(BUSINESS_UNIT).get(ID), memberSearch.getBusinessUnit()));
         }
         if (memberSearch.getManagementGroup() != null) {
-            predicates.add(builder.equal(member.get(EMPLOYEE).get(MANAGEMENT_GROUP).get(ID), memberSearch.getManagementGroup()));
+            spec = spec.and((member, cq, cb) -> cb.equal(member.get(EMPLOYEE).get(MANAGEMENT_GROUP).get(ID), memberSearch.getManagementGroup()));
         }
         if (memberSearch.getCostCenter()!= null) {
-            predicates.add(builder.equal(member.get(EMPLOYEE).get(COST_CENTER).get(ID), memberSearch.getCostCenter()));
+            spec = spec.and((member, cq, cb) -> cb.equal(member.get(EMPLOYEE).get(COST_CENTER).get(ID), memberSearch.getCostCenter()));
         }
-        query.where(predicates.toArray(new Predicate[0]));
+        return spec;
 
-        return em.createQuery(query).getResultList();
     }
 }
