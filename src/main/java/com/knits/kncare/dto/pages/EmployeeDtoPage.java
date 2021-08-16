@@ -7,5 +7,6 @@ import java.util.List;
 
 @Data
 public class EmployeeDtoPage {
-    List<EmployeeDto> employees;
+    // content because I receive a json in format content[employees{}], so the name needs to be content
+    List<EmployeeDto> content;
 }

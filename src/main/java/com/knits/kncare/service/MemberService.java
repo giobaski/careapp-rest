@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,8 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
     }
 
     public Member Add(Member member) {
+        member.setOffBoardDate(LocalDateTime.now());
+        member.setOnBoardDate(LocalDateTime.now());
         return repository.save(member);
     }
 

@@ -6,10 +6,13 @@ import com.knits.kncare.dto.search.EmployeeSearchDto;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.repository.EmployeeRepository;
+import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -19,17 +22,17 @@ import java.util.Optional;
 @Service
 public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
 
-    private final String emsSearchUrl = "/employees/search";
+    private final String emsSearchUrl = "http://localhost:9000/employees/search";
 
-    @Autowired
-    private WebClient webClient;
+    private final RestTemplate restTemplate;
 
 
     private final EmployeeRepository repository;
 
-    public EmployeeService(EmployeeRepository repository, MapperInterface<Employee, EmployeeDto> mapper) {
+    public EmployeeService(EmployeeRepository repository, MapperInterface<Employee, EmployeeDto> mapper, RestTemplate restTemplate) {
         super(mapper);
         this.repository = repository;
+        this.restTemplate = restTemplate;
     }
 
     public List<Employee> getAll() { return repository.findAll(); }
@@ -50,26 +53,19 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
     }
 
     public Page<EmployeeDto> search(EmployeeSearchDto employeeSearch) {
+            EmployeeDtoPage employeePage = restTemplate.postForObject(emsSearchUrl, employeeSearch, EmployeeDtoPage.class);
 
-        EmployeeDtoPage employeePage = webClient
-                .post()
-                .uri(emsSearchUrl)
-                .body(Mono.just(employeeSearch), EmployeeSearchDto.class)
-                .retrieve()
-                .bodyToMono(EmployeeDtoPage.class)
-                .block();
-
-        if (employeePage!=null && employeePage.getEmployees().size()>0){
+        if (employeePage!=null && employeePage.getContent().size()>0){
             updateLocalEmployeesStorage(employeePage);
+            return new PageImpl<>(employeePage.getContent(), employeeSearch.getPageable(), employeePage.getContent().size());
         }
-
-        return new PageImpl<>(employeePage.getEmployees(), employeeSearch.getPageable(), employeePage.getEmployees().size());
+        return null;
     }
 
 
         private void updateLocalEmployeesStorage(EmployeeDtoPage employeePage){
 
-            for (EmployeeDto employeeDto:employeePage.getEmployees()) {
+            for (EmployeeDto employeeDto:employeePage.getContent()) {
                 Optional<Employee> employeeAsOpt = repository.findByPdmId(employeeDto.getPdmId());
                 if (employeeAsOpt.isEmpty()){
                     repository.save(toModel(employeeDto));
