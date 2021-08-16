@@ -37,7 +37,5 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
         memberRepository.deleteAll();
     }
 
-    public Page<MemberDto> searchMember(MemberDto memberDto) {
-        return toDtoPage(memberRepository.findAll(memberDto.getSpecification(), memberDto.getPageable()));
-    }
+
 }

@@ -9,12 +9,12 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode()
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberDto extends AbstractSearchableDto<Member> {
+public class MemberDto {
 
     @JsonView(Views.EntityData.class)
     private Long id;

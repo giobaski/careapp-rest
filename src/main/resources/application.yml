@@ -10,13 +10,18 @@ spring:
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     show-sql: false
     properties:
       hibernate:
         dialect: "org.hibernate.dialect.PostgreSQLDialect"
         format_sql: true
         jdbc:
+
+  liquibase:
+    enabled: true
+    change-log: "classpath:/liquibase/changelog-master.xml"
+
   mail:
     host: 127.0.0.1
     port: 25
@@ -36,4 +41,9 @@ server:
 
 debug: false
 
+logging:
+  level:
+    liquibase: INFO
+
 #spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
+
