@@ -1,44 +1,42 @@
 package com.knits.kncare.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.knits.kncare.dto.search.AbstractSearchableDto;
-import com.knits.kncare.model.Group;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
-import com.knits.kncare.utils.Specifications;
 import lombok.*;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Transient;
 import java.util.*;
 
 
-@EqualsAndHashCode(callSuper = true)
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GroupDto extends AbstractSearchableDto<Group> {
+public class GroupDto {
 
+    @JsonView(Views.Common.class)
     private Long id;
 
+    @JsonView(Views.Common.class)
     private String name;
 
+    @JsonView(Views.Common.class)
     private String description;
 
-//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Set<Long> memberIds;
+    @JsonView(Views.Common.class)
+    private Set<Long> memberIds= new HashSet<>();
 
-    @JsonBackReference
-    private Set<GroupMembership> groupMemberships = new HashSet<>();
+    @JsonView(Views.GroupMembers.class)
+    private Set<MemberDto> members= new HashSet<>();
 
-    private Integer getMembersCount(){return this.groupMemberships.size();}
+    @JsonView(Views.GroupMembership.class)
+    private Set<GroupMembershipDto> groupMemberships = new HashSet<>();
 
     public GroupDto(Long id, String name, String description) {
         this.id = id;
@@ -51,14 +49,5 @@ public class GroupDto extends AbstractSearchableDto<Group> {
         this.description = description;
     }
 
-    @Override
-    public Specification<Group> getSpecification() {
-        Specification<Group> spec = super.getSpecification();
-        if (Strings.isNotBlank(name)) {
-            spec = spec.and(Specifications.specLike("name", "%"+name+"%"));
-        }
-
-        return spec;
-    }
 
 }

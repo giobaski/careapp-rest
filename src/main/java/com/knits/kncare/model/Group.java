@@ -1,14 +1,14 @@
 package com.knits.kncare.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
-//@Data
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -23,14 +23,12 @@ public class Group extends AbstractMemberAuditableEntity {
     private Long id;
 
     @Column(name = "name")
-    @NotNull(message = "Group names is required")
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @OneToMany(mappedBy = "group", cascade = CascadeType.PERSIST)
     private Set<GroupMembership> groupMemberships = new HashSet<>();
 
     @Transient
