@@ -1,5 +1,6 @@
-package com.knits.kncare.dto;
+package com.knits.kncare.dto.search;
 
+import com.knits.kncare.dto.search.AbstractSearchableDto;
 import com.knits.kncare.model.ems.*;
 import com.knits.kncare.utils.Specifications;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EmployeeSearch {
+public class EmployeeSearchDto extends AbstractSearchableDto<Employee> {
 
     private String internationalName;
 

@@ -18,6 +18,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
     @Query( "select m from Member m INNER JOIN FETCH m.employee e where m.id in :ids" )
     List<Member> findByIds(@Param("ids") Set<Long> memberIds);
 
-    @Query( "select m from Member m INNER JOIN FETCH m.employee e INNER JOIN e.country c where c.id=countryId" )
+    @Query( "select m from Member m INNER JOIN FETCH m.employee e INNER JOIN e.office o INNER JOIN o.country c where c.id=countryId" )
     List<Member> findByAreaOfResponsibility(@Param("countryId") Long countryId);
 }

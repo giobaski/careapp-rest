@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@DataJpaTest
+@DataJpaTest
 public class MemberRepositoryTest {
 
     @Autowired
@@ -22,7 +22,7 @@ public class MemberRepositoryTest {
 
 
 
-    //@Test
+    @Test
     public void findMembersByAreaOfResponsibility(){
         MemberSearchDto memberSearch = new MemberSearchDto();
         memberSearch.setInternationalName("Mary");
