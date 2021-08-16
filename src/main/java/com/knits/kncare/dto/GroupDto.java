@@ -11,12 +11,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@EqualsAndHashCode(callSuper = true)
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GroupDto extends AbstractSearchableDto{
+public class GroupDto {
 
     @JsonView(Views.Common.class)
     private Long id;

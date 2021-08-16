@@ -1,6 +1,5 @@
 package com.knits.kncare.controller;
 
-import com.knits.kncare.dto.EmployeeDtoTest;
 import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.service.MemberService;
@@ -11,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("/api/v1/members")
@@ -26,25 +23,6 @@ public class MemberController {
     }
 
 
-    //TODO:  Delete this when implement searchMembers()
-    @Operation(summary="get all care members")
-    @GetMapping()
-    public ResponseEntity<List<MemberDto>> getMemberById() {
-        try {
-            List<MemberDto> members = new ArrayList<>();
-            service.getAll().forEach(members::add);
-
-            if(members.isEmpty()){
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(members, HttpStatus.OK);
-
-        } catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-
     @Operation(summary="find a care member by id")
     @GetMapping("{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable("id") long id) {
@@ -54,25 +32,25 @@ public class MemberController {
 
     @Operation(summary="create a care member")
     @PostMapping
-    public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
+    public ResponseEntity<Member> createMember(@RequestBody Member member) {
         try {
-            return new ResponseEntity<>(service.create(memberDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(service.Add(member), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-//    @Operation(summary="update a care member")
-//    @PutMapping("{id}")
-//    public ResponseEntity<Member> updateUser(@PathVariable("id") long id, @RequestBody Member member) {
-//        Optional<Member> memberData = service.getbyId(id);
-//
-//        if (memberData.isPresent()) {
-//            return new ResponseEntity<>(service.Add(member), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @Operation(summary="update a care member")
+    @PutMapping("{id}")
+    public ResponseEntity<Member> updateUser(@PathVariable("id") long id, @RequestBody Member member) {
+        Optional<Member> memberData = service.getbyId(id);
+
+        if (memberData.isPresent()) {
+            return new ResponseEntity<>(service.Add(member), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @Operation(summary="delete a care member by id")
     @DeleteMapping("{id}")
@@ -97,10 +75,4 @@ public class MemberController {
 
     }
 
-//    @Operation(summary="find care members by one of its model fields")
-//    @GetMapping
-////    @JsonView(Views.Public.class)
-//    public List<Member> searchMembers(Member member) {
-//        return service.searchMember(member);
-//    }
 }

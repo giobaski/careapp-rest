@@ -2,31 +2,55 @@ package com.knits.kncare.model;
 
 import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
-@Data
+//@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "email")
+//@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Email extends AbstractMemberAuditableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "subject")
     private String subject;
 
-    @Lob
-    @Column(name = "content")
+//    @Lob() // Lob was giving some very strange errors when trying to get model from DB. Replaced with columnDefinition.
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
-    @ManyToMany()
-    @JoinColumn(name = "recipient_id")
-    private List<Member> recipient;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "email_recipient",
+            joinColumns = {@JoinColumn(name = "email")},
+            inverseJoinColumns = {@JoinColumn(name = "member")}
+    )
+    private Set<Member> recipients;
+
+    @ManyToMany
+    @JoinTable(
+            name="email_recipient_group",
+            joinColumns = {@JoinColumn(name = "email")},
+            inverseJoinColumns = {@JoinColumn(name = "\"group\"")}
+    )
+    private Set<Group> recipientGroups;
+
+    public boolean addRecipient(Member member) {
+        return recipients.add(member);
+    }
+
+    public boolean removeRecipient(Member member) {
+        return recipients.remove(member);
+    }
 }

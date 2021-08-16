@@ -1,6 +1,5 @@
 package com.knits.kncare.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.*;
 
@@ -8,7 +7,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Data
+
 @Setter
 @Getter
 @NoArgsConstructor
