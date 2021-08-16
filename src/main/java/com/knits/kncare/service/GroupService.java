@@ -55,6 +55,8 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         Group group = groupRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
         group.setMemberIds(groupDto.getMemberIds());  //adding Set of Ids of new members
+        group.setName(groupDto.getName());
+        group.setDescription(groupDto.getDescription());
         return addMembersToGroup(group);
     }
 
