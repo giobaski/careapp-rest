@@ -17,6 +17,15 @@ spring:
         dialect: "org.hibernate.dialect.PostgreSQLDialect"
         format_sql: true
         jdbc:
+  mail:
+    host: 127.0.0.1
+    port: 25
+    username:
+    password:
+    properties.mail.smtp:
+          auth: false
+          starttls.enable: true
+          debug: true
 
 #
 #  profiles:
@@ -28,4 +37,3 @@ server:
 debug: false
 
 #spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
-
