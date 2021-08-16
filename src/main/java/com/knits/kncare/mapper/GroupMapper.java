@@ -30,7 +30,7 @@ public interface GroupMapper extends MapperInterface<Group, GroupDto> {
     @BeanMapping(ignoreByDefault = true)
     @Mapping(source = "dto.name", target = "name")
     @Mapping(source = "dto.description", target = "description")
-    @Mapping(source = "dto.groupMemberships", target = "groupMemberships", qualifiedByName = "toModelGroupMembership")
+//    @Mapping(source = "dto.groupMemberships", target = "groupMemberships", qualifiedByName = "toModelGroupMembership")
     Group toModel(GroupDto dto);
 
 

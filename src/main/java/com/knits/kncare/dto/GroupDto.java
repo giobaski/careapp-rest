@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.knits.kncare.dto.search.AbstractSearchableDto;
 import com.knits.kncare.model.Group;
 import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
@@ -23,7 +24,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GroupDto extends AbstractSearchableDto<Group>{
+public class GroupDto extends AbstractSearchableDto<Group> {
 
     private Long id;
 
