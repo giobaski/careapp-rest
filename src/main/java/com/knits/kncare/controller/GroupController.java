@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -23,7 +24,7 @@ public class GroupController {
 
     @Operation(summary = "create a new group")
     @PostMapping
-    public ResponseEntity<GroupDto> createGroup(@RequestBody GroupDto groupDto) {
+    public ResponseEntity<GroupDto> createGroup(@Valid @RequestBody GroupDto groupDto) {
         try {
             return new ResponseEntity<>(groupService.create(groupDto), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -43,12 +44,12 @@ public class GroupController {
             return ResponseEntity.ok(groupService.getbyId(id));
     }
 
-    @Operation(summary = "search groups by the name???")
-    @GetMapping
-    public Page<GroupDto> searchGroups (GroupDto groupDto){
-        return groupService.search(groupDto);
-
-    }
+//    @Operation(summary = "search groups by the name???")
+//    @GetMapping
+//    public Page<GroupDto> searchGroups (GroupDto groupDto){
+//        return groupService.search(groupDto);
+//
+//    }
 
 
 }

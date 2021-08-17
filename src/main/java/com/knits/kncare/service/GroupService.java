@@ -39,8 +39,8 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
     public GroupDto create(GroupDto groupDto) {
 
-        if(groupDto.getMemberIds() == null){
-            log.debug("creating a group without new members");
+        if(groupDto.getMemberIds().isEmpty()){
+            log.debug("creating a group without new members" + groupDto);
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
         log.debug("creating a group with new members");
@@ -79,7 +79,6 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         return groupMapper.toDto(groupRepository.save(group));
     }
 
-
     public GroupDto getbyId(long id) {
         Optional<GroupDto> existingGroupDto = groupRepository.findById(id).map(groupMapper::toDto);
         Group group = groupRepository.findById(id)
@@ -87,10 +86,10 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         return groupMapper.toDto(group);
     }
 
-    public Page<GroupDto> search (GroupDto groupDto){
-        Page<Group> groups = groupRepository.findAll(groupDto.getSpecification(), groupDto.getPageable());
-        return toDtoPage(groups);
-    }
+//    public Page<GroupDto> search (GroupDto groupDto){
+//        Page<Group> groups = groupRepository.findAll(groupDto.getSpecification(), groupDto.getPageable());
+//        return toDtoPage(groups);
+//    }
 }
 
 

@@ -10,6 +10,10 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 
@@ -24,6 +28,9 @@ public class GroupDto {
     private Long id;
 
     @JsonView(Views.Common.class)
+    @NotNull(message = "Group Name Should Not Be Null")
+    @NotBlank(message = "Group Name Should Not Be Empty and must contain at least one non-whitespace character")
+    @Size(min = 1, max = 100, message = "")
     private String name;
 
     @JsonView(Views.Common.class)

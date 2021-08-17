@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -23,6 +24,7 @@ public class Group extends AbstractMemberAuditableEntity {
     private Long id;
 
     @Column(name = "name")
+//    @NotNull
     private String name;
 
     @Column(name = "description")
