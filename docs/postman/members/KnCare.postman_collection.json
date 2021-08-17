@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bb8e3763-47ca-4e30-96f7-7a8755cac91a",
+		"_postman_id": "bdae2caf-073d-4be9-b7e9-4b6d7cea696e",
 		"name": "KnCare",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,9 +9,15 @@
 			"name": "GetAllMembers",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "acce",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/members/responsibility?countryId=1&size=1",
+					"raw": "http://localhost:8080/api/v1/members?countryId=1&size=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,8 +26,7 @@
 					"path": [
 						"api",
 						"v1",
-						"members",
-						"responsibility"
+						"members"
 					],
 					"query": [
 						{

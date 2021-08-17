@@ -1,6 +1,8 @@
 package com.knits.kncare.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.dto.EmployeeDto;
+import com.knits.kncare.dto.Views;
 import com.knits.kncare.dto.search.EmployeeSearchDto;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.service.EmployeeService;
@@ -80,7 +82,7 @@ public class EmployeeController{
     }
 
     @GetMapping("/search")
-//    @JsonView(Views.Public.class)
+    @JsonView(Views.EmployeeDetails.class)
     public ResponseEntity<Page<EmployeeDto>> searchEmployees(EmployeeSearchDto employeeSearch) {
         try {
             return new ResponseEntity<>(service.search(employeeSearch), HttpStatus.OK);

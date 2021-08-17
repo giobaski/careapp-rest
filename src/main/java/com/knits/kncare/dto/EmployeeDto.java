@@ -1,5 +1,6 @@
 package com.knits.kncare.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.model.ems.*;
 import com.knits.kncare.model.history.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonView(Views.Common.class)
 public class EmployeeDto {
+
+
     private Long id;
 
     private Long pdmId;
@@ -49,32 +53,46 @@ public class EmployeeDto {
 
     private Date dateOfLeave;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Employee hrReference;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Employee dottedLineManager;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Employee solidLineManager;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Country nationality;
 
+    @JsonView(Views.EmployeeDetails.class)
     private BusinessUnit businessUnit;
 
+    @JsonView(Views.EmployeeDetails.class)
     private CostCenter costCenter;
 
+    @JsonView(Views.EmployeeDetails.class)
     private ManagementGroup managementGroup;
 
+    @JsonView(Views.EmployeeDetails.class)
     private WorkingPosition workingPosition;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Office office;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Set<BusinessUnitHistoryRecord> businessUnitHistoryRecords;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Set<CostCenterHistoryRecord> costCenterHistoryRecordRecords;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Set<EmployeeHistoryRecord> employeeHistoryRecords;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Set<ManagementGroupHistoryRecord> groupManagementHistoryRecords;
 
+    @JsonView(Views.EmployeeDetails.class)
     private Set<WorkingPositionHistoryRecord> workingPositionHistoryRecords;
 
 
