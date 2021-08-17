@@ -63,13 +63,11 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
 
     public GroupDto update (Long id, GroupDto groupDto){
-        //check empty name
-
+        //check for empty name
 
         Group group = groupRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
 
-//        group.setMemberIds(groupDto.getMemberIds());  //adding Set of Ids of new members
         group.setName(groupDto.getName());
         group.setDescription(groupDto.getDescription());
 
@@ -88,13 +86,7 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
         for (Member member : members) {
             GroupMembership groupMembership = new GroupMembership(group, member);
-
-            boolean anyMatch = group.getGroupMemberships().stream()
-                    .anyMatch(gm -> gm.equals(groupMembership));
-            if (!anyMatch){
-                group.getGroupMemberships().add(groupMembership);
-            }
-
+            group.getGroupMemberships().add(groupMembership);
         }
     }
 
