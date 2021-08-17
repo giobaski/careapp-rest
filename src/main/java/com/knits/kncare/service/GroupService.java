@@ -91,7 +91,12 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         for (Member member : members) {
             GroupMembership groupMembership = new GroupMembership(group, member);
             //TODO: //Does not check equals and adding duplicated groupmemberships, I fixed it in prev version of code.
-            group.getGroupMemberships().add(groupMembership);
+            boolean anyMatch = group.getGroupMemberships().stream()
+                    .anyMatch(gm -> gm.equals(groupMembership));
+            if (!anyMatch){
+                group.getGroupMemberships().add(groupMembership);
+            }
+
         }
     }
 

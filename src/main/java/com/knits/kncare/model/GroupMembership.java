@@ -6,8 +6,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Objects;
 
+//@Data
 @Setter
 @Getter
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -33,19 +35,31 @@ public class GroupMembership extends AbstractMemberAuditableEntity {
         this.member = member;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (!(o instanceof GroupMembership)) return false;
         GroupMembership groupMembership = (GroupMembership) o;
-        return group.equals(groupMembership.group) && member.equals(groupMembership.member);
+        return Objects.equals(getGroup().getId(), groupMembership.getGroup().getId())
+                && Objects.equals(getMember().getId(), groupMembership.getMember().getId());
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        if (!super.equals(o)) return false;
+//        GroupMembership groupMembership = (GroupMembership) o;
+//        return Objects.equals(getGroup().getId(), groupMembership.getGroup().getId())
+//                && Objects.equals(getMember().getId(), groupMembership.getMember().getId());
+//    }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), group, member);
+        return getClass().hashCode();
     }
+
 
     @Override
     public String toString() {
