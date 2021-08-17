@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MemberService extends ServiceBase<Member, MemberDto>{
@@ -20,15 +21,25 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
         this.memberRepository = memberRepository;
     }
 
-    public List<Member> getAll() { return memberRepository.findAll(); }
+
+    public MemberDto create (MemberDto memberDto) {
+        //TODO: Check before saving whether member with same employee_id exists or not
+        Member createdMember = memberRepository.save(toModel(memberDto));
+        return toDto(createdMember);
+    }
+
+    //    public List<Member> getAll() { return memberRepository.findAll(); }
+    public List<MemberDto> getAll() {  //delete this after implementing search
+        return memberRepository.findAll()
+                .stream()
+                .map(member -> toDto(member))
+                .collect(Collectors.toList());
+    }
 
     public Optional<Member> getbyId(long id) {
         return memberRepository.findById(id);
     }
-
-    public Member Add(Member member) {
-        return memberRepository.save(member);
-    }
+    public Member Add(Member member) { return memberRepository.save(member); }
 
     public void delete(Long id){
         memberRepository.deleteById(id);

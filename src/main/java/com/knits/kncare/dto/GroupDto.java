@@ -28,9 +28,9 @@ public class GroupDto {
     private Long id;
 
     @JsonView(Views.Common.class)
-    @NotNull(message = "Group Name Should Not Be Null")
-    @NotBlank(message = "Group Name Should Not Be Empty and must contain at least one non-whitespace character")
-    @Size(min = 1, max = 100, message = "")
+    @NotNull(message = "Group name must not be Null")
+    @NotBlank(message = "Group name must not be Null and must contain at least one non-whitespace character")
+    @Size(min = 1, max = 100, message = "Group name size must be in 1-100 range")
     private String name;
 
     @JsonView(Views.Common.class)

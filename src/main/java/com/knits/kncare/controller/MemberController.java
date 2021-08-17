@@ -32,9 +32,9 @@ public class MemberController {
 
     @Operation(summary="create a care member")
     @PostMapping
-    public ResponseEntity<Member> createMember(@RequestBody Member member) {
+    public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
         try {
-            return new ResponseEntity<>(service.Add(member), HttpStatus.CREATED);
+            return new ResponseEntity<>(service.create(memberDto), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
