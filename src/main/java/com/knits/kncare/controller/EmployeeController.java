@@ -69,8 +69,17 @@ public class EmployeeController{
         }
 
     }
+    @GetMapping()
+//    @JsonView(Views.Public.class)
+    public ResponseEntity<Page<EmployeeDto>> getAllEmployees() {
+        try {
+            return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-    @GetMapping
+    @GetMapping("/search")
 //    @JsonView(Views.Public.class)
     public ResponseEntity<Page<EmployeeDto>> searchEmployees(EmployeeSearchDto employeeSearch) {
         try {

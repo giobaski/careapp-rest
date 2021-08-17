@@ -35,7 +35,9 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
         this.restTemplate = restTemplate;
     }
 
-    public List<Employee> getAll() { return repository.findAll(); }
+    public Page<EmployeeDto> getAll() {
+        return new PageImpl<>(toDtoList(repository.findAll()));
+    }
 
     public Optional<Employee> getById(long id) {
         return repository.findById(id);
