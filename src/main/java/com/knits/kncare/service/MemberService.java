@@ -47,6 +47,6 @@ public class MemberService extends ServiceBase<Member, MemberDto> {
 
     public Page<MemberDto> search(MemberSearchDto memberSearchDto) {
         Page<Member> memberPage = repository.findAll(memberSearchDto.getSpecification(), memberSearchDto.getPageable());
-        return new PageImpl<>(mapper.toDtoList(memberPage.getContent()));
+        return new PageImpl<>(toDtoList(memberPage.getContent()), memberSearchDto.getPageable(), memberSearchDto.getPageable().getPageSize());
     }
 }
