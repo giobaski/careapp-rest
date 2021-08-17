@@ -30,7 +30,7 @@ public class Group extends AbstractMemberAuditableEntity {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private Set<GroupMembership> groupMemberships = new HashSet<>();
 
     @Transient

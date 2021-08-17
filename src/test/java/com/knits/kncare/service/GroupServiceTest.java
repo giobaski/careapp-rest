@@ -102,7 +102,7 @@ public class GroupServiceTest {
                 null, null);
         Group group = new Group();
         Assertions.assertThatThrownBy(
-                ()-> { groupService.addMembersToGroup(group);}
+                ()-> { groupService.addMembersToGroup(group, group.getMemberIds());}
         ).isInstanceOf(RuntimeException.class)
 //                .hasMessageNotContaining("run");
                 .hasMessage(null);

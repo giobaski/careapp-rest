@@ -1,14 +1,13 @@
 package com.knits.kncare.model;
 
 import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,13 +26,20 @@ public class GroupMembership extends AbstractMemberAuditableEntity {
     @JoinColumn(name = "member_id", referencedColumnName = "ID")
     private Member member;
 
+
+    //Custom Constructor
+    public GroupMembership(Group group, Member member) {
+        this.group = group;
+        this.member = member;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        GroupMembership that = (GroupMembership) o;
-        return group.equals(that.group) && member.equals(that.member);
+        GroupMembership groupMembership = (GroupMembership) o;
+        return group.equals(groupMembership.group) && member.equals(groupMembership.member);
     }
 
     @Override
@@ -41,6 +47,14 @@ public class GroupMembership extends AbstractMemberAuditableEntity {
         return Objects.hash(super.hashCode(), group, member);
     }
 
+    @Override
+    public String toString() {
+        return "GroupMembership{" +
+                "id=" + id +
+                ", group=" + group +
+                ", member=" + member +
+                '}';
+    }
 
     //    @Override
 //    public boolean equals(Object o) {

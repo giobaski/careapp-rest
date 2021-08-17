@@ -12,6 +12,7 @@ import com.knits.kncare.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,45 +40,125 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
     public GroupDto create(GroupDto groupDto) {
 
-        if(groupDto.getMemberIds().isEmpty()){
-            log.debug("creating a group without new members" + groupDto);
+        //checking an empty Group name
+        if(groupDto.getName().isEmpty()) { throw new RuntimeException("Group Name Should Not be Empty");}
+        //checking for duplicated name
+        Group existingName = groupRepository.findByName(groupDto.getName());
+        if(existingName != null){ throw new RuntimeException(String.format("Group with the name %s already exists",groupDto.getName())); }
+
+
+        if (CollectionUtils.isEmpty(groupDto.getMemberIds())) {
+            log.debug("creating a group without new members");
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
-        log.debug("creating a group with new members");
+
         Group group = groupMapper.toModel(groupDto);
-//        group.setMemberIds(groupDto.getMemberIds());
-        return addMembersToGroup(group);
+        addMembersToGroup(group, groupDto.getMemberIds());
+        groupRepository.save(group);
+
+        GroupDto savedGroupDto = groupMapper.toDto(group);
+        savedGroupDto.setMemberIds(groupDto.getMemberIds());
+        return savedGroupDto;
     }
 
 
     public GroupDto update (Long id, GroupDto groupDto){
+        //check empty name
+
 
         Group group = groupRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
-        group.setMemberIds(groupDto.getMemberIds());  //adding Set of Ids of new members
+
+//        group.setMemberIds(groupDto.getMemberIds());  //adding Set of Ids of new members
         group.setName(groupDto.getName());
         group.setDescription(groupDto.getDescription());
-        return addMembersToGroup(group);
+
+        addMembersToGroup(group, groupDto.getMemberIds());
+        groupRepository.save(group);
+
+        GroupDto updatedGroupDto = groupMapper.toDto(group);
+        updatedGroupDto.setMemberIds(groupDto.getMemberIds());
+        return updatedGroupDto;
+
+
     }
 
 
-    public GroupDto addMembersToGroup (Group group) {
+    public void addMembersToGroup(Group group, Set<Long> memberIds) {
 
-        Set<GroupMembership> memberships = group.getGroupMemberships();
-        for (Long id : group.getMemberIds()) {
-            Optional<Member> member = memberRepository.findById(id);
-            if (member.isPresent()) {
+        List<Member> members = memberRepository.findByIds(memberIds);
 
-                GroupMembership groupMembership = new GroupMembership();
-                groupMembership.setGroup(group);
-                groupMembership.setMember(member.get());
-
-                memberships.add(groupMembership);
-            }
+        for (Member member : members) {
+            GroupMembership groupMembership = new GroupMembership(group, member);
+            //TODO: //Does not check equals and adding duplicated groupmemberships, I fixed it in prev version of code.
+            group.getGroupMemberships().add(groupMembership);
         }
-        group.getGroupMemberships().addAll(memberships);
-        return groupMapper.toDto(groupRepository.save(group));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    // Old, but Works
+//    public GroupDto create(GroupDto groupDto) {
+//
+//        if(groupDto.getMemberIds().isEmpty()){
+//            log.debug("creating a group without new members" + groupDto);
+//            return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
+//        }
+//        log.debug("creating a group with new members");
+//        Group group = groupMapper.toModel(groupDto);
+//        group.setMemberIds(groupDto.getMemberIds());
+//        return addMembersToGroup(group);
+//    }
+//
+//    // Old, but Works
+//    public GroupDto update (Long id, GroupDto groupDto){
+//
+//        Group group = groupRepository.findById(id)
+//                .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
+//        group.setMemberIds(groupDto.getMemberIds());  //adding Set of Ids of new members
+//        group.setName(groupDto.getName());
+//        group.setDescription(groupDto.getDescription());
+//        return addMembersToGroup(group);
+//    }
+//
+//
+//    // Old.Works
+//    public GroupDto addMembersToGroup (Group group) {
+//
+//        Set<GroupMembership> memberships = group.getGroupMemberships();
+//        for (Long id : group.getMemberIds()) {
+//            Optional<Member> member = memberRepository.findById(id);
+//            if (member.isPresent()) {
+//
+//                GroupMembership groupMembership = new GroupMembership();
+//                groupMembership.setGroup(group);
+//                groupMembership.setMember(member.get());
+//
+//                memberships.add(groupMembership);
+//            }
+//        }
+//        group.getGroupMemberships().addAll(memberships);
+//        return groupMapper.toDto(groupRepository.save(group));
+//    }
+
+
 
     public GroupDto getbyId(long id) {
         Optional<GroupDto> existingGroupDto = groupRepository.findById(id).map(groupMapper::toDto);
