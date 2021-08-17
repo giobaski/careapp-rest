@@ -1,7 +1,7 @@
 package com.knits.kncare.controller;
 
 import com.knits.kncare.dto.MemberDto;
-import com.knits.kncare.dto.MemberSearch;
+import com.knits.kncare.dto.search.MemberSearchDto;
 import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.EmployeeRepository;
 import com.knits.kncare.service.MemberService;
@@ -83,22 +83,12 @@ public class MemberController {
     @Operation(summary = "find care members by one of its model fields")
     @GetMapping
 //    @JsonView(Views.Public.class)
-    public ResponseEntity<Page<MemberDto>> searchMembers(MemberSearch memberSearch, Pageable pageable) {
+    public ResponseEntity<Page<MemberDto>> searchMembers(MemberSearchDto memberSearchDto) {
         try {
-            return new ResponseEntity<>(service.search(memberSearch, pageable), HttpStatus.OK);
+            return new ResponseEntity<>(service.search(memberSearchDto), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @Operation(summary = "find care members by one of its model fields")
-    @GetMapping("/responsibility")
-//    @JsonView(Views.Public.class)
-    public ResponseEntity<Page<MemberDto>> searchMembersByCountry(@RequestParam Long countryId, Pageable pageable) {
-        try {
-            return new ResponseEntity<>(service.searchByCountry(countryId, pageable), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }
