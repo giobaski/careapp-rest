@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +44,7 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
         return repository.findById(id);
     }
 
-    public Employee Add(Employee employee) {
+    public Employee add(Employee employee) {
         return repository.save(employee);
     }
 
@@ -61,7 +62,7 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
             updateLocalEmployeesStorage(employeePage);
             return new PageImpl<>(employeePage.getContent(), employeeSearch.getPageable(), employeePage.getContent().size());
         }
-        return null;
+        return new PageImpl<>(new ArrayList<>());
     }
 
 

@@ -32,7 +32,7 @@ public class EmployeeController{
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
         try {
-            return new ResponseEntity<>(service.Add(employee), HttpStatus.CREATED);
+            return new ResponseEntity<>(service.add(employee), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -43,7 +43,7 @@ public class EmployeeController{
         Optional<Employee> employeeData = service.getById(id);
 
         if (employeeData.isPresent()) {
-            return new ResponseEntity<>(service.Add(employee), HttpStatus.OK);
+            return new ResponseEntity<>(service.add(employee), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
