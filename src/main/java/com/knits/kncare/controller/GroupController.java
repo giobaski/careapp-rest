@@ -1,6 +1,7 @@
 package com.knits.kncare.controller;
 
 import com.knits.kncare.dto.GroupDto;
+import com.knits.kncare.dto.search.GroupSearchDto;
 import com.knits.kncare.service.GroupService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Page;
@@ -44,12 +45,11 @@ public class GroupController {
             return ResponseEntity.ok(groupService.getbyId(id));
     }
 
-//    @Operation(summary = "search groups by the name???")
-//    @GetMapping
-//    public Page<GroupDto> searchGroups (GroupDto groupDto){
-//        return groupService.search(groupDto);
-//
-//    }
+    @Operation(summary = "search groups by the name???")
+    @GetMapping
+    public Page<GroupDto> searchGroups (GroupSearchDto groupSearchDto){
+        return groupService.search(groupSearchDto);
+    }
 
 
 }

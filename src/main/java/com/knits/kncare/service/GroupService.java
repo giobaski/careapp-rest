@@ -1,6 +1,7 @@
 package com.knits.kncare.service;
 
 import com.knits.kncare.dto.GroupDto;
+import com.knits.kncare.dto.search.GroupSearchDto;
 import com.knits.kncare.mapper.GroupMapper;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.mapper.MemberMapper;
@@ -98,10 +99,10 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         return groupMapper.toDto(group);
     }
 
-//    public Page<GroupDto> search (GroupDto groupDto){
-//        Page<Group> groups = groupRepository.findAll(groupDto.getSpecification(), groupDto.getPageable());
-//        return toDtoPage(groups);
-//    }
+    public Page<GroupDto> search (GroupSearchDto groupSearchDto){
+        Page<Group> groups = groupRepository.findAll(groupSearchDto.getSpecification(), groupSearchDto.getPageable());
+        return toDtoPage(groups);
+    }
 }
 
 
