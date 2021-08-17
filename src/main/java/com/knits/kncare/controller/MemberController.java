@@ -90,4 +90,15 @@ public class MemberController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Operation(summary = "find care members by one of its model fields")
+    @GetMapping("/responsibility")
+//    @JsonView(Views.Public.class)
+    public ResponseEntity<Page<MemberDto>> searchMembersByCountry(@RequestParam Long countryId, Pageable pageable) {
+        try {
+            return new ResponseEntity<>(service.searchByCountry(countryId, pageable), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -49,4 +49,9 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
         return new PageImpl<>(memberDtos, pageable, memberDtos.size());
     }
 
+    public Page<MemberDto> searchByCountry(Long countryId, Pageable pageable) {
+        List<MemberDto> memberDtos = toDtoList(repository.findByCountry(countryId));
+        return new PageImpl<>(memberDtos, pageable, memberDtos.size());
+    }
+
 }

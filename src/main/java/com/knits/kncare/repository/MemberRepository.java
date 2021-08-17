@@ -11,9 +11,13 @@ import java.util.Set;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositorySearch, JpaSpecificationExecutor<Member> {
+
     @Query("select u from Member u where u.employee.internationalName like %?1")
     List<Member> findByFirstnameEndsWith(String internationalName);
 
     @Query( "select m from Member m INNER JOIN FETCH m.employee e where m.id in :ids" )
     List<Member> findByIds(@Param("ids") Set<Long> memberIds);
+
+    @Query( "select m from Member m INNER JOIN FETCH m.employee e INNER JOIN e.office o INNER JOIN o.country c where c.id=:countryId" )
+    List<Member> findByCountry(@Param("countryId") Long countryId);
 }
