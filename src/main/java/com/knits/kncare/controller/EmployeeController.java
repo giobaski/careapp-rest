@@ -1,13 +1,12 @@
 package com.knits.kncare.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.dto.EmployeeDto;
-import com.knits.kncare.dto.Views;
 import com.knits.kncare.dto.search.EmployeeSearchDto;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,19 +70,10 @@ public class EmployeeController{
         }
 
     }
-    @GetMapping()
-//    @JsonView(Views.Public.class)
-    public ResponseEntity<Page<EmployeeDto>> getAllEmployees() {
-        try {
-            return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
-    @GetMapping("/search")
-    @JsonView(Views.EmployeeDetails.class)
-    public ResponseEntity<Page<EmployeeDto>> searchEmployees(EmployeeSearchDto employeeSearch) {
+    @GetMapping
+//    @JsonView(Views.Public.class)
+    public ResponseEntity<Page<EmployeeDto>> searchEmployees(EmployeeSearchDto employeeSearch, Pageable pageable) {
         try {
             return new ResponseEntity<>(service.search(employeeSearch), HttpStatus.OK);
         } catch (Exception e) {

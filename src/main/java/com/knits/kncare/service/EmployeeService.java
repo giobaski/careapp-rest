@@ -2,6 +2,7 @@ package com.knits.kncare.service;
 
 import com.knits.kncare.dto.EmployeeDto;
 import com.knits.kncare.dto.pages.EmployeeDtoPage;
+import com.knits.kncare.dto.pages.JsonPageImpl;
 import com.knits.kncare.dto.search.EmployeeSearchDto;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.model.ems.Employee;
@@ -62,7 +63,7 @@ public class EmployeeService extends ServiceBase<Employee, EmployeeDto> {
             updateLocalEmployeesStorage(employeePage);
             return new PageImpl<>(employeePage.getContent(), employeeSearch.getPageable(), employeePage.getContent().size());
         }
-        return new PageImpl<>(new ArrayList<>());
+        return new JsonPageImpl<>(new ArrayList<>());
     }
 
 
