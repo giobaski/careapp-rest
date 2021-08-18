@@ -5,6 +5,7 @@ public class Status {
     public enum EmailSentStatus {
         CONFIRMED,
         BOUNCED,
+        PENDING,
         ERROR
     }
 

@@ -19,8 +19,8 @@ public interface CycleAvoidingMapperInterface<MDL, DTO> extends MapperInterface<
     }
 
     @Override
-    default List<DTO> toDtoList(List<MDL> dtoList) {
-        return toDtoList(dtoList, new CycleAvoidingMappingContext());
+    default List<DTO> toDtoList(List<MDL> modelList) {
+        return toDtoList(modelList, new CycleAvoidingMappingContext());
     }
 
     @Named("toDtoCyclic")

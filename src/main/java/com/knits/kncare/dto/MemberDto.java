@@ -16,19 +16,19 @@ import java.util.Set;
 @Builder
 public class MemberDto {
 
-    @JsonView(Views.EntityData.class)
+    @JsonView(Views.Common.class)
     private Long id;
 
-    @JsonView(Views.EntityData.class)
+    @JsonView(Views.Common.class)
     private LocalDateTime onBoardDate;
 
-    @JsonView(Views.EntityData.class)
+    @JsonView(Views.Common.class)
     private LocalDateTime offBoardDate;
 
-    @JsonView(Views.EntityData.class)
+    @JsonView(Views.Common.class)
     private Employee employee;
 
-    @JsonView(Views.EntityData.class)
+    @JsonView(Views.Common.class)
     private Role role;
 
     @JsonView(Views.MemberDetails.class)

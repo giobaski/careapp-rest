@@ -1,7 +1,10 @@
 package com.knits.kncare.service;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.dto.EmailDto;
+import com.knits.kncare.dto.Views;
 import com.knits.kncare.dto.search.EmailSearchDto;
+import com.knits.kncare.exception.EmailException;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.model.Email;
 import com.knits.kncare.model.Group;
@@ -44,50 +47,52 @@ public class EmailService extends ServiceBase<Email, EmailDto>{
         return toDtoPage(emails);
     }
 
-    public void delete(long id) {
+    public void delete(long id) throws EmailException {
         Optional<Email> optionalEmail = emailRepository.findById(id);
-        Email email = optionalEmail.orElseThrow(() -> new RuntimeException("No such email!"));
+        Email email = optionalEmail.orElseThrow(() -> new EmailException("No such email!"));
         emailRepository.delete(email);
     }
 
-    public EmailDto update(long id, EmailDto emailDto) {
-        Email email = emailRepository.findById(id).orElseThrow(() -> new RuntimeException("No such email!"));
+    @JsonView(Views.Common.class)
+    public EmailDto update(long id, EmailDto emailDto) throws EmailException {
+        Email email = emailRepository.findById(id).orElseThrow(() -> new EmailException("No such email!"));
         email.setContent(emailDto.getContent());
         email.setSubject(emailDto.getSubject());
+        email.setCreatedBy(memberRepository.findById(emailDto.getCreatedBy().getId()).orElseThrow(() -> new EmailException("No such member")));
         emailRepository.save(email);
         return toDto(email);
     }
 
-    public void addRecipients(long id, List<Long> memberIds) {
+    public void addRecipients(long id, List<Long> memberIds) throws EmailException {
         Email email = emailRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No such email!"));
+                .orElseThrow(() -> new EmailException("No such email!"));
         List<Member> members = memberRepository.findAllById(memberIds);
 
         members.forEach(email::addRecipient);
         emailRepository.save(email);
     }
 
-    public void deleteRecipients(long id, List<Long> memberIds) {
+    public void deleteRecipients(long id, List<Long> memberIds) throws EmailException {
         Email email = emailRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No such email!"));
+                .orElseThrow(() -> new EmailException("No such email!"));
         List<Member> members = memberRepository.findAllById(memberIds);
 
         members.forEach(email::removeRecipient);
         emailRepository.save(email);
     }
 
-    public void addGroups(long id, List<Long> groupIds) {
+    public void addGroups(long id, List<Long> groupIds) throws EmailException {
         Email email = emailRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No such email!"));
+                .orElseThrow(() -> new EmailException("No such email!"));
         List<Group> groups = groupRepository.findAllById(groupIds);
 
         groups.forEach(email::addGroup);
         emailRepository.save(email);
     }
 
-    public void deleteGroups(long id, List<Long> groupIds) {
+    public void deleteGroups(long id, List<Long> groupIds) throws EmailException {
         Email email = emailRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No such email!"));
+                .orElseThrow(() -> new EmailException("No such email!"));
         List<Group> groups = groupRepository.findAllById(groupIds);
 
         groups.forEach(email::removeGroup);

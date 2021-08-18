@@ -2,9 +2,9 @@ package com.knits.kncare.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.dto.EmailDto;
-import com.knits.kncare.dto.search.EmailSearchDto;
-import com.knits.kncare.model.Email;
 import com.knits.kncare.dto.Views;
+import com.knits.kncare.dto.search.EmailSearchDto;
+import com.knits.kncare.exception.EmailException;
 import com.knits.kncare.service.EmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Page;
@@ -47,7 +47,7 @@ public class EmailController {
     @Operation(summary="update an Email")
     @PutMapping("{id}")
     @JsonView(Views.EmailDetails.class)
-    public ResponseEntity<EmailDto> updateEmail(@PathVariable("id") long id, @RequestBody EmailDto email) {
+    public ResponseEntity<EmailDto> updateEmail(@PathVariable("id") long id, @RequestBody EmailDto email) throws EmailException {
         return new ResponseEntity<>(service.update(id, email), HttpStatus.OK);
     }
 
@@ -64,7 +64,7 @@ public class EmailController {
 
     @Operation(summary="find Emails by one of its model fields")
     @GetMapping
-//    @JsonView(Views.Public.class)
+    @JsonView(Views.EmailDetails.class)
     public Page<EmailDto> searchEmails(EmailSearchDto emailSearchDto) {
         return service.search(emailSearchDto);
     }

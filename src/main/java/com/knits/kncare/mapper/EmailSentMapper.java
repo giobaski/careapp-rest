@@ -19,6 +19,6 @@ public interface EmailSentMapper extends MapperInterface<EmailSent, EmailSentDto
     EmailSent toModel(EmailSentDto emailSentDto);
 
     @Override
-    List<EmailSentDto> toDtoList(List<EmailSent> dtoList);
+    List<EmailSentDto> toDtoList(List<EmailSent> modelList);
 
 }

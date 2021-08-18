@@ -1,16 +1,9 @@
 package com.knits.kncare.mapper;
 
-import com.knits.kncare.dto.GroupDto;
 import com.knits.kncare.dto.GroupMembershipDto;
 import com.knits.kncare.dto.MemberDto;
-import com.knits.kncare.model.Group;
 import com.knits.kncare.model.GroupMembership;
-import com.knits.kncare.model.Member;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.springframework.util.CollectionUtils;
+import org.mapstruct.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +13,9 @@ import java.util.Set;
         uses = {
                 GroupMapper.class,
                 MemberMapper.class
-        }
+        },
+        injectionStrategy = InjectionStrategy.FIELD
+
 )
 public interface GroupMembershipMapper extends MapperInterface<GroupMembership, GroupMembershipDto>{
 

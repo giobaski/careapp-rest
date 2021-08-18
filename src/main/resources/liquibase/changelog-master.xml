@@ -9,5 +9,6 @@
     <include file="/liquibase/changelogs/00000000000000_initial_schema.xml" />
     <include file="/liquibase/changelogs/20210809155607-KNC-15-01-Demo.xml" />
     <include file="/liquibase/changelogs/20210809155612-KNC-15-02-Demo.xml" />
+    <include file="liquibase/changelogs/20210816135907-KNC-15-03-Add_Email_Sent.xml" />
 
 </databaseChangeLog>

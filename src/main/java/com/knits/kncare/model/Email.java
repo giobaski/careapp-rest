@@ -20,7 +20,7 @@ import java.util.Set;
 public class Email extends AbstractMemberAuditableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "subject")
@@ -33,16 +33,16 @@ public class Email extends AbstractMemberAuditableEntity {
     @ManyToMany
     @JoinTable(
             name = "email_recipient",
-            joinColumns = {@JoinColumn(name = "email")},
-            inverseJoinColumns = {@JoinColumn(name = "member")}
+            joinColumns = {@JoinColumn(name = "email_id")},
+            inverseJoinColumns = {@JoinColumn(name = "recipient_id")}
     )
     private Set<Member> recipients;
 
     @ManyToMany
     @JoinTable(
             name="email_recipient_group",
-            joinColumns = {@JoinColumn(name = "email")},
-            inverseJoinColumns = {@JoinColumn(name = "\"group\"")}
+            joinColumns = {@JoinColumn(name = "email_id")},
+            inverseJoinColumns = {@JoinColumn(name = "\"group_id\"")}
     )
     private Set<Group> recipientGroups;
 

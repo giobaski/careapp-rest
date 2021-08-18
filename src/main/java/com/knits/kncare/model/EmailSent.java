@@ -1,10 +1,7 @@
 package com.knits.kncare.model;
 
 import com.knits.kncare.model.base.AbstractAuditableEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -17,6 +14,7 @@ import static com.knits.kncare.model.status.Status.EmailSentStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "email_sent")
 public class EmailSent extends AbstractAuditableEntity {
 

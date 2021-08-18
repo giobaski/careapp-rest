@@ -1,20 +1,17 @@
 package com.knits.kncare.mapper;
 
 import com.knits.kncare.dto.GroupDto;
-import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.model.Group;
-import com.knits.kncare.model.GroupMembership;
-import com.knits.kncare.model.Member;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
 
-import java.util.List;
+import java.util.Set;
 
 @Mapper(
         componentModel = "spring",
         uses = {
                 GroupMembershipMapper.class
-        }
+        },
+        injectionStrategy = InjectionStrategy.FIELD
 )
 public interface GroupMapper extends MapperInterface<Group, GroupDto> {
 
@@ -33,5 +30,7 @@ public interface GroupMapper extends MapperInterface<Group, GroupDto> {
     @Mapping(source = "dto.groupMemberships", target = "groupMemberships", qualifiedByName = "toModelGroupMembership")
     Group toModel(GroupDto dto);
 
-
+    @Override
+    @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+    Set<Group> toModelSet(Set<GroupDto> groupDtos);
 }

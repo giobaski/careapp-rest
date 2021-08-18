@@ -20,6 +20,7 @@ import java.util.Set;
 @JsonIgnoreProperties
 public class Member {
 
+    @Column(nullable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            //TODO: add index
