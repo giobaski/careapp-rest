@@ -41,6 +41,7 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
     public GroupDto create(GroupDto groupDto) {
 
+
         //checking for duplicated name
         Group existingName = groupRepository.findByName(groupDto.getName());
         if(existingName != null){ throw new RuntimeException(String.format("Group with the name %s already exists",groupDto.getName())); }

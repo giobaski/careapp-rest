@@ -15,10 +15,10 @@ spring:
     properties:
       hibernate:
         dialect: "org.hibernate.dialect.PostgreSQLDialect"
-        format_sql: true
+        format_sql: false
 
   liquibase:
-    enabled: false
+    enabled: true
     change-log: "classpath:/liquibase/changelog-master.xml"
 
 #
