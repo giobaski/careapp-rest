@@ -13,6 +13,8 @@ import org.springframework.data.jpa.domain.Specification;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,26 +23,38 @@ import java.util.stream.Collectors;
 public class MemberService extends ServiceBase<Member, MemberDto>{
 
     private final MemberRepository memberRepository;
+    private final EmployeeService employeeService;
 
-    public MemberService(MapperInterface<Member, MemberDto> mapper, MemberRepository memberRepository) {
+
+    public MemberService(MapperInterface<Member, MemberDto> mapper,
+                         MemberRepository memberRepository,
+                         EmployeeService employeeService) {
         super(mapper);
         this.memberRepository = memberRepository;
+        this.employeeService = employeeService;
     }
 
 
     public MemberDto add (MemberDto memberDto) {
         //TODO: Check before saving whether member with same employee_id exists or not
+
+        //1) check by pdm id that this employee exists
+//        employeeService.search(memberDto.getEmployee().getPdmId());
+
+
+        //2) validate that this employee has been not already added as member
+        memberRepository.f
+
+
+
+        //3 assign onBoardDate to now
+        memberDto.setOnBoardDate(LocalDate.now());   // Probably Needs to change to LocalDate
+
+
         Member createdMember = memberRepository.save(toModel(memberDto));
         return toDto(createdMember);
     }
 
-    //    public List<Member> getAll() { return memberRepository.findAll(); }
-    public List<MemberDto> getAll() {  //delete this after implementing search
-        return memberRepository.findAll()
-                .stream()
-                .map(member -> toDto(member))
-                .collect(Collectors.toList());
-    }
 
     public Optional<Member> getById(long id) {
         return memberRepository.findById(id);
