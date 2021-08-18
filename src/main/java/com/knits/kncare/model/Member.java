@@ -1,28 +1,28 @@
 package com.knits.kncare.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.model.history.RoleHistoryRecord;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
-//@Data
-@Setter
-@Getter
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "\"member\"") //some Db have member as sql function
-@JsonIgnoreProperties
-public class Member {
+public class Member{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;            //TODO: add index
 
     @Column(name = "onboard_date", nullable = false)
@@ -42,7 +42,7 @@ public class Member {
     @OneToMany(mappedBy = "createdBy")
     private Set<Practice> practices;
 
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy")
     private Set<Email> emails;
 
     @OneToMany(mappedBy = "createdBy")
@@ -51,7 +51,7 @@ public class Member {
     @OneToMany(mappedBy = "createdBy")
     private Set<Notification> notifications;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "createdBy")
     private Set<GroupMembership> groupMemberships;
 
     @OneToMany(mappedBy = "createdBy")

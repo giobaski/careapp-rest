@@ -1,3 +1,11 @@
+
+
+
+INSERT INTO country (id, name, num_code, phone_code) VALUES (6, 'Italy', 1, 2);
+
+INSERT INTO employee (id, international_name, nationality_id) VALUES (7, 'Test Test', 6);
+
+INSERT INTO member (id, onboard_date, offboard_date,employee_id) VALUES (8,localtimestamp, localtimestamp, 7);
 INSERT INTO employee (international_name) VALUES ('Member 1');
 INSERT INTO employee (international_name) VALUES ('Member 2');
 INSERT INTO employee (international_name) VALUES ('Member 3');
@@ -28,3 +36,8 @@ INSERT INTO email (content, subject, created_by_id) VALUES ('Extum talis eleates
 
 INSERT INTO email_recipient (email, member) VALUES (1, 2);
 INSERT INTO email_recipient (email, member) VALUES (1, 3);
+
+
+INSERT INTO employee (id, international_name) VALUES (1, 'Member 1');
+INSERT INTO member (id, offboard_date, onboard_date, employee_id) VALUES (2, '2021-08-03 14:38:33.000000', '2021-08-03 14:38:33.000000', 1);
+INSERT INTO country (id, name, num_code, phone_code) VALUES (4, 'France', 1, 2);
