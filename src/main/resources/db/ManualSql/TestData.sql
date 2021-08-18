@@ -1,3 +1,8 @@
+INSERT INTO country (id, name, num_code, phone_code) VALUES (6, 'Italy', 1, 2);
+
+INSERT INTO employee (id, international_name, nationality_id) VALUES (7, 'Test Test', 6);
+
+INSERT INTO member (id, onboard_date, offboard_date,employee_id) VALUES (8,localtimestamp, localtimestamp, 7);
 INSERT INTO employee (international_name, email, id) VALUES ('Member 1', 'Email1@test.com', 1);
 INSERT INTO employee (international_name, email, id) VALUES ('Member 2', 'Email2@test.com', 2);
 INSERT INTO employee (international_name, email, id) VALUES ('Member 3', 'Email3@test.com', 3);
@@ -27,6 +32,10 @@ INSERT INTO email (content, subject, created_by_id, created_at, updated_at) VALU
 INSERT INTO email (content, subject, created_by_id, created_at, updated_at) VALUES ('Extum talis eleates est.', 'Pellentesque habitant', 2, '2021-12-03 14:38:33.000000', '2021-08-07 14:38:33.000000');
 
 INSERT INTO "group" (created_at, updated_at, description, name, created_by_id) VALUES ('2021-08-17T13:35:03.2031009', '2021-08-17T13:35:12.3689555', 'description', 'group name', '1');
+
+INSERT INTO employee (id, international_name) VALUES (1, 'Member 1');
+INSERT INTO member (id, offboard_date, onboard_date, employee_id) VALUES (2, '2021-08-03 14:38:33.000000', '2021-08-03 14:38:33.000000', 1);
+INSERT INTO country (id, name, num_code, phone_code) VALUES (4, 'France', 1, 2);
 
 INSERT INTO member_group (created_at, updated_at, created_by_id, group_id, member_id) VALUES ('2021-08-17T13:36:30.3629246', '2021-08-17T13:36:33.8894172', 1 , 1, 2);
 INSERT INTO member_group (created_at, updated_at, created_by_id, group_id, member_id) VALUES ('2021-08-17T13:36:30.3629246', '2021-08-17T13:36:33.8894172', 1 , 1, 3);

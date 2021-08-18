@@ -10,8 +10,7 @@ import java.util.Set;
         componentModel = "spring",
         uses = {
                 GroupMembershipMapper.class
-        },
-        injectionStrategy = InjectionStrategy.FIELD
+        }
 )
 public interface GroupMapper extends MapperInterface<Group, GroupDto> {
 
@@ -26,9 +25,18 @@ public interface GroupMapper extends MapperInterface<Group, GroupDto> {
     @Override
     @BeanMapping(ignoreByDefault = true)
     @Mapping(source = "dto.name", target = "name")
+    @Mapping(source = "dto.memberIds", target = "memberIds")
     @Mapping(source = "dto.description", target = "description")
     @Mapping(source = "dto.groupMemberships", target = "groupMemberships", qualifiedByName = "toModelGroupMembership")
     Group toModel(GroupDto dto);
+
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "memberIds", ignore = true)
+    @Mapping(target = "members", ignore = true)
+    @Mapping(target = "groupMemberships", ignore = true)
+    void updateGroupFromDto(GroupDto dto, @MappingTarget Group entity);
+
 
     @Override
     @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)

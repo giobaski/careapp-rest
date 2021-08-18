@@ -29,11 +29,17 @@ public class Group extends AbstractMemberAuditableEntity {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private Set<GroupMembership> groupMemberships = new HashSet<>();
 
     @Transient
     private Set<Long> memberIds;
+
+    public Group(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 
     @Transient
     public Set<Member> getGroupMembers() {

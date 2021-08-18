@@ -1,5 +1,6 @@
 package com.knits.kncare.service;
 
+import com.knits.kncare.dto.search.AbstractSearchableDto;
 import com.knits.kncare.mapper.MapperInterface;
 import org.springframework.data.domain.Page;
 
@@ -8,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 
-public abstract class ServiceBase<MDL, DTO> {
+public abstract class ServiceBase<MDL, DTO> extends AbstractSearchableDto<MDL> {
 
     protected final MapperInterface<MDL, DTO> mapper;
 

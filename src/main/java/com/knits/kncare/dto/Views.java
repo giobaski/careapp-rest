@@ -6,7 +6,8 @@ public interface Views {
     interface GroupDetails {}
     interface GroupMembership extends Common{}
     interface GroupMembers extends Common{}
-    interface MemberDetails extends Common {}
+    interface EmployeeDetails extends Common{}
+    interface MemberDetails extends Common{}
     interface EmailDetails extends Common {}
     interface EmailSentDetails extends Common {}
 }

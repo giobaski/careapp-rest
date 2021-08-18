@@ -1,59 +1,26 @@
 package com.knits.kncare.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.knits.kncare.model.*;
-import com.knits.kncare.model.ems.Employee;
-import com.knits.kncare.model.history.RoleHistoryRecord;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 
-@EqualsAndHashCode()
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonView(Views.Common.class)
 public class MemberDto {
 
-    @JsonView(Views.Common.class)
+
     private Long id;
-
-    @JsonView(Views.Common.class)
-    private LocalDateTime onBoardDate;
-
-    @JsonView(Views.Common.class)
-    private LocalDateTime offBoardDate;
-
-    @JsonView(Views.Common.class)
-    private Employee employee;
-
-    @JsonView(Views.Common.class)
-    private Role role;
+    private String onBoardDate;
+    private String offBoardDate;
+    private EmployeeDto employee;
 
     @JsonView(Views.MemberDetails.class)
-    private Set<Practice> practices;
-
-    @JsonView(Views.MemberDetails.class)
-    private Set<Email> emails;
-
-    @JsonView(Views.MemberDetails.class)
-    private Set<EmailTemplate> emailTemplates;
-
-    @JsonView(Views.MemberDetails.class)
-    private Set<Notification> notifications;
-
-    @JsonView(Views.MemberDetails.class)
-    private Set<GroupMembership> groupMemberships;
-
-    @JsonView(Views.MemberDetails.class)
-    private Set<LearningSubscription> memberTrainingPaths;
-
-    @JsonView(Views.MemberDetails.class)
-    private Set<ScheduledTraining> memberTrainings;
-
-    @JsonView(Views.MemberDetails.class)
-    private Set<RoleHistoryRecord> businessUnitHistoryRecords;
+    private Set<GroupMembershipDto> groupMemberships;
 
 
 }

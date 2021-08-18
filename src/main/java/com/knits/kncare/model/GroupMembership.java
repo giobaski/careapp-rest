@@ -1,14 +1,15 @@
 package com.knits.kncare.model;
 
 import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-@Data
+//@Data
+@Setter
+@Getter
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -33,4 +34,53 @@ public class GroupMembership extends AbstractMemberAuditableEntity {
         this.group = group;
         this.member = member;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GroupMembership)) return false;
+        GroupMembership groupMembership = (GroupMembership) o;
+        return Objects.equals(getGroup().getId(), groupMembership.getGroup().getId())
+                && Objects.equals(getMember().getId(), groupMembership.getMember().getId());
+    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        if (!super.equals(o)) return false;
+//        GroupMembership groupMembership = (GroupMembership) o;
+//        return Objects.equals(getGroup().getId(), groupMembership.getGroup().getId())
+//                && Objects.equals(getMember().getId(), groupMembership.getMember().getId());
+//    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+
+    @Override
+    public String toString() {
+        return "GroupMembership{" +
+                "id=" + id +
+                ", group=" + group +
+                ", member=" + member +
+                '}';
+    }
+
+    //    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof GroupMembership)) return false;
+//        GroupMembership groupMembership = (GroupMembership) o;
+//        return Objects.equals(getGroup().getId(), groupMembership.getGroup().getId())
+//                && Objects.equals(getMember().getId(), groupMembership.getMember().getId());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return getClass().hashCode();
+//    }
 }

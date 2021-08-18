@@ -1,8 +1,8 @@
 package com.knits.kncare.service;
 
 import com.knits.kncare.dto.GroupDto;
+import com.knits.kncare.dto.search.GroupSearchDto;
 import com.knits.kncare.mapper.GroupMapper;
-import com.knits.kncare.mapper.GroupMembershipMapper;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.mapper.MemberMapper;
 import com.knits.kncare.model.Group;
@@ -11,6 +11,8 @@ import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.GroupRepository;
 import com.knits.kncare.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -22,30 +24,30 @@ import java.util.Set;
 @Slf4j
 public class GroupService extends ServiceBase<Group, GroupDto> {
 
-
     private GroupRepository groupRepository;
     private MemberRepository memberRepository;
     private MemberMapper memberMapper;
     private GroupMapper groupMapper; //TODO: Use mapper
-    private GroupMembershipMapper groupMembershipMapper;
 
-
-    public GroupService(GroupRepository groupRepository,
-                        MapperInterface<Group, GroupDto> mapper,
+    public GroupService(MapperInterface<Group, GroupDto> mapper,
+                        GroupRepository groupRepository,
                         MemberRepository memberRepository,
-                        MemberMapper memberMapper,
-                        GroupMapper groupMapper,
-                        GroupMembershipMapper groupMembershipMapper) {
+                        GroupMapper groupMapper) {
         super(mapper);
         this.groupRepository = groupRepository;
         this.memberRepository = memberRepository;
-        this.memberMapper = memberMapper;
         this.groupMapper = groupMapper;
-        this.groupMembershipMapper = groupMembershipMapper;
     }
 
 
     public GroupDto create(GroupDto groupDto) {
+
+        //checking an empty Group name
+        if(groupDto.getName().isEmpty()) { throw new RuntimeException("Group Name Should Not be Empty");}
+        //checking for duplicated name
+        Group existingName = groupRepository.findByName(groupDto.getName());
+        if(existingName != null){ throw new RuntimeException(String.format("Group with the name %s already exists",groupDto.getName())); }
+
 
         if (CollectionUtils.isEmpty(groupDto.getMemberIds())) {
             log.debug("creating a group without new members");
@@ -61,6 +63,24 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         return savedGroupDto;
     }
 
+
+    public GroupDto update (Long id, GroupDto groupDto){
+
+        Group group = groupRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
+
+
+        groupMapper.updateGroupFromDto(groupDto,group);
+
+        addMembersToGroup(group, groupDto.getMemberIds());
+        groupRepository.save(group);
+
+        GroupDto updatedGroupDto = groupMapper.toDto(group);
+        updatedGroupDto.setMemberIds(groupDto.getMemberIds());
+        return updatedGroupDto;
+    }
+
+
     public void addMembersToGroup(Group group, Set<Long> memberIds) {
 
         List<Member> members = memberRepository.findByIds(memberIds);
@@ -72,16 +92,23 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     }
 
 
-    public Optional<GroupDto> getbyId(long id) {
+    public GroupDto getbyId(long id) {
         Optional<GroupDto> existingGroupDto = groupRepository.findById(id).map(groupMapper::toDto);
-        return existingGroupDto;
+        Group group = groupRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(""));
+        return groupMapper.toDto(group);
+    }
+
+    public Page<GroupDto> search (GroupSearchDto groupSearchDto){
+        Page<Group> groups = groupRepository.findAll(groupSearchDto.getSpecification(), groupSearchDto.getPageable());
+        return toDtoPage(groups);
     }
 }
 
 
-//Json Sample:
+//Sample:
 //groups = {
-//        "name": "myFirstGroup",
-//        "description": "Group description",
-//        "memberIds": [1,2,3]
-//        }
+//          "name": "myFirstGroup",
+//          "description": "Group description",
+//          "memberIds": [1,2,3]
+//         }
