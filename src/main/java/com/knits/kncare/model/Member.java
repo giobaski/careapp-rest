@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -26,10 +27,10 @@ public class Member{
     private Long id;            //TODO: add index
 
     @Column(name = "onboard_date", nullable = false)
-    private LocalDateTime onBoardDate;
+    private LocalDate onBoardDate;
 
     @Column(name = "offboard_date", nullable = false)
-    private LocalDateTime offBoardDate;
+    private LocalDate offBoardDate;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")

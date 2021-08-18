@@ -8,6 +8,7 @@ import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.EmployeeRepository;
 import com.knits.kncare.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/members")
 @RestController
 @JsonView(Views.Common.class)
+@Slf4j
 public class MemberController {
     private final MemberService service;
     private final EmployeeRepository repository;
@@ -46,6 +48,7 @@ public class MemberController {
         try {
             return new ResponseEntity<>(service.add(memberDto), HttpStatus.CREATED);
         } catch (Exception e) {
+            log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
