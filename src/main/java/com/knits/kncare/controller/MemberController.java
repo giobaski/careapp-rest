@@ -41,11 +41,10 @@ public class MemberController {
 
     @Operation(summary = "create a care member")
     @PostMapping
-    public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
     @JsonView(Views.MemberDetails.class)
-    public ResponseEntity<Member> createMember(@RequestBody Member member) {
+    public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
         try {
-            return new ResponseEntity<>(service.create(memberDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(service.add(memberDto), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -54,11 +53,11 @@ public class MemberController {
     @Operation(summary = "update a care member")
     @PutMapping("{id}")
     @JsonView(Views.MemberDetails.class)
-    public ResponseEntity<Member> updateMember(@PathVariable("id") long id, @RequestBody Member member) {
+    public ResponseEntity<MemberDto> updateMember(@PathVariable("id") long id, @RequestBody MemberDto memberDto) {
         Optional<Member> memberData = service.getById(id);
 
         if (memberData.isPresent()) {
-            return new ResponseEntity<>(service.add(member), HttpStatus.OK);
+            return new ResponseEntity<>(service.add(memberDto), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

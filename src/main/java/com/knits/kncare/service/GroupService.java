@@ -64,7 +64,6 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
 
     public GroupDto update (Long id, GroupDto groupDto){
-        //check for empty name
 
         Group group = groupRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));

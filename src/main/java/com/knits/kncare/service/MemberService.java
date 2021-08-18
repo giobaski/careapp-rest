@@ -28,7 +28,7 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
     }
 
 
-    public MemberDto create (MemberDto memberDto) {
+    public MemberDto add (MemberDto memberDto) {
         //TODO: Check before saving whether member with same employee_id exists or not
         Member createdMember = memberRepository.save(toModel(memberDto));
         return toDto(createdMember);
@@ -42,10 +42,9 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
                 .collect(Collectors.toList());
     }
 
-    public Optional<Member> getbyId(long id) {
+    public Optional<Member> getById(long id) {
         return memberRepository.findById(id);
     }
-    public Member Add(Member member) { return memberRepository.save(member); }
 
     public void delete(Long id){
         memberRepository.deleteById(id);
@@ -55,7 +54,7 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
     }
 
     public Page<MemberDto> search(MemberSearchDto memberSearchDto) {
-        Page<Member> memberPage = repository.findAll(memberSearchDto.getSpecification(), memberSearchDto.getPageable());
+        Page<Member> memberPage = memberRepository.findAll(memberSearchDto.getSpecification(), memberSearchDto.getPageable());
         return new JsonPageImpl<>(toDtoList(memberPage.getContent()), memberSearchDto.getPageable(), memberSearchDto.getPageable().getPageSize());
     }
 }
