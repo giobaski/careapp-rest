@@ -11,6 +11,7 @@ import com.knits.kncare.model.Member;
 import com.knits.kncare.repository.GroupRepository;
 import com.knits.kncare.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -68,8 +69,8 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         Group group = groupRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
 
-        group.setName(groupDto.getName());
-        group.setDescription(groupDto.getDescription());
+
+        groupMapper.updateGroupFromDto(groupDto,group);
 
         addMembersToGroup(group, groupDto.getMemberIds());
         groupRepository.save(group);
