@@ -19,6 +19,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -42,11 +43,15 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
     public GroupDto create(GroupDto groupDto) {
 
+        //TODO: in Case front fill send GroupDto with members[], not membersId[], should chose one way
+        groupDto.getMembers().stream()
+                .map(member -> groupDto.getMemberIds().add(member.getId()))
+                .collect(Collectors.toSet());
+
 
         //checking for duplicated name
         Group existingName = groupRepository.findByName(groupDto.getName());
         if(existingName != null){ throw new RuntimeException(String.format("Group with the name %s already exists",groupDto.getName())); }
-
 
         if (CollectionUtils.isEmpty(groupDto.getMemberIds())) {
             log.debug("creating a group without new members");
