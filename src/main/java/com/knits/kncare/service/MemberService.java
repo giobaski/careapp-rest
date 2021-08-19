@@ -70,6 +70,14 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
         return toDto(createdMember);
     }
 
+    public MemberDto update(long id, MemberDto memberDto) {
+        Member member = memberRepository.findById(id).orElseThrow(() -> new RuntimeException("No such member!"));
+        member.setOffBoardDate(memberDto.getOffBoardDate());
+        member.setRole(memberDto.getRole());
+        memberRepository.save(member);
+        return toDto(member);
+    }
+
 
     public MemberDto getById(long id) {
         Member member = memberRepository.findById(id)

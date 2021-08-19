@@ -1,6 +1,7 @@
 package com.knits.kncare.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.knits.kncare.dto.EmailDto;
 import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.dto.Views;
 import com.knits.kncare.dto.search.MemberSearchDto;
@@ -53,18 +54,13 @@ public class MemberController {
         }
     }
 
-//    @Operation(summary = "update a care member")
-//    @PutMapping("{id}")
-//    @JsonView(Views.MemberDetails.class)
-//    public ResponseEntity<MemberDto> updateMember(@PathVariable("id") long id, @RequestBody MemberDto memberDto) {
-//        Optional<MemberDto> memberData = service.getById(id);
-//
-//        if (memberData.isPresent()) {
-//            return new ResponseEntity<>(service.add(memberDto), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+
+    @Operation(summary="update a Member")
+    @PutMapping("{id}")
+    public ResponseEntity<MemberDto> updateMember(@PathVariable("id") long id, @RequestBody MemberDto memberDto) {
+        return new ResponseEntity<>(service.update(id, memberDto), HttpStatus.OK);
+    }
+
 
     @Operation(summary = "delete a care member by id")
     @DeleteMapping("{id}")
