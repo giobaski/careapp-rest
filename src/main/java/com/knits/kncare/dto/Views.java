@@ -2,6 +2,7 @@ package com.knits.kncare.dto;
 
 public interface Views {
 
+    public static interface RequestOnly {}
     public static interface Common {}
     public static interface GroupDetails {}
     public static interface GroupMembership extends Common{}
