@@ -19,7 +19,7 @@ spring:
         jdbc:
 
   liquibase:
-    enabled: false
+    enabled: true
     change-log: "classpath:/liquibase/changelog-master.xml"
 
   mail:

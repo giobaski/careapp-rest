@@ -103,7 +103,7 @@ public class EmailSentService extends ServiceBase<EmailSent, EmailSentDto> {
         if (!Strings.isNotBlank(draft.getSubject())) {
             throw new EmailException("Subject cannot be empty");
         }
-        if (!(!draft.getRecipientGroups().isEmpty() || !draft.getRecipients().isEmpty())) {
+        if (draft.getRecipientGroups().isEmpty() && draft.getRecipients().isEmpty()) {
             throw new EmailException("Email must have recipients");
         }
         if (draft.getCreatedBy() == null) {

@@ -70,7 +70,6 @@ public class EmailService extends ServiceBase<Email, EmailDto>{
         Email email = findEmailOrThrow(id);
         email.setContent(emailDto.getContent());
         email.setSubject(emailDto.getSubject());
-        email.setCreatedBy(memberRepository.findById(emailDto.getCreatedBy().getId()).orElseThrow(() -> new EmailException("No such member")));
         emailRepository.save(email);
         return toDto(email);
     }

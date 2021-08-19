@@ -39,7 +39,9 @@ public class EmailController {
     @PostMapping
     @JsonView(Views.EmailDetails.class)
     public ResponseEntity<EmailDto> createEmail(@RequestBody EmailDto emailDto) {
+
         try {
+            System.out.println("here");
             return new ResponseEntity<>(service.addNew(emailDto), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
