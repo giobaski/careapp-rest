@@ -37,7 +37,7 @@ public interface GroupMapper extends MapperInterface<Group, GroupDto> {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "memberIds", ignore = true)
-    @Mapping(target = "members", ignore = true)
+//    @Mapping(target = "members", ignore = true)   //we don't have field "members" in Group model.
     @Mapping(target = "groupMemberships", ignore = true)
     void updateGroupFromDto(GroupDto dto, @MappingTarget Group entity);
 

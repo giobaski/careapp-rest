@@ -27,6 +27,9 @@ public class MemberDto extends AbstractSearchableDto<Member> {
     @JsonView(Views.Common.class)
     private LocalDate offBoardDate;
 
+    @JsonView(Views.RequestOnly.class)
+    private Long employeePdmId;
+
     @JsonView(Views.MemberDetails.class)
     private EmployeeDto employee;
 

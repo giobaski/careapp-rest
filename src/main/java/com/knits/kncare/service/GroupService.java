@@ -68,7 +68,6 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         Group group = groupRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
 
-
         groupMapper.updateGroupFromDto(groupDto,group);
 
         addMembersToGroup(group, groupDto.getMemberIds());
@@ -92,7 +91,7 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
 
     public GroupDto getbyId(long id) {
-        Optional<GroupDto> existingGroupDto = groupRepository.findById(id).map(groupMapper::toDto);
+//        Optional<GroupDto> existingGroupDto = groupRepository.findById(id).map(groupMapper::toDto);
         Group group = groupRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(""));
         return groupMapper.toDto(group);

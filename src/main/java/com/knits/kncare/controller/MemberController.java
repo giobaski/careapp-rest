@@ -36,10 +36,10 @@ public class MemberController {
     @Operation(summary = "find a care member by id")
     @GetMapping("{id}")
     @JsonView(Views.MemberDetails.class)
-    public ResponseEntity<Member> getMemberById(@PathVariable("id") long id) {
-        Optional<Member> memberData = service.getById(id);
-        return memberData.map(member -> new ResponseEntity<>(member, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<MemberDto> getMemberById(@PathVariable("id") long id) {
+            return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
     }
+
 
     @Operation(summary = "create a care member")
     @PostMapping
@@ -53,18 +53,18 @@ public class MemberController {
         }
     }
 
-    @Operation(summary = "update a care member")
-    @PutMapping("{id}")
-    @JsonView(Views.MemberDetails.class)
-    public ResponseEntity<MemberDto> updateMember(@PathVariable("id") long id, @RequestBody MemberDto memberDto) {
-        Optional<Member> memberData = service.getById(id);
-
-        if (memberData.isPresent()) {
-            return new ResponseEntity<>(service.add(memberDto), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+//    @Operation(summary = "update a care member")
+//    @PutMapping("{id}")
+//    @JsonView(Views.MemberDetails.class)
+//    public ResponseEntity<MemberDto> updateMember(@PathVariable("id") long id, @RequestBody MemberDto memberDto) {
+//        Optional<MemberDto> memberData = service.getById(id);
+//
+//        if (memberData.isPresent()) {
+//            return new ResponseEntity<>(service.add(memberDto), HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 
     @Operation(summary = "delete a care member by id")
     @DeleteMapping("{id}")
