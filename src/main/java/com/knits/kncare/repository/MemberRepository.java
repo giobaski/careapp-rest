@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -23,7 +24,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecif
 
 
     @Query( "select m from Member m INNER JOIN FETCH m.employee e where e.pdmId=:pdmId" )
-    Member findByEmployeePdmId(@Param("pdmId") Long pdmId);
+    Optional<Member> findByEmployeePdmId(@Param("pdmId") Long pdmId);
 
 
 

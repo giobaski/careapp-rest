@@ -1,7 +1,9 @@
 package com.knits.kncare.service;
 
+import com.knits.kncare.dto.EmployeeDto;
 import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.dto.pages.JsonPageImpl;
+import com.knits.kncare.dto.search.EmployeeSearchDto;
 import com.knits.kncare.dto.search.MemberSearchDto;
 import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.model.Member;
@@ -44,20 +46,26 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
 
     public MemberDto add (MemberDto memberDto) {
 
-        //1) check by pdm id that this employee exists
-        // Do we need additional check against EMS Service?
         Long pdmId = memberDto.getEmployee().getPdmId();
-        Employee existingEmployee = employeeRepository.findByPdmId(pdmId)
-                .orElseThrow(()-> new RuntimeException(String.format("No Such Employee with pdmID: %s", pdmId.toString() )));
 
+        //1. check against EMS that this employee still exists (by pdm id)
+        EmployeeSearchDto employeeSearchDto = new EmployeeSearchDto();
+        employeeSearchDto.setPdmId(pdmId);
+        Page<EmployeeDto> employeeFromEMS = employeeService.search(employeeSearchDto);
+        if(employeeFromEMS.isEmpty()){
+            throw new RuntimeException(String.format("No Such Employee with pdm ID : %s", pdmId.toString()));
+        }
 
-        //2) validate that this employee has been not already added as member
-        memberRepository.findByEmployeePdmId(pdmId);  // throw exception here
+        //2. validate that this employee has been not already added as member
+        Optional<Member> onboardedMember = memberRepository.findByEmployeePdmId(pdmId);// throw exception here
+        if(onboardedMember.isPresent()){
+            throw new RuntimeException(String.format("Employee with pdm ID : %s has already added", pdmId.toString()));
+        }
 
-        //3 assign onBoardDate to now
+        //3. assign onBoardDate to now()
         memberDto.setOnBoardDate(LocalDate.now());
 
-
+        //4. onboard employee as care member
         Member createdMember = memberRepository.save(toModel(memberDto));
         return toDto(createdMember);
     }
