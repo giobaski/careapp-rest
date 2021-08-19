@@ -17,6 +17,8 @@ import org.springframework.data.jpa.domain.Specification;
 @Builder
 public class EmployeeSearchDto extends AbstractSearchableDto<Employee> {
 
+    private Long pdmId;
+
     private String internationalName;
 
     private String title;
