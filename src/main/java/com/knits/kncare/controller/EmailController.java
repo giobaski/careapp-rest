@@ -2,6 +2,8 @@ package com.knits.kncare.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.dto.EmailDto;
+import com.knits.kncare.dto.EmailGroupChangeDto;
+import com.knits.kncare.dto.EmailRecipientChangeDto;
 import com.knits.kncare.dto.Views;
 import com.knits.kncare.dto.search.EmailSearchDto;
 import com.knits.kncare.exception.EmailException;
@@ -12,8 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RequestMapping("/api/v1/emails")
 @RestController
@@ -69,41 +71,45 @@ public class EmailController {
         return service.search(emailSearchDto);
     }
 
+    @JsonView(Views.Common.class)
     @PostMapping("/{id}/recipients/{memberId}")
-    public ResponseEntity<HttpStatus> addRecipients(@PathVariable long id, @PathVariable List<Long> memberId) {
+    public ResponseEntity<EmailRecipientChangeDto> addRecipients(@PathVariable long id, @PathVariable Set<Long> memberId) {
         try {
-            service.addRecipients(id, memberId);
-            return new ResponseEntity<>(HttpStatus.OK);
+            EmailRecipientChangeDto recipients = service.addRecipients(id, memberId);
+            return new ResponseEntity<>(recipients, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @JsonView(Views.Common.class)
     @DeleteMapping("/{id}/recipients/{memberId}")
-    public ResponseEntity<HttpStatus> deleteRecipients(@PathVariable long id, @PathVariable List<Long> memberId) {
+    public ResponseEntity<EmailRecipientChangeDto> deleteRecipients(@PathVariable long id, @PathVariable Set<Long> memberId) {
         try {
-            service.deleteRecipients(id, memberId);
-            return new ResponseEntity<>(HttpStatus.OK);
+            EmailRecipientChangeDto recipients = service.deleteRecipients(id, memberId);
+            return new ResponseEntity<>(recipients, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @JsonView(Views.Common.class)
     @PostMapping("/{id}/groups/{groupIds}")
-    public ResponseEntity<HttpStatus> addGroups(@PathVariable long id, @PathVariable List<Long> groupIds) {
+    public ResponseEntity<EmailGroupChangeDto> addGroups(@PathVariable long id, @PathVariable Set<Long> groupIds) {
         try {
-            service.addGroups(id, groupIds);
-            return new ResponseEntity<>(HttpStatus.OK);
+            EmailGroupChangeDto groups = service.addGroups(id, groupIds);
+            return new ResponseEntity<>(groups, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @JsonView(Views.Common.class)
     @DeleteMapping("/{id}/groups/{groupIds}")
-    public ResponseEntity<HttpStatus> deleteGroups(@PathVariable long id, @PathVariable List<Long> groupIds) {
+    public ResponseEntity<EmailGroupChangeDto> deleteGroups(@PathVariable long id, @PathVariable Set<Long> groupIds) {
         try {
-            service.deleteGroups(id, groupIds);
-            return new ResponseEntity<>(HttpStatus.OK);
+            EmailGroupChangeDto groups = service.deleteGroups(id, groupIds);
+            return new ResponseEntity<>(groups, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

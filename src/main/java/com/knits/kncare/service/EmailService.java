@@ -2,10 +2,14 @@ package com.knits.kncare.service;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.dto.EmailDto;
+import com.knits.kncare.dto.EmailGroupChangeDto;
+import com.knits.kncare.dto.EmailRecipientChangeDto;
 import com.knits.kncare.dto.Views;
 import com.knits.kncare.dto.search.EmailSearchDto;
 import com.knits.kncare.exception.EmailException;
+import com.knits.kncare.mapper.GroupMapper;
 import com.knits.kncare.mapper.MapperInterface;
+import com.knits.kncare.mapper.MemberMapper;
 import com.knits.kncare.model.Email;
 import com.knits.kncare.model.Group;
 import com.knits.kncare.model.Member;
@@ -16,7 +20,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class EmailService extends ServiceBase<Email, EmailDto>{
@@ -24,12 +31,18 @@ public class EmailService extends ServiceBase<Email, EmailDto>{
     private final EmailRepository emailRepository;
     private final MemberRepository memberRepository;
     private final GroupRepository groupRepository;
+    private final MemberMapper memberMapper;
+    private final GroupMapper groupMapper;
 
-    public EmailService(MapperInterface<Email, EmailDto> mapper, EmailRepository emailRepository, MemberRepository memberRepository, GroupRepository groupRepository) {
+    public EmailService(MapperInterface<Email, EmailDto> mapper, EmailRepository emailRepository,
+                        MemberRepository memberRepository, GroupRepository groupRepository,
+                        MemberMapper memberMapper, GroupMapper groupMapper) {
         super(mapper);
         this.emailRepository = emailRepository;
         this.memberRepository = memberRepository;
         this.groupRepository = groupRepository;
+        this.memberMapper = memberMapper;
+        this.groupMapper = groupMapper;
     }
 
     public Optional<EmailDto> getById(long id) {
@@ -48,14 +61,13 @@ public class EmailService extends ServiceBase<Email, EmailDto>{
     }
 
     public void delete(long id) throws EmailException {
-        Optional<Email> optionalEmail = emailRepository.findById(id);
-        Email email = optionalEmail.orElseThrow(() -> new EmailException("No such email!"));
+        Email email =findEmailOrThrow(id);
         emailRepository.delete(email);
     }
 
     @JsonView(Views.Common.class)
     public EmailDto update(long id, EmailDto emailDto) throws EmailException {
-        Email email = emailRepository.findById(id).orElseThrow(() -> new EmailException("No such email!"));
+        Email email = findEmailOrThrow(id);
         email.setContent(emailDto.getContent());
         email.setSubject(emailDto.getSubject());
         email.setCreatedBy(memberRepository.findById(emailDto.getCreatedBy().getId()).orElseThrow(() -> new EmailException("No such member")));
@@ -63,39 +75,44 @@ public class EmailService extends ServiceBase<Email, EmailDto>{
         return toDto(email);
     }
 
-    public void addRecipients(long id, List<Long> memberIds) throws EmailException {
-        Email email = emailRepository.findById(id)
-                .orElseThrow(() -> new EmailException("No such email!"));
+    public EmailRecipientChangeDto addRecipients(long id, Set<Long> memberIds) throws EmailException {
+        Email email = findEmailOrThrow(id);
         List<Member> members = memberRepository.findAllById(memberIds);
 
-        members.forEach(email::addRecipient);
+        Set<Member> addedRecipients = members.stream().map(email::addRecipient).filter(Objects::nonNull).collect(Collectors.toSet());
         emailRepository.save(email);
+        return new EmailRecipientChangeDto(email.getId(), memberMapper.toDtoSet(Set.copyOf(members)));
     }
 
-    public void deleteRecipients(long id, List<Long> memberIds) throws EmailException {
-        Email email = emailRepository.findById(id)
-                .orElseThrow(() -> new EmailException("No such email!"));
+    public EmailRecipientChangeDto deleteRecipients(long id, Set<Long> memberIds) throws EmailException {
+        Email email = findEmailOrThrow(id);
         List<Member> members = memberRepository.findAllById(memberIds);
 
-        members.forEach(email::removeRecipient);
+        Set<Member> deletedRecipients = members.stream().map(email::removeRecipient).filter(Objects::nonNull).collect(Collectors.toSet());
         emailRepository.save(email);
+        return new EmailRecipientChangeDto(email.getId(), memberMapper.toDtoSet(deletedRecipients));
     }
 
-    public void addGroups(long id, List<Long> groupIds) throws EmailException {
-        Email email = emailRepository.findById(id)
-                .orElseThrow(() -> new EmailException("No such email!"));
+    public EmailGroupChangeDto addGroups(long id, Set<Long> groupIds) throws EmailException {
+        Email email = findEmailOrThrow(id);
         List<Group> groups = groupRepository.findAllById(groupIds);
 
-        groups.forEach(email::addGroup);
+        Set<Group> addedGroups = groups.stream().map(email::addGroup).filter(Objects::nonNull).collect(Collectors.toSet());
         emailRepository.save(email);
+        return new EmailGroupChangeDto(email.getId(), groupMapper.toDtoSet(Set.copyOf(addedGroups)));
     }
 
-    public void deleteGroups(long id, List<Long> groupIds) throws EmailException {
-        Email email = emailRepository.findById(id)
-                .orElseThrow(() -> new EmailException("No such email!"));
+    public EmailGroupChangeDto deleteGroups(long id, Set<Long> groupIds) throws EmailException {
+        Email email = findEmailOrThrow(id);
         List<Group> groups = groupRepository.findAllById(groupIds);
 
-        groups.forEach(email::removeGroup);
+        Set<Group> removedGroups = groups.stream().map(email::removeGroup).filter(Objects::nonNull).collect(Collectors.toSet());
         emailRepository.save(email);
+        return new EmailGroupChangeDto(email.getId(), groupMapper.toDtoSet(removedGroups));
+    }
+
+    private Email findEmailOrThrow(long id) {
+        return emailRepository.findById(id)
+                    .orElseThrow(() -> new EmailException("No such email!"));
     }
 }

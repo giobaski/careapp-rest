@@ -46,19 +46,19 @@ public class Email extends AbstractMemberAuditableEntity {
     )
     private Set<Group> recipientGroups;
 
-    public boolean addRecipient(Member member) {
-        return recipients.add(member);
+    public Member addRecipient(Member member) {
+        return recipients.remove(member) ? member : null;
     }
 
-    public boolean removeRecipient(Member member) {
-        return recipients.remove(member);
+    public Member removeRecipient(Member member) {
+        return recipients.remove(member) ? member : null;
     }
 
-    public boolean addGroup(Group group) {
-        return recipientGroups.add(group);
+    public Group addGroup(Group group) {
+        return recipientGroups.add(group) ? group : null;
     }
 
-    public boolean removeGroup(Group group) {
-        return recipientGroups.remove(group);
+    public Group removeGroup(Group group) {
+        return recipientGroups.remove(group) ? group : null;
     }
 }
