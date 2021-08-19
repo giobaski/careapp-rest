@@ -2,6 +2,7 @@ package com.knits.kncare.service;
 
 import com.knits.kncare.dto.GroupDto;
 import com.knits.kncare.mapper.GroupMapper;
+import com.knits.kncare.mapper.MemberMapper;
 import com.knits.kncare.model.Group;
 import com.knits.kncare.repository.GroupRepository;
 import com.knits.kncare.repository.MemberRepository;
@@ -26,12 +27,14 @@ public class GroupServiceTest {
     private MemberRepository memberRepository;
     @Mock
     private GroupMapper groupMapper;
+    @Mock
+    private MemberMapper memberMapper;
 
     private GroupService groupService; //BeforeEach
 
     @BeforeEach
     void setUp() {
-        groupService = new GroupService(groupMapper, groupRepository, memberRepository, groupMapper);
+        groupService = new GroupService(groupMapper, memberMapper, groupRepository, memberRepository, groupMapper);
     }
 
     @Test
@@ -90,22 +93,6 @@ public class GroupServiceTest {
     @Test
     @DisplayName("Should Update The Group With New Members")
     void shouldUpdateGroupWithMembers() {
-    }
-
-
-
-    @Test
-//    @Disabled
-    @DisplayName("Should throw RuntimeException")
-    void ShouldFailWhenServiceThrowsException() {
-        GroupService groupService = new GroupService(null,null,
-                null, null);
-        Group group = new Group();
-        Assertions.assertThatThrownBy(
-                ()-> { groupService.addMembersToGroup(group, group.getMemberIds());}
-        ).isInstanceOf(RuntimeException.class)
-//                .hasMessageNotContaining("run");
-                .hasMessage(null);
     }
 
 }

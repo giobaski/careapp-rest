@@ -1,6 +1,7 @@
 package com.knits.kncare.service;
 
 import com.knits.kncare.dto.GroupDto;
+import com.knits.kncare.dto.MemberDto;
 import com.knits.kncare.dto.search.GroupSearchDto;
 import com.knits.kncare.mapper.GroupMapper;
 import com.knits.kncare.mapper.MapperInterface;
@@ -31,6 +32,7 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     private GroupMapper groupMapper; //TODO: Use mapper
 
     public GroupService(MapperInterface<Group, GroupDto> mapper,
+                        MemberMapper memberMapper,
                         GroupRepository groupRepository,
                         MemberRepository memberRepository,
                         GroupMapper groupMapper) {
@@ -38,32 +40,39 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         this.groupRepository = groupRepository;
         this.memberRepository = memberRepository;
         this.groupMapper = groupMapper;
+        this.memberMapper = memberMapper;
     }
 
 
     public GroupDto create(GroupDto groupDto) {
 
-        //TODO: in Case front fill send GroupDto with members[], not membersId[], should chose one way
-        groupDto.getMembers().stream()
-                .map(member -> groupDto.getMemberIds().add(member.getId()))
-                .collect(Collectors.toSet());
-
+//        groupDto.getMembers().stream()
+//                .map(member -> groupDto.getMemberIds().add(member.getId()))
+//                .collect(Collectors.toSet());
 
         //checking for duplicated name
         Group existingName = groupRepository.findByName(groupDto.getName());
         if(existingName != null){ throw new RuntimeException(String.format("Group with the name %s already exists",groupDto.getName())); }
 
-        if (CollectionUtils.isEmpty(groupDto.getMemberIds())) {
+        if (CollectionUtils.isEmpty(groupDto.getMembers())) {
             log.debug("creating a group without new members");
             return groupMapper.toDto(groupRepository.save(groupMapper.toModel(groupDto)));
         }
 
         Group group = groupMapper.toModel(groupDto);
-        addMembersToGroup(group, groupDto.getMemberIds());
+//        addMembersToGroup(group, groupDto.getMemberIds());
+        addMembersToGroup(group, groupDto.getMembers());
+
         groupRepository.save(group);
 
         GroupDto savedGroupDto = groupMapper.toDto(group);
-        savedGroupDto.setMemberIds(groupDto.getMemberIds());
+        savedGroupDto.setMembers(groupDto.getMembers());
+
+//        //TODO: re-write
+//        group.getGroupMemberships().stream()
+//                .map( gm -> savedGroupDto.getMembers().add(memberMapper.toDto(gm.getMember())))
+//                .collect(Collectors.toSet());
+
         return savedGroupDto;
     }
 
@@ -75,28 +84,26 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
 
         groupMapper.updateGroupFromDto(groupDto,group);
 
-        addMembersToGroup(group, groupDto.getMemberIds());
+//        addMembersToGroup(group, groupDto.getMemberIds());
+        addMembersToGroup(group, groupDto.getMembers());
         groupRepository.save(group);
 
         GroupDto updatedGroupDto = groupMapper.toDto(group);
-        updatedGroupDto.setMemberIds(groupDto.getMemberIds());
+//        updatedGroupDto.setMemberIds(groupDto.getMemberIds());
         return updatedGroupDto;
     }
 
 
-    public void addMembersToGroup(Group group, Set<Long> memberIds) {
+    public void addMembersToGroup(Group group, Set<MemberDto> members) {
 
-        List<Member> members = memberRepository.findByIds(memberIds);
-
-        for (Member member : members) {
-            GroupMembership groupMembership = new GroupMembership(group, member);
+        for (MemberDto memberDto : members) {
+            GroupMembership groupMembership = new GroupMembership(group, memberMapper.toModel(memberDto));
             group.getGroupMemberships().add(groupMembership);
         }
     }
 
 
     public GroupDto getbyId(long id) {
-//        Optional<GroupDto> existingGroupDto = groupRepository.findById(id).map(groupMapper::toDto);
         Group group = groupRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(""));
         return groupMapper.toDto(group);
@@ -107,11 +114,3 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
         return toDtoPage(groups);
     }
 }
-
-
-//Sample:
-//groups = {
-//          "name": "myFirstGroup",
-//          "description": "Group description",
-//          "memberIds": [1,2,3]
-//         }

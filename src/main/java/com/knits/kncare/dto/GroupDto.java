@@ -1,21 +1,13 @@
 package com.knits.kncare.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.knits.kncare.model.GroupMembership;
-import com.knits.kncare.model.Member;
 import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Transient;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.*;
-
 
 
 @Data
@@ -37,10 +29,7 @@ public class GroupDto {
     private String description;
 
     @JsonView(Views.Common.class)
-    private Set<Long> memberIds= new HashSet<>();
-
-    @JsonView(Views.GroupMembers.class)
-    private Set<MemberDto> members= new HashSet<>();
+    private Set<MemberDto> members = new HashSet<>();
 
     @JsonView(Views.GroupMembership.class)
     private Set<GroupMembershipDto> groupMemberships = new HashSet<>();
