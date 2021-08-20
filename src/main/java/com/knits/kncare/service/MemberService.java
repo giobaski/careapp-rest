@@ -34,17 +34,14 @@ public class MemberService extends ServiceBase<Member, MemberDto>{
 
     private final MemberRepository memberRepository;
     private final EmployeeService employeeService;
-    private final EmployeeRepository employeeRepository;
 
 
     public MemberService(MapperInterface<Member, MemberDto> mapper,
                          MemberRepository memberRepository,
-                         EmployeeService employeeService,
-                         EmployeeRepository employeeRepository) {
+                         EmployeeService employeeService) {
         super(mapper);
         this.memberRepository = memberRepository;
         this.employeeService = employeeService;
-        this.employeeRepository = employeeRepository;
     }
 
 
