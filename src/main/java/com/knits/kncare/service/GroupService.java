@@ -2,6 +2,7 @@ package com.knits.kncare.service;
 
 import com.knits.kncare.dto.GroupDto;
 import com.knits.kncare.dto.MemberDto;
+import com.knits.kncare.dto.pages.JsonPageImpl;
 import com.knits.kncare.dto.search.GroupSearchDto;
 import com.knits.kncare.mapper.GroupMapper;
 import com.knits.kncare.mapper.MapperInterface;
@@ -20,19 +21,17 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class GroupService extends ServiceBase<Group, GroupDto> {
+public class GroupService {
 
     private GroupRepository groupRepository;
     private MemberRepository memberRepository;
     private MemberMapper memberMapper;
     private GroupMapper groupMapper;
 
-    public GroupService(MapperInterface<Group, GroupDto> mapper,
-                        MemberMapper memberMapper,
+    public GroupService(MemberMapper memberMapper,
                         GroupRepository groupRepository,
                         MemberRepository memberRepository,
                         GroupMapper groupMapper) {
-        super(mapper);
         this.groupRepository = groupRepository;
         this.memberRepository = memberRepository;
         this.groupMapper = groupMapper;
@@ -97,7 +96,7 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     }
 
     public Page<GroupDto> search (GroupSearchDto groupSearchDto){
-        Page<Group> groups = groupRepository.findAll(groupSearchDto.getSpecification(), groupSearchDto.getPageable());
-        return toDtoPage(groups);
+        Page<Group> groupPage = groupRepository.findAll(groupSearchDto.getSpecification(), groupSearchDto.getPageable());
+        return new JsonPageImpl<>(groupMapper.toDtoList(groupPage.getContent()), groupSearchDto.getPageable(), groupSearchDto.getPageable().getPageSize());
     }
 }
