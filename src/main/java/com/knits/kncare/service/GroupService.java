@@ -24,16 +24,13 @@ import java.util.stream.Collectors;
 public class GroupService {
 
     private GroupRepository groupRepository;
-    private MemberRepository memberRepository;
     private MemberMapper memberMapper;
     private GroupMapper groupMapper;
 
     public GroupService(MemberMapper memberMapper,
                         GroupRepository groupRepository,
-                        MemberRepository memberRepository,
                         GroupMapper groupMapper) {
         this.groupRepository = groupRepository;
-        this.memberRepository = memberRepository;
         this.groupMapper = groupMapper;
         this.memberMapper = memberMapper;
     }
@@ -42,7 +39,9 @@ public class GroupService {
     public GroupDto create(GroupDto groupDto) {
 
         Group existingName = groupRepository.findByName(groupDto.getName());
-        if(existingName != null){ throw new RuntimeException(String.format("Group with the name %s already exists",groupDto.getName())); }
+        if (existingName != null) {
+            throw new RuntimeException(String.format("Group with the name %s already exists", groupDto.getName()));
+        }
 
         if (CollectionUtils.isEmpty(groupDto.getMembers())) {
             log.debug("creating a group without new members");
@@ -64,12 +63,12 @@ public class GroupService {
     }
 
 
-    public GroupDto update (Long id, GroupDto groupDto){
+    public GroupDto update(Long id, GroupDto groupDto) {
 
         Group group = groupRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
+                .orElseThrow(() -> new RuntimeException("There is no group with ID: " + id.toString()));
 
-        groupMapper.updateGroupFromDto(groupDto,group);
+        groupMapper.updateGroupFromDto(groupDto, group);
 
         addMembersToGroup(group, groupDto.getMembers());
         groupRepository.save(group);
@@ -79,7 +78,6 @@ public class GroupService {
         return updatedGroupDto;
     }
 
-
     public void addMembersToGroup(Group group, Set<MemberDto> members) {
 
         for (MemberDto memberDto : members) {
@@ -88,14 +86,13 @@ public class GroupService {
         }
     }
 
-
     public GroupDto getbyId(long id) {
         Group group = groupRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(""));
         return groupMapper.toDto(group);
     }
 
-    public Page<GroupDto> search (GroupSearchDto groupSearchDto){
+    public Page<GroupDto> search(GroupSearchDto groupSearchDto) {
         Page<Group> groupPage = groupRepository.findAll(groupSearchDto.getSpecification(), groupSearchDto.getPageable());
         return new JsonPageImpl<>(groupMapper.toDtoList(groupPage.getContent()), groupSearchDto.getPageable(), groupSearchDto.getPageable().getPageSize());
     }

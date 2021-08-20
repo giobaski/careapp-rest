@@ -34,7 +34,7 @@ public class GroupServiceTest {
 
     @BeforeEach
     void setUp() {
-        groupService = new GroupService(groupMapper, memberMapper, groupRepository, memberRepository, groupMapper);
+        groupService = new GroupService(memberMapper, groupRepository, groupMapper);
     }
 
     @Test

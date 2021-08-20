@@ -28,10 +28,10 @@ public class GroupDto {
     @JsonView(Views.Common.class)
     private String description;
 
-    @JsonView(Views.Common.class)
+    @JsonView(Views.GroupDetails.class)
     private Set<MemberDto> members = new HashSet<>();
 
-    @JsonView(Views.GroupMembership.class)
+    @JsonView(Views.GroupDetails.class)
     private Set<GroupMembershipDto> groupMemberships = new HashSet<>();
 
     public GroupDto(Long id, String name, String description) {
