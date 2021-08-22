@@ -55,10 +55,6 @@ public class GroupService {
         GroupDto savedGroupDto = groupMapper.toDto(group);
         savedGroupDto.setMembers(groupDto.getMembers());
 
-//        //TODO: re-write
-//        group.getGroupMemberships().stream()
-//                .map( gm -> savedGroupDto.getMembers().add(memberMapper.toDto(gm.getMember())))
-//                .collect(Collectors.toSet());
         return savedGroupDto;
     }
 
