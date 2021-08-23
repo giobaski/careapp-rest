@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.Set;
 
-@RequestMapping("/api/v1/sendEmails")
+@RequestMapping("/api/v1/emailSent")
 @RestController
 public class EmailSentController {
 
