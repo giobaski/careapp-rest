@@ -24,10 +24,10 @@ import java.util.Set;
 @Slf4j
 public class GroupService extends ServiceBase<Group, GroupDto> {
 
-    private GroupRepository groupRepository;
-    private MemberRepository memberRepository;
+    private final GroupRepository groupRepository;
+    private final MemberRepository memberRepository;
     private MemberMapper memberMapper;
-    private GroupMapper groupMapper; //TODO: Use mapper
+    private final GroupMapper groupMapper; //TODO: Use mapper
 
     public GroupService(MapperInterface<Group, GroupDto> mapper,
                         GroupRepository groupRepository,
@@ -67,7 +67,7 @@ public class GroupService extends ServiceBase<Group, GroupDto> {
     public GroupDto update (Long id, GroupDto groupDto){
 
         Group group = groupRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id.toString()));
+                .orElseThrow(()-> new RuntimeException("There is no group with ID: " + id));
 
 
         groupMapper.updateGroupFromDto(groupDto,group);

@@ -1,14 +1,12 @@
 package com.knits.kncare.service;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.knits.kncare.dto.EmailDto;
 import com.knits.kncare.dto.EmailGroupChangeDto;
 import com.knits.kncare.dto.EmailRecipientChangeDto;
-import com.knits.kncare.dto.Views;
 import com.knits.kncare.dto.search.EmailSearchDto;
 import com.knits.kncare.exception.EmailException;
+import com.knits.kncare.mapper.EmailMapper;
 import com.knits.kncare.mapper.GroupMapper;
-import com.knits.kncare.mapper.MapperInterface;
 import com.knits.kncare.mapper.MemberMapper;
 import com.knits.kncare.model.Email;
 import com.knits.kncare.model.Group;
@@ -26,52 +24,52 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class EmailService extends ServiceBase<Email, EmailDto>{
+public class EmailService {
 
     private final EmailRepository emailRepository;
     private final MemberRepository memberRepository;
     private final GroupRepository groupRepository;
     private final MemberMapper memberMapper;
     private final GroupMapper groupMapper;
+    private final EmailMapper emailMapper;
 
-    public EmailService(MapperInterface<Email, EmailDto> mapper, EmailRepository emailRepository,
+    public EmailService(EmailRepository emailRepository,
                         MemberRepository memberRepository, GroupRepository groupRepository,
-                        MemberMapper memberMapper, GroupMapper groupMapper) {
-        super(mapper);
+                        MemberMapper memberMapper, GroupMapper groupMapper, EmailMapper emailMapper) {
         this.emailRepository = emailRepository;
         this.memberRepository = memberRepository;
         this.groupRepository = groupRepository;
         this.memberMapper = memberMapper;
         this.groupMapper = groupMapper;
+        this.emailMapper = emailMapper;
     }
 
     public Optional<EmailDto> getById(long id) {
-        return toDtoOptional(emailRepository.findById(id));
+        return emailMapper.toOptionalDto(emailRepository.findById(id));
     }
 
     public EmailDto addNew(EmailDto emailDto) {
-        Email email = toModel(emailDto);
+        Email email = emailMapper.toModel(emailDto);
         // TODO: 05/08/2021 Add more checks before adding new email.
-        return toDto(emailRepository.save(email));
+        return emailMapper.toDto(emailRepository.save(email));
     }
 
     public Page<EmailDto> search(EmailSearchDto emailDto) {
         Page<Email> emails = emailRepository.findAll(emailDto.getSpecification(), emailDto.getPageable());
-        return toDtoPage(emails);
+        return emailMapper.toDtoPage(emails);
     }
 
     public void delete(long id) throws EmailException {
-        Email email =findEmailOrThrow(id);
+        Email email = findEmailOrThrow(id);
         emailRepository.delete(email);
     }
 
-    @JsonView(Views.Common.class)
     public EmailDto update(long id, EmailDto emailDto) throws EmailException {
         Email email = findEmailOrThrow(id);
         email.setContent(emailDto.getContent());
         email.setSubject(emailDto.getSubject());
         emailRepository.save(email);
-        return toDto(email);
+        return emailMapper.toDto(email);
     }
 
     public EmailRecipientChangeDto addRecipients(long id, Set<Long> memberIds) throws EmailException {
@@ -112,6 +110,6 @@ public class EmailService extends ServiceBase<Email, EmailDto>{
 
     private Email findEmailOrThrow(long id) {
         return emailRepository.findById(id)
-                    .orElseThrow(() -> new EmailException("No such email!"));
+                .orElseThrow(() -> new EmailException("No such email!"));
     }
 }

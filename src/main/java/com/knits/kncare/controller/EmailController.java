@@ -20,14 +20,14 @@ import java.util.Set;
 @RequestMapping("/api/v1/emails")
 @RestController
 public class EmailController {
-    
+
     private final EmailService service;
 
     public EmailController(EmailService service) {
         this.service = service;
     }
 
-    @Operation(summary="find an Email by id")
+    @Operation(summary = "find an Email by id")
     @GetMapping("{id}")
     @JsonView(Views.EmailDetails.class)
     public ResponseEntity<EmailDto> getEmailById(@PathVariable("id") long id) {
@@ -35,7 +35,7 @@ public class EmailController {
         return EmailData.map(Email -> new ResponseEntity<>(Email, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Operation(summary="create an Email")
+    @Operation(summary = "create an Email")
     @PostMapping
     @JsonView(Views.EmailDetails.class)
     public ResponseEntity<EmailDto> createEmail(@RequestBody EmailDto emailDto) {
@@ -48,14 +48,14 @@ public class EmailController {
         }
     }
 
-    @Operation(summary="update an Email")
+    @Operation(summary = "update an Email")
     @PutMapping("{id}")
     @JsonView(Views.EmailDetails.class)
     public ResponseEntity<EmailDto> updateEmail(@PathVariable("id") long id, @RequestBody EmailDto email) throws EmailException {
         return new ResponseEntity<>(service.update(id, email), HttpStatus.OK);
     }
 
-    @Operation(summary="delete an Email by id")
+    @Operation(summary = "delete an Email by id")
     @DeleteMapping("{id}")
     public ResponseEntity<HttpStatus> deleteEmail(@PathVariable("id") long id) {
         try {
@@ -66,7 +66,7 @@ public class EmailController {
         }
     }
 
-    @Operation(summary="find Emails by one of its model fields")
+    @Operation(summary = "find Emails by one of its model fields")
     @GetMapping
     @JsonView(Views.EmailDetails.class)
     public Page<EmailDto> searchEmails(EmailSearchDto emailSearchDto) {

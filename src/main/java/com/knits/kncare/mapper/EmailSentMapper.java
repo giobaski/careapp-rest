@@ -4,21 +4,27 @@ import com.knits.kncare.dto.EmailSentDto;
 import com.knits.kncare.model.EmailSent;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
+import java.util.Optional;
 
 @Mapper(componentModel="spring")
 public interface EmailSentMapper extends MapperInterface<EmailSent, EmailSentDto> {
 
     MapperInterface<EmailSent, EmailSentDto> INSTANCE = Mappers.getMapper(EmailSentMapper.class);
 
-    @Override
-    EmailSentDto toDto(EmailSent model);
+    default Optional<EmailSentDto> toOptionalDto(Optional<EmailSent> emailSent) {
+        if (emailSent.isEmpty()) {
+            return Optional.empty();
+        }
+        return emailSent.map(this::toDto);
+    }
 
-    @Override
-    EmailSent toModel(EmailSentDto emailSentDto);
-
-    @Override
-    List<EmailSentDto> toDtoList(List<EmailSent> modelList);
+    default Page<EmailSentDto> toDtoPage(Page<EmailSent> page) {
+        if (page == null) {
+            return null;
+        }
+        return page.map(this::toDto);
+    }
 
 }

@@ -6,7 +6,7 @@ import com.knits.kncare.dto.search.EmailSentSearchDto;
 import com.knits.kncare.email.EmailSender;
 import com.knits.kncare.exception.EmailException;
 import com.knits.kncare.mapper.EmailMapper;
-import com.knits.kncare.mapper.MapperInterface;
+import com.knits.kncare.mapper.EmailSentMapper;
 import com.knits.kncare.model.Email;
 import com.knits.kncare.model.EmailSent;
 import com.knits.kncare.model.Group;
@@ -26,32 +26,34 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class EmailSentService extends ServiceBase<EmailSent, EmailSentDto> {
+public class EmailSentService {
 
     private final EmailSentRepository emailSentRepository;
     private final EmailRepository emailRepository;
     private final EmailSender emailSender;
     private final MemberRepository memberRepository;
     private final GroupRepository groupRepository;
+    private final EmailSentMapper emailSentMapper;
     private final EmailMapper emailMapper;
 
-    public EmailSentService(MapperInterface<EmailSent, EmailSentDto> mapper, EmailSentRepository emailSentRepository,
-                            EmailRepository emailRepository, EmailSender emailSender, MemberRepository memberRepository, GroupRepository groupRepository, EmailMapper emailMapper) {
-        super(mapper);
+    public EmailSentService(EmailSentRepository emailSentRepository, EmailRepository emailRepository,
+                            EmailSender emailSender, MemberRepository memberRepository, GroupRepository groupRepository,
+                            EmailSentMapper emailSentMapper, EmailMapper emailMapper) {
         this.emailSentRepository = emailSentRepository;
         this.emailRepository = emailRepository;
         this.emailSender = emailSender;
         this.memberRepository = memberRepository;
         this.groupRepository = groupRepository;
+        this.emailSentMapper = emailSentMapper;
         this.emailMapper = emailMapper;
     }
 
     public Optional<EmailSentDto> getById(Long id) {
-        return toDtoOptional(emailSentRepository.findById(id));
+        return emailSentMapper.toOptionalDto(emailSentRepository.findById(id));
     }
 
     public Page<EmailSentDto> search(EmailSentSearchDto dto) {
-        return toDtoPage(emailSentRepository.findAll(dto.getSpecification(), dto.getPageable()));
+        return emailSentMapper.toDtoPage(emailSentRepository.findAll(dto.getSpecification(), dto.getPageable()));
     }
 
     public Set<EmailSentDto> sendDraft(Long draftIds) throws EmailException {
@@ -59,7 +61,7 @@ public class EmailSentService extends ServiceBase<EmailSent, EmailSentDto> {
         Email draft = emailRepository.findById(draftIds)
                 .orElseThrow(() -> new EmailException("No such draft"));
 
-        return toDtoSet(sendDraftEmail(draft));
+        return emailSentMapper.toDtoSet(sendDraftEmail(draft));
 
     }
 
@@ -84,7 +86,7 @@ public class EmailSentService extends ServiceBase<EmailSent, EmailSentDto> {
         email.setRecipients(recipients);
         email.setRecipientGroups(recipientGroups);
 
-        return toDtoSet(sendDraftEmail(email));
+        return emailSentMapper.toDtoSet(sendDraftEmail(email));
     }
 
     private Set<EmailSent> sendDraftEmail(Email draft) throws EmailException {

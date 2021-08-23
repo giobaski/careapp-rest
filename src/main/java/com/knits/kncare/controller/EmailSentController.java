@@ -27,7 +27,7 @@ public class EmailSentController {
 
     @GetMapping("{id}")
     @JsonView(Views.EmailSentDetails.class)
-    public ResponseEntity<EmailSentDto> getEmailSentById (@PathVariable("id") Long id) {
+    public ResponseEntity<EmailSentDto> getEmailSentById(@PathVariable("id") Long id) {
         Optional<EmailSentDto> emailSentDto = service.getById(id);
         return emailSentDto.map(email -> new ResponseEntity<>(email, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
