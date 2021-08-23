@@ -2,10 +2,7 @@ package com.knits.kncare.model;
 
 import com.knits.kncare.model.ems.Employee;
 import com.knits.kncare.model.history.RoleHistoryRecord;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,13 +10,14 @@ import java.util.Objects;
 import java.util.Set;
 
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "\"member\"") //some Db have member as sql function
-public class Member{
+public class Member {
 
     @Column(nullable = false)
     @Id
@@ -41,27 +39,35 @@ public class Member{
     private Role role;
 
     @OneToMany(mappedBy = "createdBy")
+    @ToString.Exclude
     private Set<Practice> practices;
 
     @OneToMany(mappedBy = "createdBy")
+    @ToString.Exclude
     private Set<Email> emails;
 
     @OneToMany(mappedBy = "createdBy")
+    @ToString.Exclude
     private Set<EmailTemplate> emailTemplates;
 
     @OneToMany(mappedBy = "createdBy")
+    @ToString.Exclude
     private Set<Notification> notifications;
 
     @OneToMany(mappedBy = "createdBy")
+    @ToString.Exclude
     private Set<GroupMembership> groupMemberships;
 
     @OneToMany(mappedBy = "createdBy")
+    @ToString.Exclude
     private Set<LearningSubscription> memberTrainingPaths;
 
     @OneToMany(mappedBy = "createdBy")
+    @ToString.Exclude
     private Set<ScheduledTraining> memberTrainings;
 
     @OneToMany(mappedBy = "member")
+    @ToString.Exclude
     private Set<RoleHistoryRecord> businessUnitHistoryRecords;
 
 

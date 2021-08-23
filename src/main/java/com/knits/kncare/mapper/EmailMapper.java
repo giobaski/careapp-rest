@@ -8,8 +8,8 @@ import org.springframework.data.domain.Page;
 
 import java.util.Optional;
 
-@Mapper(componentModel="spring", uses = {MemberMapper.class, GroupMapper.class}, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
-public interface EmailMapper extends MapperInterface<Email, EmailDto> {
+@Mapper(componentModel = "spring", uses = {MemberMapper.class, GroupMapper.class}, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface EmailMapper extends CycleAvoidingMapperInterface<Email, EmailDto> {
 
     default Optional<EmailDto> toOptionalDto(Optional<Email> emailSent) {
         if (emailSent.isEmpty()) {

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.Optional;
 
-@Mapper(componentModel="spring")
+@Mapper(componentModel = "spring", uses = {MemberMapper.class})
 public interface EmailSentMapper extends MapperInterface<EmailSent, EmailSentDto> {
 
     MapperInterface<EmailSent, EmailSentDto> INSTANCE = Mappers.getMapper(EmailSentMapper.class);

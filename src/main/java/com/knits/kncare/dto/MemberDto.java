@@ -11,8 +11,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @JsonView(Views.Common.class)
+@EqualsAndHashCode
 public class MemberDto {
-
 
     private Long id;
     private String onBoardDate;

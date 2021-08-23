@@ -1,8 +1,13 @@
 package com.knits.kncare.config;
 
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import com.knits.kncare.json.PageSerializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -21,5 +26,13 @@ public class WebConfig implements WebMvcConfigurer {
                 mapper.registerModule(hibernate5Module);
             }
         }
+    }
+
+
+    @Bean
+    public SimpleModule jacksonPageWithJsonViewModule() {
+        SimpleModule module = new SimpleModule("jackson-page-with-jsonview", Version.unknownVersion());
+        module.addSerializer(PageImpl.class, new PageSerializer());
+        return module;
     }
 }
