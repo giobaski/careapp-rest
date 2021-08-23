@@ -3,6 +3,7 @@ package com.knits.kncare.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -11,7 +12,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @JsonView(Views.Common.class)
-@EqualsAndHashCode
 public class MemberDto {
 
     private Long id;
@@ -22,5 +22,16 @@ public class MemberDto {
     @JsonView(Views.MemberDetails.class)
     private Set<GroupMembershipDto> groupMemberships;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberDto memberDto = (MemberDto) o;
+        return id.equals(memberDto.id) && Objects.equals(employee, memberDto.employee);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, employee);
+    }
 }
