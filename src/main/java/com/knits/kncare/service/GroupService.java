@@ -53,7 +53,9 @@ public class GroupService {
         groupRepository.save(group);
 
         GroupDto savedGroupDto = groupMapper.toDto(group);
-        savedGroupDto.setMembers(groupDto.getMembers());
+
+        //savedGroupDto.setMembers(groupDto.getMembers());
+//        savedGroupDto.getMembers().addAll(groupDto.getMembers());
 
         return savedGroupDto;
     }
@@ -70,7 +72,9 @@ public class GroupService {
         groupRepository.save(group);
 
         GroupDto updatedGroupDto = groupMapper.toDto(group);
-        updatedGroupDto.setMembers(groupDto.getMembers());
+//        updatedGroupDto.setMembers(groupDto.getMembers());
+//        updatedGroupDto.getMembers().addAll(groupDto.getMembers());
+
         return updatedGroupDto;
     }
 

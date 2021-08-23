@@ -29,7 +29,7 @@ public class GroupController {
 
     @Operation(summary = "create a new group")
     @PostMapping
-    @JsonView(Views.GroupDetails.class)
+    @JsonView(Views.Common.class)
     public ResponseEntity<GroupDto> createGroup(@Valid @RequestBody GroupDto groupDto) {
         try {
             return new ResponseEntity<>(groupService.create(groupDto), HttpStatus.CREATED);
@@ -40,18 +40,21 @@ public class GroupController {
 
     @Operation(summary = "update the existing group with new members")
     @PutMapping("{id}")
+    @JsonView(Views.Common.class)
     public ResponseEntity<GroupDto> updateGroup(@PathVariable("id") long id, @RequestBody GroupDto groupDto) {
         return new ResponseEntity<>(groupService.update(id, groupDto), HttpStatus.OK);
     }
 
     @Operation(summary = "find a Group by id")
     @GetMapping("{id}")
+    @JsonView(Views.Common.class)
     public ResponseEntity<GroupDto> getGroupById(@PathVariable("id") long id) {
         return ResponseEntity.ok(groupService.getbyId(id));
     }
 
     @Operation(summary = "search groups by the name")
     @GetMapping
+    @JsonView(Views.Common.class)
     public Page<GroupDto> searchGroups(GroupSearchDto groupSearchDto) {
         return groupService.search(groupSearchDto);
     }

@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Setter
@@ -34,12 +35,20 @@ public class Group extends AbstractMemberAuditableEntity {
     private Set<GroupMembership> groupMemberships = new HashSet<>();
 
     @Transient
-    private Set<Long> memberIds;
+    private Set<Member> members = new HashSet<>();
 
     public Group(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+
+    public Set<Member> getMembers() {
+        Set<Member> members = getGroupMemberships().stream()
+                .map(gm -> gm.getMember())
+                .collect(Collectors.toSet());
+        return members;
     }
 
     @Override

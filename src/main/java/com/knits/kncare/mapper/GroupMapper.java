@@ -1,7 +1,9 @@
 package com.knits.kncare.mapper;
 
+import com.knits.kncare.dto.EmailDto;
 import com.knits.kncare.dto.GroupDto;
 import com.knits.kncare.dto.MemberDto;
+import com.knits.kncare.model.Email;
 import com.knits.kncare.model.Group;
 import com.knits.kncare.model.GroupMembership;
 import com.knits.kncare.model.Member;
@@ -32,9 +34,12 @@ public interface GroupMapper extends MapperInterface<Group, GroupDto> {
     @Mapping(source = "dto.groupMemberships", target = "groupMemberships", qualifiedByName = "toModelGroupMembership")
     Group toModel(GroupDto dto);
 
+    @Override
+    List<GroupDto> toDtoList(List<Group> dtoList);
+
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-//    @Mapping(target = "members", ignore = true)   //we don't have field "members" in Group model.
+    @Mapping(target = "members", ignore = true)
     @Mapping(target = "groupMemberships", ignore = true)
     void updateGroupFromDto(GroupDto dto, @MappingTarget Group entity);
 

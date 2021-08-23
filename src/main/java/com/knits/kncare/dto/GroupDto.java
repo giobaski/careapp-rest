@@ -30,7 +30,7 @@ public class GroupDto {
     @JsonView(Views.Common.class)
     private String description;
 
-    @JsonView(Views.GroupDetails.class)
+    @JsonView(Views.Common.class)
     private Set<MemberDto> members = new HashSet<>();
 
     @JsonView(Views.GroupDetails.class)
@@ -47,11 +47,15 @@ public class GroupDto {
         this.description = description;
     }
 
-    @JsonGetter("members")
-    public Set<MemberDto> getMembers() {
-        Set<MemberDto> members = getGroupMemberships().stream()
-                .map(gm -> gm.getMember())
-                .collect(Collectors.toSet());
-        return members;
+
+    public void setMembers(Set<MemberDto> members) {
+        this.members = members;
     }
+
+//    public Set<MemberDto> getMembers() {
+//        Set<MemberDto> members = getGroupMemberships().stream()
+//                .map(gm -> gm.getMember())
+//                .collect(Collectors.toSet());
+//        return members;
+//    }
 }
