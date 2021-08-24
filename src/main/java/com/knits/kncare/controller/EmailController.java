@@ -41,8 +41,7 @@ public class EmailController {
     public ResponseEntity<EmailDto> createEmail(@RequestBody EmailDto emailDto) {
 
         try {
-            System.out.println("here");
-            return new ResponseEntity<>(service.addNew(emailDto), HttpStatus.CREATED);
+          return new ResponseEntity<>(service.addNew(emailDto), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
