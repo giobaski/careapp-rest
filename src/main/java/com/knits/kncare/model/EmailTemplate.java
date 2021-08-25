@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class EmailTemplate extends AbstractMemberAuditableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "title")

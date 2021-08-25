@@ -8,6 +8,7 @@ import com.knits.kncare.model.Role;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -16,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @JsonView(Views.Common.class)
-public class MemberDto extends AbstractSearchableDto<Member> {
+public class MemberDto {
 
     @JsonView(Views.Common.class)
     private Long id;
@@ -37,6 +38,18 @@ public class MemberDto extends AbstractSearchableDto<Member> {
     private Role role;
 
     @JsonView(Views.MemberDetails.class)
-    private Set<GroupMembership> groupMemberships;
+    private Set<GroupMembershipDto> groupMemberships;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberDto memberDto = (MemberDto) o;
+        return id.equals(memberDto.id) && Objects.equals(employee, memberDto.employee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, employee);
+    }
 }

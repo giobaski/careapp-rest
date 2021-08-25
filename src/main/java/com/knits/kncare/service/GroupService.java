@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GroupService {
 
-    private GroupRepository groupRepository;
-    private MemberMapper memberMapper;
-    private GroupMapper groupMapper;
+    private final GroupRepository groupRepository;
+    private final MemberMapper memberMapper;
+    private final GroupMapper groupMapper;
 
     public GroupService(MemberMapper memberMapper,
                         GroupRepository groupRepository,
@@ -54,9 +54,6 @@ public class GroupService {
 
         GroupDto savedGroupDto = groupMapper.toDto(group);
 
-        //savedGroupDto.setMembers(groupDto.getMembers());
-//        savedGroupDto.getMembers().addAll(groupDto.getMembers());
-
         return savedGroupDto;
     }
 
@@ -72,8 +69,6 @@ public class GroupService {
         groupRepository.save(group);
 
         GroupDto updatedGroupDto = groupMapper.toDto(group);
-//        updatedGroupDto.setMembers(groupDto.getMembers());
-//        updatedGroupDto.getMembers().addAll(groupDto.getMembers());
 
         return updatedGroupDto;
     }

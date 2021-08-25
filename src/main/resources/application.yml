@@ -15,15 +15,22 @@ spring:
     properties:
       hibernate:
         dialect: "org.hibernate.dialect.PostgreSQLDialect"
-        format_sql: false
+        format_sql: true
 
   liquibase:
     enabled: true
     change-log: "classpath:/liquibase/changelog-master.xml"
 
-#
-#  profiles:
-#    active: "dev"
+  mail:
+    host: 127.0.0.1
+    port: 25
+    username:
+    password:
+    properties.mail.smtp:
+          auth: false
+          starttls.enable: true
+          debug: true
+
 
 server:
   port: 8080
@@ -33,6 +40,4 @@ debug: false
 logging:
   level:
     liquibase: INFO
-
-#spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
 

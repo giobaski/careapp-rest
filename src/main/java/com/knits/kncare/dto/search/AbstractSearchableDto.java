@@ -34,7 +34,7 @@ public abstract class AbstractSearchableDto<T> implements Searchable<T> {
     public Pageable getPageable() {
         return PageRequest.of(
                 (page != null) ? page : 0,
-                (limit != null && limit >= 0) ? limit : 10,
+                (limit != null && limit >= 0) ? limit : 200,
                 getSortSpec()
         );
     }

@@ -2,19 +2,27 @@ package com.knits.kncare.mapper;
 
 import com.knits.kncare.dto.EmailDto;
 import com.knits.kncare.model.Email;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
+import java.util.Optional;
 
-@Mapper(componentModel="spring")
-public interface EmailMapper extends MapperInterface<Email, EmailDto> {
+@Mapper(componentModel = "spring", uses = {MemberMapper.class, GroupMapper.class}, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface EmailMapper extends CycleAvoidingMapperInterface<Email, EmailDto> {
 
-    @Override
-    EmailDto toDto(Email model);
+    default Optional<EmailDto> toOptionalDto(Optional<Email> emailSent) {
+        if (emailSent.isEmpty()) {
+            return Optional.empty();
+        }
+        return emailSent.map(this::toDto);
+    }
 
-    @Override
-    Email toModel(EmailDto emailDto);
+    default Page<EmailDto> toDtoPage(Page<Email> page) {
+        if (page == null) {
+            return null;
+        }
+        return page.map(this::toDto);
+    }
 
-    @Override
-    List<EmailDto> toDtoList(List<Email> dtoList);
 }

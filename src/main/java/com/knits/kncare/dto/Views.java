@@ -2,11 +2,13 @@ package com.knits.kncare.dto;
 
 public interface Views {
 
-    public static interface RequestOnly {}
-    public static interface Common {}
-    public static interface GroupDetails {}
-    public static interface GroupMembership extends Common{}
-    public static interface GroupMembers extends Common{}
-    public static interface EmployeeDetails extends Common{}
-    public static interface MemberDetails extends Common{}
+    interface RequestOnly {}
+    interface Common {}
+    interface GroupDetails {}
+    interface GroupMembership extends Common{}
+    interface GroupMembers extends Common{}
+    interface EmployeeDetails extends Common{}
+    interface MemberDetails extends Common{}
+    interface EmailDetails extends Common {}
+    interface EmailSentDetails extends Common {}
 }

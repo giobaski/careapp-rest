@@ -30,27 +30,35 @@ public class Email extends AbstractMemberAuditableEntity {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "email_recipient",
-            joinColumns = {@JoinColumn(name = "email")},
-            inverseJoinColumns = {@JoinColumn(name = "member")}
+            joinColumns = {@JoinColumn(name = "email_id")},
+            inverseJoinColumns = {@JoinColumn(name = "recipient_id")}
     )
     private Set<Member> recipients;
 
     @ManyToMany
     @JoinTable(
             name="email_recipient_group",
-            joinColumns = {@JoinColumn(name = "email")},
-            inverseJoinColumns = {@JoinColumn(name = "\"group\"")}
+            joinColumns = {@JoinColumn(name = "email_id")},
+            inverseJoinColumns = {@JoinColumn(name = "\"group_id\"")}
     )
     private Set<Group> recipientGroups;
 
-    public boolean addRecipient(Member member) {
-        return recipients.add(member);
+    public Member addRecipient(Member member) {
+        return recipients.remove(member) ? member : null;
     }
 
-    public boolean removeRecipient(Member member) {
-        return recipients.remove(member);
+    public Member removeRecipient(Member member) {
+        return recipients.remove(member) ? member : null;
+    }
+
+    public Group addGroup(Group group) {
+        return recipientGroups.add(group) ? group : null;
+    }
+
+    public Group removeGroup(Group group) {
+        return recipientGroups.remove(group) ? group : null;
     }
 }

@@ -4,8 +4,6 @@ import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,7 +23,6 @@ public class Group extends AbstractMemberAuditableEntity {
     private Long id;
 
     @Column(name = "name")
-//    @NotNull
     private String name;
 
     @Column(name = "description")

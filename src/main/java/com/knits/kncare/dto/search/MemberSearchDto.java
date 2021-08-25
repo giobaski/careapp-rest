@@ -36,7 +36,7 @@ public class MemberSearchDto extends AbstractSearchableDto<Member> {
 
     @Override
     public Specification<Member> getSpecification() {
-        return (Specification<Member>) (root, query, criteriaBuilder) -> {
+        return (root, query, criteriaBuilder) -> {
             query.distinct(true); //otherwise will list a Member for every matching row in join
             Predicate noFiltersApplied = criteriaBuilder.conjunction(); //default to no filters
             List<Predicate> filters = new ArrayList<>();
