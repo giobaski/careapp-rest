@@ -38,7 +38,7 @@ public class EmailSender {
         Set<Member> recipients = draft.getRecipients();
         recipients.addAll(
                 draft.getRecipientGroups().stream()
-                        .map(Group::getGroupMembers)
+                        .map(Group::getMembers)
                         .flatMap(Set::stream)
                         .collect(Collectors.toSet())
         );

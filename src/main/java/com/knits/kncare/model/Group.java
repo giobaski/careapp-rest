@@ -4,6 +4,7 @@ import com.knits.kncare.model.base.AbstractMemberAuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
