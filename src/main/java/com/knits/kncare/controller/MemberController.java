@@ -36,7 +36,7 @@ public class MemberController {
     @GetMapping("{id}")
     @JsonView(Views.MemberDetails.class)
     public ResponseEntity<MemberDto> getMemberById(@PathVariable("id") long id) {
-            return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
+        return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
     }
 
 
@@ -53,7 +53,7 @@ public class MemberController {
     }
 
 
-    @Operation(summary="update a Member")
+    @Operation(summary = "update a Member")
     @PutMapping("{id}")
     public ResponseEntity<MemberDto> updateMember(@PathVariable("id") long id, @RequestBody MemberDto memberDto) {
         return new ResponseEntity<>(service.update(id, memberDto), HttpStatus.OK);
@@ -88,7 +88,7 @@ public class MemberController {
     @JsonView(Views.Common.class)
     public ResponseEntity<Page<MemberDto>> searchMembers(MemberSearchDto memberSearchDto) {
         try {
-            return new ResponseEntity<>(service.search(memberSearchDto),HttpStatus.OK);
+            return new ResponseEntity<>(service.search(memberSearchDto), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

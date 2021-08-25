@@ -1,4 +1,4 @@
-package com.knits.kncare.utils;
+package com.knits.kncare.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
